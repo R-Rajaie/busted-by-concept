@@ -1,0 +1,22 @@
+# Reference transcripts for the glossary term error rate. Each entry is a window of an
+# episode with the correct text. Only glossary terms are scored, so the reference only has
+# to get names and jargon right, not every word.
+#
+# `verified: false` means Claude seeded it from the correction log rather than by listening.
+# Replace these with windows a human has listened to and transcribed.
+
+- episode_id: NbrgxQkwcns
+  start: 79
+  end: 86
+  text: Side laning, fighting, win con assessment, threat assessment
+  verified: false
+- episode_id: NbrgxQkwcns
+  start: 96
+  end: 110
+  text: matchup understanding and fighting, and we've got things like win con assessments, side laning and sync pressure
+  verified: false
+- episode_id: otVINf5bi9Q
+  start: 0
+  end: 10
+  text: All it takes is one night of tilt queuing to undo months of your progress in your climb.
+  verified: false

@@ -34,3 +34,5 @@
 - {term: side laning, misheard: [side landing], meaning: pushing a side lane alone, core: true}
 - {term: sync pressure, misheard: [sinking pressure, sink pressure], meaning: syncing timings with teammates to apply pressure}
 - {term: Elo, misheard: [Ilo, Eelo], meaning: skill rating / rank bracket, core: true}
+- {term: tilt queuing, misheard: [Tilt Qing, tilt cueing], meaning: queueing again while tilted, core: true}
+- {term: op.gg, misheard: [OPG, O.P.G.], meaning: stats website for match history}

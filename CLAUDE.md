@@ -54,7 +54,9 @@ uv run python -m coach.correct --all
 uv run python -m coach.distill --all
 uv run python -m coach.consolidate --all            # or --episode <id> to update only touched concepts
 uv run python -m coach.index --rebuild
-uv run python -m coach.eval
+uv run python -m coach.index.search "query"        # inspect raw retrieval
+uv run python -m coach.serve "question"            # or no question for interactive; --riot-id Name#TAG --platform na1
+uv run python -m coach.eval --label "what changed" # saves data/eval/<time>.json, compares with the last run
 uv run python -m coach.glossary.refresh            # re-pull Data Dragon
 uv run pytest
 uv run ruff check . && uv run ruff format .
@@ -147,5 +149,9 @@ Run `coach.eval` before and after the change, and report both hit rates. Most qu
 ## Decisions
 
 - **LLM backend**: `coach.llm` shells out to the Claude Code CLI (`claude -p`, tool-less, own system prompt, `--json-schema` for structured output), so it runs on the user's Claude subscription with no API key. `FAST_MODEL` (haiku) handles bulk correction; `SMART_MODEL` (sonnet) handles distill and anything needing judgment.
-- **Vector store**: LanceDB, embedded under `data/index/`.
+- **Vector store**: LanceDB, embedded under `data/index/`, with its built-in full-text index for the BM25 half. Embeddings are `bge-small-en-v1.5` and reranking is `bge-reranker-base`, both local via fastembed (`coach.embed`).
+- **Clustering**: incremental leader clustering at cosine 0.80 (`--threshold`); the LLM review splits off misfits. Lessons with consolidate fields go to `data/concepts/consolidated.json`, never back into `data/lessons/`.
+- **Agent**: `coach.serve.agent` runs its own tool loop on `claude -p` structured output (one tool call or the answer per step, max 6 calls). `RIOT_API_KEY` in `.env` enables match history; Data Dragon and Riot responses are cached under `data/cache/`.
+- **Eval data**: `src/coach/eval/questions.yaml` and `glossary_refs.yaml`. Items marked `verified: false` were seeded by Claude from transcripts and need a human check; the glossary refs in particular were picked from known corrections, so the clean term error rate is optimistic until real listened-to windows replace them.
+- **YouTube bot blocks**: ingest pauses between every attempt and stops after 3 consecutive blocks. Pass `--cookies <file>` with a browser export (cookie files are gitignored).
 - **PyAV is pinned below 16**: newer releases dropped an `av.open` argument that faster-whisper 1.2.1 still passes.

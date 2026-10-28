@@ -1,0 +1,31 @@
+# Retrieval eval set. A question is a hit when a returned lesson or transcript chunk comes
+# from an expected episode and overlaps the expected window (seconds, with some slack).
+#
+# Questions are phrased the way a player would ask, not copied from the transcript.
+# `verified: false` means Claude seeded it from transcript text and a human hasn't checked
+# it yet. Grow this set by hand, especially for questions the coach gets wrong.
+
+- question: Should I one-trick or learn lots of champions if I just want to climb?
+  expected: [{episode_id: NbrgxQkwcns, start: 180, end: 300}]
+  verified: false
+- question: What does being a well-rounded player actually mean?
+  expected: [{episode_id: NbrgxQkwcns, start: 0, end: 130}]
+  verified: false
+- question: Is it worth getting really good at one skill like trading even if I'm bad at macro?
+  expected: [{episode_id: NbrgxQkwcns, start: 180, end: 280}]
+  verified: false
+- question: What are the warning signs that I'm starting to tilt?
+  expected: [{episode_id: otVINf5bi9Q, start: 190, end: 290}]
+  verified: false
+- question: Why do I keep queueing up right after a loss to win my LP back?
+  expected: [{episode_id: otVINf5bi9Q, start: 380, end: 480}]
+  verified: false
+- question: How much can one bad night of tilt hurt my climb?
+  expected: [{episode_id: otVINf5bi9Q, start: 0, end: 100}]
+  verified: false
+- question: As a jungler, how do I stop only thinking about my own champion?
+  expected: [{episode_id: Lku4X-eOeog, start: 90, end: 280}]
+  verified: false
+- question: How do I set up for dragon when my mid laner can't really teamfight?
+  expected: [{episode_id: Lku4X-eOeog, start: 470, end: 570}]
+  verified: false

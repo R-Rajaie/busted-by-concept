@@ -14,9 +14,10 @@ from pathlib import Path
 import lancedb
 
 from coach import embed
-from coach.config import INDEX_DIR
+from coach.config import AUDIO_DIR, INDEX_DIR
 from coach.distill.__main__ import season_for
 from coach.index.build import TABLE
+from coach.ingest.models import Episode
 
 CANDIDATES = 40  # per retriever, before reranking
 # Patch staleness per season behind the current one. Philosophy drift is handled by
@@ -133,6 +134,23 @@ def _ts(seconds: float) -> str:
     return f"{s // 3600}:{s % 3600 // 60:02d}:{s % 60:02d}"
 
 
+@cache
+def _titles(audio_dir: Path = AUDIO_DIR) -> dict[str, str]:
+    out = {}
+    for meta in audio_dir.glob("*.json"):
+        e = Episode.model_validate_json(meta.read_text(encoding="utf-8"))
+        out[e.episode_id] = e.title
+    return out
+
+
+def cite(doc: dict) -> str:
+    """'"Title" at 0:03:27 (https://youtu.be/<id>?t=207), 2026-10-26 S16'"""
+    eid, start = doc["episode_id"], int(doc["start_ts"])
+    title = _titles().get(eid, eid)
+    when = " ".join(x for x in (doc["episode_date"], doc["season"]) if x)
+    return f'"{title}" at {_ts(start)} (https://youtu.be/{eid}?t={start}), {when}'
+
+
 def format_result(result: SearchResult) -> str:
     """Plain-text rendering used by the CLI and the agent's search tool."""
     out = []
@@ -144,19 +162,14 @@ def format_result(result: SearchResult) -> str:
             x = e.doc
             status = f", {x['status']}" if x["status"] else ""
             out.append(
-                f"  - {x['text'].splitlines()[0]}\n    [episode {x['episode_id']} at "
-                f"{_ts(x['start_ts'])}, {x['episode_date']} {x['season']}, {x['durability']}"
+                f"  - {x['text'].splitlines()[0]}\n    [{cite(x)}, {x['durability']}"
                 f"{status}, speaker {x['speaker']}]"
             )
         out.append("")
     if result.chunks:
         out.append("## Transcript excerpts")
         for h in result.chunks:
-            x = h.doc
-            out.append(
-                f"  - [episode {x['episode_id']} at {_ts(x['start_ts'])}, "
-                f"{x['episode_date']}] {x['text'][:400]}"
-            )
+            out.append(f"  - [{cite(h.doc)}] {h.doc['text'][:400]}")
     return "\n".join(out).strip()
 
 
