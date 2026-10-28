@@ -22,14 +22,14 @@ def is_ingested(episode_id: str, audio_dir: Path) -> bool:
     meta = audio_dir / f"{episode_id}.json"
     if not meta.exists():
         return False
-    episode = Episode.model_validate_json(meta.read_text())
+    episode = Episode.model_validate_json(meta.read_text(encoding="utf-8"))
     return episode.audio_path(audio_dir).exists()
 
 
 def write_episode(episode: Episode, audio_dir: Path) -> None:
     meta = audio_dir / f"{episode.episode_id}.json"
     tmp = meta.with_suffix(".json.tmp")
-    tmp.write_text(episode.model_dump_json(indent=2))
+    tmp.write_text(episode.model_dump_json(indent=2), encoding="utf-8")
     tmp.replace(meta)
 
 
