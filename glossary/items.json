@@ -1,0 +1,1367 @@
+{
+  "patch": "16.21.1",
+  "items": [
+    {
+      "id": "328020",
+      "name": "Abyssal Mask",
+      "plaintext": "",
+      "gold": 2850
+    },
+    {
+      "id": "2522",
+      "name": "Actualizer",
+      "plaintext": "",
+      "gold": 2800
+    },
+    {
+      "id": "3113",
+      "name": "Aether Wisp",
+      "plaintext": "Increases Ability Power and Move Speed",
+      "gold": 900
+    },
+    {
+      "id": "1052",
+      "name": "Amplifying Tome",
+      "plaintext": "Slightly increases Ability Power",
+      "gold": 400
+    },
+    {
+      "id": "3003",
+      "name": "Archangel's Staff",
+      "plaintext": "Increases Ability Power based on maximum Mana",
+      "gold": 2900
+    },
+    {
+      "id": "323504",
+      "name": "Ardent Censer",
+      "plaintext": "",
+      "gold": 2600
+    },
+    {
+      "id": "3174",
+      "name": "Armored Advance",
+      "plaintext": "Deal damage to empower your heals and shields",
+      "gold": 1200
+    },
+    {
+      "id": "663039",
+      "name": "Atma's Reckoning",
+      "plaintext": "",
+      "gold": 2500
+    },
+    {
+      "id": "6696",
+      "name": "Axiom Arc",
+      "plaintext": "",
+      "gold": 2750
+    },
+    {
+      "id": "1038",
+      "name": "B. F. Sword",
+      "plaintext": "Greatly increases Attack Damage",
+      "gold": 1300
+    },
+    {
+      "id": "6660",
+      "name": "Bami's Cinder",
+      "plaintext": "",
+      "gold": 900
+    },
+    {
+      "id": "4642",
+      "name": "Bandleglass Mirror",
+      "plaintext": "",
+      "gold": 900
+    },
+    {
+      "id": "2524",
+      "name": "Bandlepipes",
+      "plaintext": "",
+      "gold": 2300
+    },
+    {
+      "id": "3102",
+      "name": "Banshee's Veil",
+      "plaintext": "Periodically blocks enemy abilities",
+      "gold": 3000
+    },
+    {
+      "id": "2520",
+      "name": "Bastionbreaker",
+      "plaintext": "",
+      "gold": 3000
+    },
+    {
+      "id": "3006",
+      "name": "Berserker's Greaves",
+      "plaintext": "Enhances Move Speed and Attack Speed",
+      "gold": 1100
+    },
+    {
+      "id": "3071",
+      "name": "Black Cleaver",
+      "plaintext": "Dealing physical damage to enemy champions reduces their Armor",
+      "gold": 3000
+    },
+    {
+      "id": "2503",
+      "name": "Blackfire Torch",
+      "plaintext": "",
+      "gold": 2800
+    },
+    {
+      "id": "3153",
+      "name": "Blade of The Ruined King",
+      "plaintext": "Deals damage based on target's Health, can steal Move Speed",
+      "gold": 3200
+    },
+    {
+      "id": "1026",
+      "name": "Blasting Wand",
+      "plaintext": "Moderately increases Ability Power",
+      "gold": 850
+    },
+    {
+      "id": "4630",
+      "name": "Blighting Jewel",
+      "plaintext": "",
+      "gold": 1100
+    },
+    {
+      "id": "8010",
+      "name": "Bloodletter's Curse",
+      "plaintext": "",
+      "gold": 2900
+    },
+    {
+      "id": "3877",
+      "name": "Bloodsong",
+      "plaintext": "",
+      "gold": 400
+    },
+    {
+      "id": "3072",
+      "name": "Bloodthirster",
+      "plaintext": "Grants Attack Damage, Life Steal and Life Steal now overheals",
+      "gold": 3400
+    },
+    {
+      "id": "1001",
+      "name": "Boots",
+      "plaintext": "Slightly increases Move Speed",
+      "gold": 300
+    },
+    {
+      "id": "3009",
+      "name": "Boots of Swiftness",
+      "plaintext": "Enhances Move Speed and reduces the effect of slows",
+      "gold": 1000
+    },
+    {
+      "id": "3076",
+      "name": "Bramble Vest",
+      "plaintext": "",
+      "gold": 800
+    },
+    {
+      "id": "2141",
+      "name": "Cappa Juice",
+      "plaintext": "",
+      "gold": 300
+    },
+    {
+      "id": "3803",
+      "name": "Catalyst of Aeons",
+      "plaintext": "",
+      "gold": 1300
+    },
+    {
+      "id": "3133",
+      "name": "Caulfield's Warhammer",
+      "plaintext": "Attack Damage and Cooldown Reduction",
+      "gold": 1050
+    },
+    {
+      "id": "3869",
+      "name": "Celestial Opposition",
+      "plaintext": "",
+      "gold": 400
+    },
+    {
+      "id": "1031",
+      "name": "Chain Vest",
+      "plaintext": "Greatly increases Armor",
+      "gold": 800
+    },
+    {
+      "id": "3173",
+      "name": "Chainlaced Crushers",
+      "plaintext": "Increases Move Speed and Cooldown Reduction",
+      "gold": 1250
+    },
+    {
+      "id": "6609",
+      "name": "Chempunk Chainsword",
+      "plaintext": "",
+      "gold": 3000
+    },
+    {
+      "id": "1018",
+      "name": "Cloak of Agility",
+      "plaintext": "Increases critical strike chance",
+      "gold": 600
+    },
+    {
+      "id": "663059",
+      "name": "Cloak of Starry Night",
+      "plaintext": "",
+      "gold": 2500
+    },
+    {
+      "id": "1029",
+      "name": "Cloth Armor",
+      "plaintext": "Slightly increases Armor",
+      "gold": 300
+    },
+    {
+      "id": "2055",
+      "name": "Control Ward",
+      "plaintext": "Used to disable wards and invisible traps in an area.",
+      "gold": 75
+    },
+    {
+      "id": "4629",
+      "name": "Cosmic Drive",
+      "plaintext": "Massive amounts of Cooldown Reduction",
+      "gold": 3000
+    },
+    {
+      "id": "3171",
+      "name": "Crimson Lucidity",
+      "plaintext": "",
+      "gold": 900
+    },
+    {
+      "id": "664644",
+      "name": "Crown of the Shattered Queen",
+      "plaintext": "",
+      "gold": 2500
+    },
+    {
+      "id": "667109",
+      "name": "Cruelty",
+      "plaintext": "",
+      "gold": 2500
+    },
+    {
+      "id": "3137",
+      "name": "Cryptbloom",
+      "plaintext": "Activate to remove all debuffs and grant massive Move Speed",
+      "gold": 3000
+    },
+    {
+      "id": "3801",
+      "name": "Crystalline Bracer",
+      "plaintext": "Grants Health and Health Regen",
+      "gold": 800
+    },
+    {
+      "id": "1083",
+      "name": "Cull",
+      "plaintext": "Provides damage and Life Steal on hit - Killing minions grant bonus Gold",
+      "gold": 450
+    },
+    {
+      "id": "1042",
+      "name": "Dagger",
+      "plaintext": "Slightly increases Attack Speed",
+      "gold": 250
+    },
+    {
+      "id": "1082",
+      "name": "Dark Seal",
+      "plaintext": "Provides Ability Power and Mana.  Increases in power as you kill enemies.",
+      "gold": 350
+    },
+    {
+      "id": "326621",
+      "name": "Dawncore",
+      "plaintext": "",
+      "gold": 2900
+    },
+    {
+      "id": "3742",
+      "name": "Dead Man's Plate",
+      "plaintext": "Build momentum as you move around then smash into enemies.",
+      "gold": 2900
+    },
+    {
+      "id": "6333",
+      "name": "Death's Dance",
+      "plaintext": "",
+      "gold": 3300
+    },
+    {
+      "id": "663056",
+      "name": "Demon King's Crown",
+      "plaintext": "",
+      "gold": 2500
+    },
+    {
+      "id": "1055",
+      "name": "Doran's Blade",
+      "plaintext": "Good starting item for attackers",
+      "gold": 450
+    },
+    {
+      "id": "1086",
+      "name": "Doran's Bow",
+      "plaintext": "",
+      "gold": 400
+    },
+    {
+      "id": "1120",
+      "name": "Doran's Helm",
+      "plaintext": "",
+      "gold": 450
+    },
+    {
+      "id": "1056",
+      "name": "Doran's Ring",
+      "plaintext": "Good starting item for casters",
+      "gold": 400
+    },
+    {
+      "id": "1054",
+      "name": "Doran's Shield",
+      "plaintext": "Good defensive starting item",
+      "gold": 450
+    },
+    {
+      "id": "3870",
+      "name": "Dream Maker",
+      "plaintext": "",
+      "gold": 400
+    },
+    {
+      "id": "2510",
+      "name": "Dusk and Dawn",
+      "plaintext": "",
+      "gold": 3100
+    },
+    {
+      "id": "326620",
+      "name": "Echoes of Helia",
+      "plaintext": "",
+      "gold": 2600
+    },
+    {
+      "id": "6692",
+      "name": "Eclipse",
+      "plaintext": "",
+      "gold": 2900
+    },
+    {
+      "id": "3814",
+      "name": "Edge of Night",
+      "plaintext": "Periodically blocks enemy abilities",
+      "gold": 3000
+    },
+    {
+      "id": "2138",
+      "name": "Elixir of Iron",
+      "plaintext": "Temporarily increases defenses. Leaves a trail for allies to follow.",
+      "gold": 500
+    },
+    {
+      "id": "2139",
+      "name": "Elixir of Sorcery",
+      "plaintext": "Temporarily grants Ability Power and Bonus Damage to champions and turrets.",
+      "gold": 500
+    },
+    {
+      "id": "2140",
+      "name": "Elixir of Wrath",
+      "plaintext": "Temporarily grants Attack Damage and heals you when dealing physical damage to champions.",
+      "gold": 500
+    },
+    {
+      "id": "2517",
+      "name": "Endless Hunger",
+      "plaintext": "",
+      "gold": 3100
+    },
+    {
+      "id": "3508",
+      "name": "Essence Reaver",
+      "plaintext": "",
+      "gold": 3050
+    },
+    {
+      "id": "3123",
+      "name": "Executioner's Calling",
+      "plaintext": "Overcomes enemies with high health gain",
+      "gold": 800
+    },
+    {
+      "id": "3073",
+      "name": "Experimental Hexplate",
+      "plaintext": "Increases maximum Mana as Mana is spent",
+      "gold": 3000
+    },
+    {
+      "id": "1004",
+      "name": "Faerie Charm",
+      "plaintext": "Slightly increases Mana Regen",
+      "gold": 200
+    },
+    {
+      "id": "3363",
+      "name": "Farsight Alteration",
+      "plaintext": "Grants increased range and reveals the targetted area",
+      "gold": 0
+    },
+    {
+      "id": "2508",
+      "name": "Fated Ashes",
+      "plaintext": "",
+      "gold": 900
+    },
+    {
+      "id": "2512",
+      "name": "Fiendhunter Bolts",
+      "plaintext": "",
+      "gold": 2650
+    },
+    {
+      "id": "3108",
+      "name": "Fiendish Codex",
+      "plaintext": "Increases Ability Power and Cooldown Reduction",
+      "gold": 850
+    },
+    {
+      "id": "667112",
+      "name": "Flesheater",
+      "plaintext": "",
+      "gold": 2500
+    },
+    {
+      "id": "3114",
+      "name": "Forbidden Idol",
+      "plaintext": "Increases Heal and Shield Power, Mana Regeneration, and Cooldown Reduction",
+      "gold": 600
+    },
+    {
+      "id": "4401",
+      "name": "Force of Nature",
+      "plaintext": "Move Speed, Magic Resist, and max Health Regeneration",
+      "gold": 2800
+    },
+    {
+      "id": "3110",
+      "name": "Frozen Heart",
+      "plaintext": "Massively increases Armor and slows enemy basic attacks",
+      "gold": 2500
+    },
+    {
+      "id": "667101",
+      "name": "Gambler's Blade",
+      "plaintext": "",
+      "gold": 2500
+    },
+    {
+      "id": "663193",
+      "name": "Gargoyle Stoneplate",
+      "plaintext": "",
+      "gold": 2500
+    },
+    {
+      "id": "1011",
+      "name": "Giant's Belt",
+      "plaintext": "Greatly increases Health",
+      "gold": 900
+    },
+    {
+      "id": "3024",
+      "name": "Glacial Buckler",
+      "plaintext": "Increases Armor and Cooldown Reduction",
+      "gold": 900
+    },
+    {
+      "id": "2022",
+      "name": "Glowing Mote",
+      "plaintext": "",
+      "gold": 250
+    },
+    {
+      "id": "3008",
+      "name": "Gluttonous Greaves",
+      "plaintext": "Increases Attack Damage based on maximum Mana",
+      "gold": 1100
+    },
+    {
+      "id": "3026",
+      "name": "Guardian Angel",
+      "plaintext": "Periodically revives champion upon death",
+      "gold": 3200
+    },
+    {
+      "id": "3177",
+      "name": "Guardian's Blade",
+      "plaintext": "Good starting item for attackers",
+      "gold": 950
+    },
+    {
+      "id": "3184",
+      "name": "Guardian's Hammer",
+      "plaintext": "Good starting item for attackers",
+      "gold": 950
+    },
+    {
+      "id": "2051",
+      "name": "Guardian's Horn",
+      "plaintext": "Good starting item for tanks",
+      "gold": 950
+    },
+    {
+      "id": "3112",
+      "name": "Guardian's Orb",
+      "plaintext": "Good starting item for mages",
+      "gold": 950
+    },
+    {
+      "id": "3124",
+      "name": "Guinsoo's Rageblade",
+      "plaintext": "",
+      "gold": 3000
+    },
+    {
+      "id": "3172",
+      "name": "Gunmetal Greaves",
+      "plaintext": "Mobility and Tenacity",
+      "gold": 1100
+    },
+    {
+      "id": "1102",
+      "name": "Gustwalker Hatchling",
+      "plaintext": "",
+      "gold": 450
+    },
+    {
+      "id": "3147",
+      "name": "Haunting Guise",
+      "plaintext": "Deals additional physical damage when ambushing enemies",
+      "gold": 1300
+    },
+    {
+      "id": "2003",
+      "name": "Health Potion",
+      "plaintext": "Consume to restore Health over time",
+      "gold": 50
+    },
+    {
+      "id": "3051",
+      "name": "Hearthbound Axe",
+      "plaintext": "",
+      "gold": 1200
+    },
+    {
+      "id": "3084",
+      "name": "Heartsteel",
+      "plaintext": "Restores Health on kill or assist",
+      "gold": 3000
+    },
+    {
+      "id": "3155",
+      "name": "Hexdrinker",
+      "plaintext": "Increases Attack Damage and Magic Resist",
+      "gold": 1300
+    },
+    {
+      "id": "2523",
+      "name": "Hexoptics C44",
+      "plaintext": "",
+      "gold": 2800
+    },
+    {
+      "id": "3145",
+      "name": "Hextech Alternator",
+      "plaintext": "Increases Ability Power. Deal bonus magic damage on attack periodically.",
+      "gold": 1100
+    },
+    {
+      "id": "3146",
+      "name": "Hextech Gunblade",
+      "plaintext": "Increases Attack Damage and Ability Power, activate to slow a target",
+      "gold": 3000
+    },
+    {
+      "id": "3152",
+      "name": "Hextech Rocketbelt",
+      "plaintext": "Activate to dash forward and unleash a fiery explosion",
+      "gold": 2650
+    },
+    {
+      "id": "6664",
+      "name": "Hollow Radiance",
+      "plaintext": "Immobilize enemies to gain a shield. Activate to run faster at opponents.",
+      "gold": 2800
+    },
+    {
+      "id": "4628",
+      "name": "Horizon Focus",
+      "plaintext": "Immobilizing a champion causes lightning to strike them",
+      "gold": 2700
+    },
+    {
+      "id": "6697",
+      "name": "Hubris",
+      "plaintext": "",
+      "gold": 2800
+    },
+    {
+      "id": "3181",
+      "name": "Hullbreaker",
+      "plaintext": "",
+      "gold": 3000
+    },
+    {
+      "id": "6662",
+      "name": "Iceborn Gauntlet",
+      "plaintext": "High Magic Resist.Passively slow nearby enemies. When spells are cast near you, release a wave of energy that damages and slows.",
+      "gold": 2900
+    },
+    {
+      "id": "3168",
+      "name": "Immortal Path",
+      "plaintext": "",
+      "gold": 1100
+    },
+    {
+      "id": "6673",
+      "name": "Immortal Shieldbow",
+      "plaintext": "",
+      "gold": 3000
+    },
+    {
+      "id": "324005",
+      "name": "Imperial Mandate",
+      "plaintext": "",
+      "gold": 2400
+    },
+    {
+      "id": "3031",
+      "name": "Infinity Edge",
+      "plaintext": "Massively enhances critical strikes",
+      "gold": 3500
+    },
+    {
+      "id": "3158",
+      "name": "Ionian Boots of Lucidity",
+      "plaintext": "Increases Move Speed and Cooldown Reduction",
+      "gold": 900
+    },
+    {
+      "id": "6665",
+      "name": "Jak'Sho, The Protean",
+      "plaintext": "",
+      "gold": 3200
+    },
+    {
+      "id": "2504",
+      "name": "Kaenic Rookern",
+      "plaintext": "",
+      "gold": 2900
+    },
+    {
+      "id": "3599",
+      "name": "Kalista's Black Spear",
+      "plaintext": "Kalista's spear that binds an Oathsworn Ally.",
+      "gold": 0
+    },
+    {
+      "id": "3067",
+      "name": "Kindlegem",
+      "plaintext": "Increases Health and Cooldown Reduction",
+      "gold": 800
+    },
+    {
+      "id": "3109",
+      "name": "Knight's Vow",
+      "plaintext": "Partner with an ally to protect each other",
+      "gold": 2300
+    },
+    {
+      "id": "6672",
+      "name": "Kraken Slayer",
+      "plaintext": "",
+      "gold": 3000
+    },
+    {
+      "id": "3035",
+      "name": "Last Whisper",
+      "plaintext": "Overcomes enemies with high Armor",
+      "gold": 1450
+    },
+    {
+      "id": "6653",
+      "name": "Liandry's Torment",
+      "plaintext": "Charge up in combat to deal high damage over time, especially against durable enemies",
+      "gold": 3000
+    },
+    {
+      "id": "3100",
+      "name": "Lich Bane",
+      "plaintext": "Grants a bonus to next attack after spell cast",
+      "gold": 2900
+    },
+    {
+      "id": "3190",
+      "name": "Locket of the Iron Solari",
+      "plaintext": "Activate to shield nearby allies from damage",
+      "gold": 2200
+    },
+    {
+      "id": "1036",
+      "name": "Long Sword",
+      "plaintext": "Slightly increases Attack Damage",
+      "gold": 350
+    },
+    {
+      "id": "3036",
+      "name": "Lord Dominik's Regards",
+      "plaintext": "Overcomes enemies with high health and armor",
+      "gold": 3300
+    },
+    {
+      "id": "3802",
+      "name": "Lost Chapter",
+      "plaintext": "Restores Mana upon levelling up.",
+      "gold": 1200
+    },
+    {
+      "id": "6655",
+      "name": "Luden's Echo",
+      "plaintext": "High burst damage, good against fragile foes",
+      "gold": 2750
+    },
+    {
+      "id": "3118",
+      "name": "Malignance",
+      "plaintext": "Partner with an ally to protect each other",
+      "gold": 2700
+    },
+    {
+      "id": "3004",
+      "name": "Manamune",
+      "plaintext": "Increases Attack Damage based on maximum Mana",
+      "gold": 2900
+    },
+    {
+      "id": "3156",
+      "name": "Maw of Malmortius",
+      "plaintext": "Grants bonus Attack Damage when Health is low",
+      "gold": 3100
+    },
+    {
+      "id": "3041",
+      "name": "Mejai's Soulstealer",
+      "plaintext": "Grants Ability Power for kills and assists",
+      "gold": 1500
+    },
+    {
+      "id": "3139",
+      "name": "Mercurial Scimitar",
+      "plaintext": "Activate to remove all crowd control debuffs and grant massive Move Speed",
+      "gold": 3200
+    },
+    {
+      "id": "3111",
+      "name": "Mercury's Treads",
+      "plaintext": "Increases Move Speed and reduces duration of disabling effects",
+      "gold": 1250
+    },
+    {
+      "id": "3222",
+      "name": "Mikael's Blessing",
+      "plaintext": "Activate to remove all disabling effects from an allied champion",
+      "gold": 2300
+    },
+    {
+      "id": "326617",
+      "name": "Moonstone Renewer",
+      "plaintext": "",
+      "gold": 2900
+    },
+    {
+      "id": "3165",
+      "name": "Morellonomicon",
+      "plaintext": "Increases magic damage",
+      "gold": 2850
+    },
+    {
+      "id": "3033",
+      "name": "Mortal Reminder",
+      "plaintext": "Overcomes enemies with high Health recovery and Armor",
+      "gold": 3000
+    },
+    {
+      "id": "1103",
+      "name": "Mosstomper Seedling",
+      "plaintext": "",
+      "gold": 450
+    },
+    {
+      "id": "3115",
+      "name": "Nashor's Tooth",
+      "plaintext": "Increases Attack Speed, Ability Power, and Cooldown Reduction",
+      "gold": 2900
+    },
+    {
+      "id": "6675",
+      "name": "Navori Flickerblade",
+      "plaintext": "",
+      "gold": 2650
+    },
+    {
+      "id": "1058",
+      "name": "Needlessly Large Rod",
+      "plaintext": "Greatly increases Ability Power",
+      "gold": 1200
+    },
+    {
+      "id": "1057",
+      "name": "Negatron Cloak",
+      "plaintext": "Moderately increases Magic Resist",
+      "gold": 850
+    },
+    {
+      "id": "6670",
+      "name": "Noonquiver",
+      "plaintext": "",
+      "gold": 1300
+    },
+    {
+      "id": "1033",
+      "name": "Null-Magic Mantle",
+      "plaintext": "Slightly increases Magic Resist",
+      "gold": 400
+    },
+    {
+      "id": "3916",
+      "name": "Oblivion Orb",
+      "plaintext": "Increases magic damage",
+      "gold": 800
+    },
+    {
+      "id": "3364",
+      "name": "Oracle Lens",
+      "plaintext": "Disables nearby invisible wards and traps for a duration",
+      "gold": 0
+    },
+    {
+      "id": "2501",
+      "name": "Overlord's Bloodmail",
+      "plaintext": "",
+      "gold": 3300
+    },
+    {
+      "id": "3044",
+      "name": "Phage",
+      "plaintext": "Attacks and kills give a small burst of speed",
+      "gold": 1100
+    },
+    {
+      "id": "3046",
+      "name": "Phantom Dancer",
+      "plaintext": "Move faster while attacking enemies and gain a shield when on low health.",
+      "gold": 2650
+    },
+    {
+      "id": "1037",
+      "name": "Pickaxe",
+      "plaintext": "Moderately increases Attack Damage",
+      "gold": 875
+    },
+    {
+      "id": "3047",
+      "name": "Plated Steelcaps",
+      "plaintext": "Enhances Move Speed and reduces incoming basic attack damage",
+      "gold": 1200
+    },
+    {
+      "id": "6698",
+      "name": "Profane Hydra",
+      "plaintext": "",
+      "gold": 2850
+    },
+    {
+      "id": "2525",
+      "name": "Protoplasm Harness",
+      "plaintext": "",
+      "gold": 2600
+    },
+    {
+      "id": "3140",
+      "name": "Quicksilver Sash",
+      "plaintext": "Activate to remove all crowd control debuffs",
+      "gold": 1300
+    },
+    {
+      "id": "3089",
+      "name": "Rabadon's Deathcap",
+      "plaintext": "Massively increases Ability Power",
+      "gold": 3500
+    },
+    {
+      "id": "3143",
+      "name": "Randuin's Omen",
+      "plaintext": "Greatly increases defenses, activate to slow nearby enemies",
+      "gold": 2700
+    },
+    {
+      "id": "3094",
+      "name": "Rapid Firecannon",
+      "plaintext": "Movement builds charges that release a sieging fire attack on release",
+      "gold": 2650
+    },
+    {
+      "id": "3074",
+      "name": "Ravenous Hydra",
+      "plaintext": "Melee attacks hit nearby enemies, dealing damage and restoring Health",
+      "gold": 3300
+    },
+    {
+      "id": "6690",
+      "name": "Rectrix",
+      "plaintext": "",
+      "gold": 775
+    },
+    {
+      "id": "1043",
+      "name": "Recurve Bow",
+      "plaintext": "Greatly increases Attack Speed",
+      "gold": 700
+    },
+    {
+      "id": "3107",
+      "name": "Redemption",
+      "plaintext": "Activate to heal allies and damage enemies in an area",
+      "gold": 2300
+    },
+    {
+      "id": "2031",
+      "name": "Refillable Potion",
+      "plaintext": "Restores Health over time. Refills at shop.",
+      "gold": 150
+    },
+    {
+      "id": "1006",
+      "name": "Rejuvenation Bead",
+      "plaintext": "Slightly increases Health Regen",
+      "gold": 300
+    },
+    {
+      "id": "4633",
+      "name": "Riftmaker",
+      "plaintext": "",
+      "gold": 3100
+    },
+    {
+      "id": "326657",
+      "name": "Rod of Ages",
+      "plaintext": "",
+      "gold": 2600
+    },
+    {
+      "id": "1028",
+      "name": "Ruby Crystal",
+      "plaintext": "Increases Health",
+      "gold": 400
+    },
+    {
+      "id": "3085",
+      "name": "Runaan's Hurricane",
+      "plaintext": "Ranged attacks fire two bolts at nearby enemies",
+      "gold": 2650
+    },
+    {
+      "id": "3116",
+      "name": "Rylai's Crystal Scepter",
+      "plaintext": "Abilities slow enemies",
+      "gold": 2600
+    },
+    {
+      "id": "1027",
+      "name": "Sapphire Crystal",
+      "plaintext": "Increases Mana",
+      "gold": 300
+    },
+    {
+      "id": "3330",
+      "name": "Scarecrow Effigy",
+      "plaintext": "Periodically place a Stealth Ward",
+      "gold": 0
+    },
+    {
+      "id": "1101",
+      "name": "Scorchclaw Pup",
+      "plaintext": "",
+      "gold": 450
+    },
+    {
+      "id": "3144",
+      "name": "Scout's Slingshot",
+      "plaintext": "Activate to deal magic damage and slow target champion",
+      "gold": 600
+    },
+    {
+      "id": "2420",
+      "name": "Seeker's Armguard",
+      "plaintext": "Activate to become invincible but unable to take actions",
+      "gold": 1600
+    },
+    {
+      "id": "6695",
+      "name": "Serpent's Fang",
+      "plaintext": "",
+      "gold": 2500
+    },
+    {
+      "id": "3134",
+      "name": "Serrated Dirk",
+      "plaintext": "Increases Attack Damage and Lethality",
+      "gold": 1000
+    },
+    {
+      "id": "6694",
+      "name": "Serylda's Grudge",
+      "plaintext": "",
+      "gold": 3000
+    },
+    {
+      "id": "4645",
+      "name": "Shadowflame",
+      "plaintext": "",
+      "gold": 3200
+    },
+    {
+      "id": "2421",
+      "name": "Shattered Armguard",
+      "plaintext": "Upgrades to stopwatch",
+      "gold": 1600
+    },
+    {
+      "id": "3057",
+      "name": "Sheen",
+      "plaintext": "Grants a bonus to next attack after spell cast",
+      "gold": 900
+    },
+    {
+      "id": "663058",
+      "name": "Shield of Molten Stone",
+      "plaintext": "",
+      "gold": 2500
+    },
+    {
+      "id": "2065",
+      "name": "Shurelya's Battlesong",
+      "plaintext": "Activate to speed up nearby allies.",
+      "gold": 2200
+    },
+    {
+      "id": "3876",
+      "name": "Solstice Sleigh",
+      "plaintext": "",
+      "gold": 400
+    },
+    {
+      "id": "3020",
+      "name": "Sorcerer's Shoes",
+      "plaintext": "Enhances Move Speed and magic damage",
+      "gold": 1100
+    },
+    {
+      "id": "3161",
+      "name": "Spear of Shojin",
+      "plaintext": "Reduce damage taken from champions by a flat amount. Attack while near multiple enemy champions to increase this amount for a short time.",
+      "gold": 3100
+    },
+    {
+      "id": "3211",
+      "name": "Spectre's Cowl",
+      "plaintext": "Improves defense and grants regeneration upon being damaged",
+      "gold": 1250
+    },
+    {
+      "id": "3175",
+      "name": "Spellslinger's Shoes",
+      "plaintext": "",
+      "gold": 1100
+    },
+    {
+      "id": "3065",
+      "name": "Spirit Visage",
+      "plaintext": "Increases Health and healing effects",
+      "gold": 2700
+    },
+    {
+      "id": "326616",
+      "name": "Staff of Flowing Water",
+      "plaintext": "",
+      "gold": 2600
+    },
+    {
+      "id": "3087",
+      "name": "Statikk Shiv",
+      "plaintext": "Movement builds charges that release chain lightning on basic attack",
+      "gold": 3000
+    },
+    {
+      "id": "3340",
+      "name": "Stealth Ward",
+      "plaintext": "Periodically place a Stealth Ward",
+      "gold": 0
+    },
+    {
+      "id": "2019",
+      "name": "Steel Sigil",
+      "plaintext": "",
+      "gold": 1100
+    },
+    {
+      "id": "3053",
+      "name": "Sterak's Gage",
+      "plaintext": "Shields against large bursts of damage",
+      "gold": 3200
+    },
+    {
+      "id": "3095",
+      "name": "Stormrazor",
+      "plaintext": "Tremendously empower other Energized effects.",
+      "gold": 3200
+    },
+    {
+      "id": "4646",
+      "name": "Stormsurge",
+      "plaintext": "",
+      "gold": 2800
+    },
+    {
+      "id": "6631",
+      "name": "Stridebreaker",
+      "plaintext": "",
+      "gold": 3300
+    },
+    {
+      "id": "6610",
+      "name": "Sundered Sky",
+      "plaintext": "",
+      "gold": 3100
+    },
+    {
+      "id": "3068",
+      "name": "Sunfire Aegis",
+      "plaintext": "High armor. Constantly deals damage to nearby enemies. Immobilize enemies to release a wave of damaging flame",
+      "gold": 2800
+    },
+    {
+      "id": "3170",
+      "name": "Swiftmarch",
+      "plaintext": "Improves defense and reduces duration of disabling effects",
+      "gold": 1000
+    },
+    {
+      "id": "664011",
+      "name": "Sword of Blossoming Dawn",
+      "plaintext": "",
+      "gold": 2500
+    },
+    {
+      "id": "663060",
+      "name": "Sword of the Divine",
+      "plaintext": "",
+      "gold": 2500
+    },
+    {
+      "id": "3070",
+      "name": "Tear of the Goddess",
+      "plaintext": "Increases maximum Mana as Mana is spent",
+      "gold": 400
+    },
+    {
+      "id": "3302",
+      "name": "Terminus",
+      "plaintext": "Kill minions periodically to heal and grant gold to a nearby ally",
+      "gold": 3000
+    },
+    {
+      "id": "2020",
+      "name": "The Brutalizer",
+      "plaintext": "",
+      "gold": 1337
+    },
+    {
+      "id": "6676",
+      "name": "The Collector",
+      "plaintext": "",
+      "gold": 3000
+    },
+    {
+      "id": "3075",
+      "name": "Thornmail",
+      "plaintext": "",
+      "gold": 2450
+    },
+    {
+      "id": "3077",
+      "name": "Tiamat",
+      "plaintext": "Melee attacks hit nearby enemies",
+      "gold": 1200
+    },
+    {
+      "id": "3748",
+      "name": "Titanic Hydra",
+      "plaintext": "Deals area of effect damage based on owner's health",
+      "gold": 3300
+    },
+    {
+      "id": "3078",
+      "name": "Trinity Force",
+      "plaintext": "Tons of Damage",
+      "gold": 3333
+    },
+    {
+      "id": "2021",
+      "name": "Tunneler",
+      "plaintext": "",
+      "gold": 1150
+    },
+    {
+      "id": "3179",
+      "name": "Umbral Glaive",
+      "plaintext": "Provides trap and ward detection periodically",
+      "gold": 2800
+    },
+    {
+      "id": "2502",
+      "name": "Unending Despair",
+      "plaintext": "",
+      "gold": 2800
+    },
+    {
+      "id": "1053",
+      "name": "Vampiric Scepter",
+      "plaintext": "Basic attacks restore Health",
+      "gold": 900
+    },
+    {
+      "id": "663064",
+      "name": "Veigar's Talisman of Ascension",
+      "plaintext": "",
+      "gold": 900
+    },
+    {
+      "id": "4632",
+      "name": "Verdant Barrier",
+      "plaintext": "",
+      "gold": 1600
+    },
+    {
+      "id": "3135",
+      "name": "Void Staff",
+      "plaintext": "Increases magic damage",
+      "gold": 3000
+    },
+    {
+      "id": "6699",
+      "name": "Voltaic Cyclosword",
+      "plaintext": "",
+      "gold": 3000
+    },
+    {
+      "id": "3082",
+      "name": "Warden's Mail",
+      "plaintext": "",
+      "gold": 1000
+    },
+    {
+      "id": "3083",
+      "name": "Warmog's Armor",
+      "plaintext": "Grants massive Health and Health Regen",
+      "gold": 3100
+    },
+    {
+      "id": "2526",
+      "name": "Whispering Circlet",
+      "plaintext": "",
+      "gold": 2250
+    },
+    {
+      "id": "3066",
+      "name": "Winged Moonplate",
+      "plaintext": "",
+      "gold": 800
+    },
+    {
+      "id": "3119",
+      "name": "Winter's Approach",
+      "plaintext": "",
+      "gold": 2400
+    },
+    {
+      "id": "3091",
+      "name": "Wit's End",
+      "plaintext": "Resist magic damage and claw your way back to life.",
+      "gold": 2800
+    },
+    {
+      "id": "3865",
+      "name": "World Atlas",
+      "plaintext": "",
+      "gold": 400
+    },
+    {
+      "id": "3142",
+      "name": "Youmuu's Ghostblade",
+      "plaintext": "Activate to greatly increase Move Speed",
+      "gold": 2800
+    },
+    {
+      "id": "3032",
+      "name": "Yun Tal Wildarrows",
+      "plaintext": "",
+      "gold": 3000
+    },
+    {
+      "id": "3871",
+      "name": "Zaz'Zak's Realmspike",
+      "plaintext": "",
+      "gold": 400
+    },
+    {
+      "id": "3086",
+      "name": "Zeal",
+      "plaintext": "Slight bonuses to Critical Strike Chance, Move Speed and Attack Speed",
+      "gold": 1200
+    },
+    {
+      "id": "3050",
+      "name": "Zeke's Convergence",
+      "plaintext": "Grants you and your ally bonuses when you cast your ultimate.",
+      "gold": 2200
+    },
+    {
+      "id": "663172",
+      "name": "Zephyr",
+      "plaintext": "",
+      "gold": 2500
+    },
+    {
+      "id": "3157",
+      "name": "Zhonya's Hourglass",
+      "plaintext": "Activate to become invincible but unable to take actions",
+      "gold": 3250
+    }
+  ]
+}

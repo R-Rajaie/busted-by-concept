@@ -1,0 +1,2730 @@
+{
+  "patch": "16.21.1",
+  "champions": [
+    {
+      "id": "Aatrox",
+      "name": "Aatrox",
+      "title": "the Darkin Blade",
+      "tags": [
+        "Fighter"
+      ],
+      "abilities": [
+        "Deathbringer Stance",
+        "The Darkin Blade",
+        "Infernal Chains",
+        "Umbral Dash",
+        "World Ender"
+      ]
+    },
+    {
+      "id": "Ahri",
+      "name": "Ahri",
+      "title": "the Nine-Tailed Fox",
+      "tags": [
+        "Mage",
+        "Assassin"
+      ],
+      "abilities": [
+        "Essence Theft",
+        "Orb of Deception",
+        "Fox-Fire",
+        "Charm",
+        "Spirit Rush"
+      ]
+    },
+    {
+      "id": "Akali",
+      "name": "Akali",
+      "title": "the Rogue Assassin",
+      "tags": [
+        "Assassin"
+      ],
+      "abilities": [
+        "Assassin's Mark",
+        "Five Point Strike",
+        "Twilight Shroud",
+        "Shuriken Flip",
+        "Perfect Execution"
+      ]
+    },
+    {
+      "id": "Akshan",
+      "name": "Akshan",
+      "title": "the Rogue Sentinel",
+      "tags": [
+        "Marksman",
+        "Assassin"
+      ],
+      "abilities": [
+        "Dirty Fighting",
+        "Avengerang",
+        "Going Rogue",
+        "Heroic Swing",
+        "Comeuppance"
+      ]
+    },
+    {
+      "id": "Alistar",
+      "name": "Alistar",
+      "title": "the Minotaur",
+      "tags": [
+        "Tank",
+        "Support"
+      ],
+      "abilities": [
+        "Triumphant Roar",
+        "Pulverize",
+        "Headbutt",
+        "Trample",
+        "Unbreakable Will"
+      ]
+    },
+    {
+      "id": "Ambessa",
+      "name": "Ambessa",
+      "title": "Matriarch of War",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "abilities": [
+        "Drakehound's Step",
+        "Cunning Sweep / Sundering Slam",
+        "Repudiation",
+        "Lacerate",
+        "Public Execution"
+      ]
+    },
+    {
+      "id": "Amumu",
+      "name": "Amumu",
+      "title": "the Sad Mummy",
+      "tags": [
+        "Tank",
+        "Support"
+      ],
+      "abilities": [
+        "Cursed Touch",
+        "Bandage Toss",
+        "Despair",
+        "Tantrum",
+        "Curse of the Sad Mummy"
+      ]
+    },
+    {
+      "id": "Anivia",
+      "name": "Anivia",
+      "title": "the Cryophoenix",
+      "tags": [
+        "Mage"
+      ],
+      "abilities": [
+        "Rebirth",
+        "Flash Frost",
+        "Crystallize",
+        "Frostbite",
+        "Glacial Storm"
+      ]
+    },
+    {
+      "id": "Annie",
+      "name": "Annie",
+      "title": "the Dark Child",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "abilities": [
+        "Pyromania",
+        "Disintegrate",
+        "Incinerate",
+        "Molten Shield",
+        "Summon: Tibbers"
+      ]
+    },
+    {
+      "id": "Aphelios",
+      "name": "Aphelios",
+      "title": "the Weapon of the Faithful",
+      "tags": [
+        "Marksman"
+      ],
+      "abilities": [
+        "The Hitman and the Seer",
+        "Weapon Abilites",
+        "Phase",
+        "Weapon Queue System",
+        "Moonlight Vigil"
+      ]
+    },
+    {
+      "id": "Ashe",
+      "name": "Ashe",
+      "title": "the Frost Archer",
+      "tags": [
+        "Marksman",
+        "Support"
+      ],
+      "abilities": [
+        "Frost Shot",
+        "Ranger's Focus",
+        "Volley",
+        "Hawkshot",
+        "Enchanted Crystal Arrow"
+      ]
+    },
+    {
+      "id": "AurelionSol",
+      "name": "Aurelion Sol",
+      "title": "The Star Forger",
+      "tags": [
+        "Mage"
+      ],
+      "abilities": [
+        "Cosmic Creator",
+        "Breath of Light",
+        "Astral Flight",
+        "Singularity",
+        "Falling Star / The Skies Descend"
+      ]
+    },
+    {
+      "id": "Aurora",
+      "name": "Aurora",
+      "title": "the Witch Between Worlds",
+      "tags": [
+        "Mage",
+        "Assassin"
+      ],
+      "abilities": [
+        "Spirit Abjuration",
+        "Twofold Hex",
+        "Across the Veil",
+        "The Weirding",
+        "Between Worlds"
+      ]
+    },
+    {
+      "id": "Azir",
+      "name": "Azir",
+      "title": "the Emperor of the Sands",
+      "tags": [
+        "Mage",
+        "Marksman"
+      ],
+      "abilities": [
+        "Shurima's Legacy",
+        "Conquering Sands",
+        "Arise!",
+        "Shifting Sands",
+        "Emperor's Divide"
+      ]
+    },
+    {
+      "id": "Bard",
+      "name": "Bard",
+      "title": "the Wandering Caretaker",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "abilities": [
+        "Traveler's Call",
+        "Cosmic Binding",
+        "Caretaker's Shrine",
+        "Magical Journey",
+        "Tempered Fate"
+      ]
+    },
+    {
+      "id": "Belveth",
+      "name": "Bel'Veth",
+      "title": "the Empress of the Void",
+      "tags": [
+        "Fighter"
+      ],
+      "abilities": [
+        "Death in Lavender ",
+        "Void Surge",
+        "Above and Below",
+        "Royal Maelstrom",
+        "Endless Banquet"
+      ]
+    },
+    {
+      "id": "Blitzcrank",
+      "name": "Blitzcrank",
+      "title": "the Great Steam Golem",
+      "tags": [
+        "Tank",
+        "Support"
+      ],
+      "abilities": [
+        "Mana Barrier",
+        "Rocket Grab",
+        "Overdrive",
+        "Power Fist",
+        "Static Field"
+      ]
+    },
+    {
+      "id": "Brand",
+      "name": "Brand",
+      "title": "the Burning Vengeance",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "abilities": [
+        "Blaze",
+        "Sear",
+        "Pillar of Flame",
+        "Conflagration",
+        "Pyroclasm"
+      ]
+    },
+    {
+      "id": "Braum",
+      "name": "Braum",
+      "title": "the Heart of the Freljord",
+      "tags": [
+        "Tank",
+        "Support"
+      ],
+      "abilities": [
+        "Concussive Blows",
+        "Winter's Bite",
+        "Stand Behind Me",
+        "Unbreakable",
+        "Glacial Fissure"
+      ]
+    },
+    {
+      "id": "Briar",
+      "name": "Briar",
+      "title": "the Restrained Hunger",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "abilities": [
+        "Crimson Curse",
+        "Head Rush",
+        "Blood Frenzy / Snack Attack",
+        "Chilling Scream",
+        "Certain Death"
+      ]
+    },
+    {
+      "id": "Caitlyn",
+      "name": "Caitlyn",
+      "title": "the Sheriff of Piltover",
+      "tags": [
+        "Marksman"
+      ],
+      "abilities": [
+        "Headshot",
+        "Piltover Peacemaker",
+        "Yordle Snap Trap",
+        "90 Caliber Net",
+        "Ace in the Hole"
+      ]
+    },
+    {
+      "id": "Camille",
+      "name": "Camille",
+      "title": "the Steel Shadow",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "abilities": [
+        "Adaptive Defenses",
+        "Precision Protocol",
+        "Tactical Sweep",
+        "Hookshot",
+        "The Hextech Ultimatum"
+      ]
+    },
+    {
+      "id": "Cassiopeia",
+      "name": "Cassiopeia",
+      "title": "the Serpent's Embrace",
+      "tags": [
+        "Mage"
+      ],
+      "abilities": [
+        "Serpentine Grace",
+        "Noxious Blast",
+        "Miasma",
+        "Twin Fang",
+        "Petrifying Gaze"
+      ]
+    },
+    {
+      "id": "Chogath",
+      "name": "Cho'Gath",
+      "title": "the Terror of the Void",
+      "tags": [
+        "Tank",
+        "Mage"
+      ],
+      "abilities": [
+        "Carnivore",
+        "Rupture",
+        "Feral Scream",
+        "Vorpal Spikes",
+        "Feast"
+      ]
+    },
+    {
+      "id": "Corki",
+      "name": "Corki",
+      "title": "the Daring Bombardier",
+      "tags": [
+        "Marksman",
+        "Mage"
+      ],
+      "abilities": [
+        "Hextech Munitions",
+        "Phosphorus Bomb",
+        "Valkyrie",
+        "Gatling Gun",
+        "Missile Barrage"
+      ]
+    },
+    {
+      "id": "Darius",
+      "name": "Darius",
+      "title": "the Hand of Noxus",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "abilities": [
+        "Hemorrhage",
+        "Decimate",
+        "Crippling Strike",
+        "Apprehend",
+        "Noxian Guillotine"
+      ]
+    },
+    {
+      "id": "Diana",
+      "name": "Diana",
+      "title": "Scorn of the Moon",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "abilities": [
+        "Moonsilver Blade",
+        "Crescent Strike",
+        "Pale Cascade",
+        "Lunar Rush",
+        "Moonfall"
+      ]
+    },
+    {
+      "id": "DrMundo",
+      "name": "Dr. Mundo",
+      "title": "the Madman of Zaun",
+      "tags": [
+        "Tank",
+        "Fighter"
+      ],
+      "abilities": [
+        "Goes Where He Pleases",
+        "Infected Bonesaw",
+        "Heart Zapper",
+        "Blunt Force Trauma",
+        "Maximum Dosage"
+      ]
+    },
+    {
+      "id": "Draven",
+      "name": "Draven",
+      "title": "the Glorious Executioner",
+      "tags": [
+        "Marksman"
+      ],
+      "abilities": [
+        "League of Draven",
+        "Spinning Axe",
+        "Blood Rush",
+        "Stand Aside",
+        "Whirling Death"
+      ]
+    },
+    {
+      "id": "Ekko",
+      "name": "Ekko",
+      "title": "the Boy Who Shattered Time",
+      "tags": [
+        "Assassin",
+        "Mage"
+      ],
+      "abilities": [
+        "Z-Drive Resonance",
+        "Timewinder",
+        "Parallel Convergence",
+        "Phase Dive",
+        "Chronobreak"
+      ]
+    },
+    {
+      "id": "Elise",
+      "name": "Elise",
+      "title": "the Spider Queen",
+      "tags": [
+        "Assassin",
+        "Mage"
+      ],
+      "abilities": [
+        "Spider Queen",
+        "Neurotoxin / Venomous Bite",
+        "Volatile Spiderling / Skittering Frenzy",
+        "Cocoon / Rappel",
+        "Spider Form"
+      ]
+    },
+    {
+      "id": "Evelynn",
+      "name": "Evelynn",
+      "title": "Agony's Embrace",
+      "tags": [
+        "Assassin",
+        "Mage"
+      ],
+      "abilities": [
+        "Demon Shade",
+        "Hate Spike",
+        "Allure",
+        "Whiplash",
+        "Last Caress"
+      ]
+    },
+    {
+      "id": "Ezreal",
+      "name": "Ezreal",
+      "title": "the Prodigal Explorer",
+      "tags": [
+        "Marksman",
+        "Mage"
+      ],
+      "abilities": [
+        "Rising Spell Force",
+        "Mystic Shot",
+        "Essence Flux",
+        "Arcane Shift",
+        "Trueshot Barrage"
+      ]
+    },
+    {
+      "id": "Fiddlesticks",
+      "name": "Fiddlesticks",
+      "title": "the Ancient Fear",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "abilities": [
+        "A Harmless Scarecrow",
+        "Terrify",
+        "Bountiful Harvest",
+        "Reap",
+        "Crowstorm"
+      ]
+    },
+    {
+      "id": "Fiora",
+      "name": "Fiora",
+      "title": "the Grand Duelist",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "abilities": [
+        "Duelist's Dance",
+        "Lunge",
+        "Riposte",
+        "Bladework",
+        "Grand Challenge"
+      ]
+    },
+    {
+      "id": "Fizz",
+      "name": "Fizz",
+      "title": "the Tidal Trickster",
+      "tags": [
+        "Assassin",
+        "Fighter"
+      ],
+      "abilities": [
+        "Nimble Fighter",
+        "Urchin Strike",
+        "Seastone Trident",
+        "Playful / Trickster",
+        "Chum the Waters"
+      ]
+    },
+    {
+      "id": "Galio",
+      "name": "Galio",
+      "title": "the Colossus",
+      "tags": [
+        "Tank",
+        "Mage"
+      ],
+      "abilities": [
+        "Colossal Smash",
+        "Winds of War",
+        "Shield of Durand",
+        "Justice Punch",
+        "Hero's Entrance"
+      ]
+    },
+    {
+      "id": "Gangplank",
+      "name": "Gangplank",
+      "title": "the Saltwater Scourge",
+      "tags": [
+        "Fighter"
+      ],
+      "abilities": [
+        "Trial by Fire",
+        "Parrrley",
+        "Remove Scurvy",
+        "Powder Keg",
+        "Cannon Barrage"
+      ]
+    },
+    {
+      "id": "Garen",
+      "name": "Garen",
+      "title": "The Might of Demacia",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "abilities": [
+        "Perseverance",
+        "Decisive Strike",
+        "Courage",
+        "Judgment",
+        "Demacian Justice"
+      ]
+    },
+    {
+      "id": "Gnar",
+      "name": "Gnar",
+      "title": "the Missing Link",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "abilities": [
+        "Rage Gene",
+        "Boomerang Throw / Boulder Toss",
+        "Hyper / Wallop",
+        "Hop / Crunch",
+        "GNAR!"
+      ]
+    },
+    {
+      "id": "Gragas",
+      "name": "Gragas",
+      "title": "the Rabble Rouser",
+      "tags": [
+        "Fighter",
+        "Mage"
+      ],
+      "abilities": [
+        "Happy Hour",
+        "Barrel Roll",
+        "Drunken Rage",
+        "Body Slam",
+        "Explosive Cask"
+      ]
+    },
+    {
+      "id": "Graves",
+      "name": "Graves",
+      "title": "the Outlaw",
+      "tags": [
+        "Marksman"
+      ],
+      "abilities": [
+        "New Destiny",
+        "End of the Line",
+        "Smoke Screen",
+        "Quickdraw",
+        "Collateral Damage"
+      ]
+    },
+    {
+      "id": "Gwen",
+      "name": "Gwen",
+      "title": "The Hallowed Seamstress",
+      "tags": [
+        "Fighter"
+      ],
+      "abilities": [
+        "A Thousand Cuts",
+        "Snip Snip!",
+        "Hallowed Mist",
+        "Skip 'n Slash",
+        "Needlework"
+      ]
+    },
+    {
+      "id": "Hecarim",
+      "name": "Hecarim",
+      "title": "the Shadow of War",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "abilities": [
+        "Warpath",
+        "Rampage",
+        "Spirit of Dread",
+        "Devastating Charge",
+        "Onslaught of Shadows"
+      ]
+    },
+    {
+      "id": "Heimerdinger",
+      "name": "Heimerdinger",
+      "title": "the Revered Inventor",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "abilities": [
+        "Hextech Affinity",
+        "H-28 G Evolution Turret",
+        "Hextech Micro-Rockets",
+        "CH-2 Electron Storm Grenade",
+        "UPGRADE!!!"
+      ]
+    },
+    {
+      "id": "Hwei",
+      "name": "Hwei",
+      "title": "the Visionary",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "abilities": [
+        "Signature of the Visionary",
+        "Subject: Disaster",
+        "Subject: Serenity",
+        "Subject: Torment",
+        "Spiraling Despair"
+      ]
+    },
+    {
+      "id": "Illaoi",
+      "name": "Illaoi",
+      "title": "the Kraken Priestess",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "abilities": [
+        "Prophet of an Elder God",
+        "Tentacle Smash",
+        "Harsh Lesson",
+        "Test of Spirit",
+        "Leap of Faith"
+      ]
+    },
+    {
+      "id": "Irelia",
+      "name": "Irelia",
+      "title": "the Blade Dancer",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "abilities": [
+        "Ionian Fervor",
+        "Bladesurge",
+        "Defiant Dance",
+        "Flawless Duet",
+        "Vanguard's Edge"
+      ]
+    },
+    {
+      "id": "Ivern",
+      "name": "Ivern",
+      "title": "the Green Father",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "abilities": [
+        "Friend of the Forest",
+        "Rootcaller",
+        "Brushmaker",
+        "Triggerseed",
+        "Daisy!"
+      ]
+    },
+    {
+      "id": "Janna",
+      "name": "Janna",
+      "title": "the Storm's Fury",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "abilities": [
+        "Tailwind",
+        "Howling Gale",
+        "Zephyr",
+        "Eye Of The Storm",
+        "Monsoon"
+      ]
+    },
+    {
+      "id": "JarvanIV",
+      "name": "Jarvan IV",
+      "title": "the Exemplar of Demacia",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "abilities": [
+        "Martial Cadence",
+        "Dragon Strike",
+        "Golden Aegis",
+        "Demacian Standard",
+        "Cataclysm"
+      ]
+    },
+    {
+      "id": "Jax",
+      "name": "Jax",
+      "title": "Grandmaster at Arms",
+      "tags": [
+        "Fighter"
+      ],
+      "abilities": [
+        "Relentless Assault",
+        "Leap Strike",
+        "Empower",
+        "Counter Strike",
+        "Grandmaster-at-Arms"
+      ]
+    },
+    {
+      "id": "Jayce",
+      "name": "Jayce",
+      "title": "the Defender of Tomorrow",
+      "tags": [
+        "Fighter",
+        "Marksman"
+      ],
+      "abilities": [
+        "Hextech Capacitor",
+        "To the Skies! / Shock Blast",
+        "Lightning Field / Hyper Charge",
+        "Thundering Blow / Acceleration Gate",
+        "Mercury Cannon / Mercury Hammer"
+      ]
+    },
+    {
+      "id": "Jhin",
+      "name": "Jhin",
+      "title": "the Virtuoso",
+      "tags": [
+        "Marksman",
+        "Mage"
+      ],
+      "abilities": [
+        "Whisper",
+        "Dancing Grenade",
+        "Deadly Flourish",
+        "Captive Audience",
+        "Curtain Call"
+      ]
+    },
+    {
+      "id": "Jinx",
+      "name": "Jinx",
+      "title": "the Loose Cannon",
+      "tags": [
+        "Marksman"
+      ],
+      "abilities": [
+        "Get Excited!",
+        "Switcheroo!",
+        "Zap!",
+        "Flame Chompers!",
+        "Super Mega Death Rocket!"
+      ]
+    },
+    {
+      "id": "KSante",
+      "name": "K'Sante",
+      "title": "the Pride of Nazumah",
+      "tags": [
+        "Tank",
+        "Fighter"
+      ],
+      "abilities": [
+        "Dauntless Instinct",
+        "Ntofo Strikes",
+        "Path Maker",
+        "Footwork",
+        "All Out"
+      ]
+    },
+    {
+      "id": "Kaisa",
+      "name": "Kai'Sa",
+      "title": "Daughter of the Void",
+      "tags": [
+        "Marksman",
+        "Mage"
+      ],
+      "abilities": [
+        "Second Skin",
+        "Icathian Rain",
+        "Void Seeker",
+        "Supercharge",
+        "Killer Instinct"
+      ]
+    },
+    {
+      "id": "Kalista",
+      "name": "Kalista",
+      "title": "the Spear of Vengeance",
+      "tags": [
+        "Marksman"
+      ],
+      "abilities": [
+        "Martial Poise",
+        "Pierce",
+        "Sentinel",
+        "Rend",
+        "Fate's Call"
+      ]
+    },
+    {
+      "id": "Karma",
+      "name": "Karma",
+      "title": "the Enlightened One",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "abilities": [
+        "Gathering Fire",
+        "Inner Flame",
+        "Focused Resolve",
+        "Inspire",
+        "Mantra"
+      ]
+    },
+    {
+      "id": "Karthus",
+      "name": "Karthus",
+      "title": "the Deathsinger",
+      "tags": [
+        "Mage"
+      ],
+      "abilities": [
+        "Death Defied",
+        "Lay Waste",
+        "Wall of Pain",
+        "Defile",
+        "Requiem"
+      ]
+    },
+    {
+      "id": "Kassadin",
+      "name": "Kassadin",
+      "title": "the Void Walker",
+      "tags": [
+        "Assassin",
+        "Mage"
+      ],
+      "abilities": [
+        "Void Stone",
+        "Null Sphere",
+        "Nether Blade",
+        "Force Pulse",
+        "Riftwalk"
+      ]
+    },
+    {
+      "id": "Katarina",
+      "name": "Katarina",
+      "title": "the Sinister Blade",
+      "tags": [
+        "Assassin",
+        "Mage"
+      ],
+      "abilities": [
+        "Voracity",
+        "Bouncing Blade",
+        "Preparation",
+        "Shunpo",
+        "Death Lotus"
+      ]
+    },
+    {
+      "id": "Kayle",
+      "name": "Kayle",
+      "title": "the Righteous",
+      "tags": [
+        "Marksman",
+        "Mage"
+      ],
+      "abilities": [
+        "Divine Ascent",
+        "Radiant Blast",
+        "Celestial Blessing",
+        "Starfire Spellblade",
+        "Divine Judgment"
+      ]
+    },
+    {
+      "id": "Kayn",
+      "name": "Kayn",
+      "title": "the Shadow Reaper",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "abilities": [
+        "The Darkin Scythe",
+        "Reaping Slash",
+        "Blade's Reach",
+        "Shadow Step",
+        "Umbral Trespass"
+      ]
+    },
+    {
+      "id": "Kennen",
+      "name": "Kennen",
+      "title": "the Heart of the Tempest",
+      "tags": [
+        "Mage"
+      ],
+      "abilities": [
+        "Mark of the Storm",
+        "Thundering Shuriken",
+        "Electrical Surge",
+        "Lightning Rush",
+        "Slicing Maelstrom"
+      ]
+    },
+    {
+      "id": "Khazix",
+      "name": "Kha'Zix",
+      "title": "the Voidreaver",
+      "tags": [
+        "Assassin"
+      ],
+      "abilities": [
+        "Unseen Threat",
+        "Taste Their Fear",
+        "Void Spike",
+        "Leap",
+        "Void Assault"
+      ]
+    },
+    {
+      "id": "Kindred",
+      "name": "Kindred",
+      "title": "The Eternal Hunters",
+      "tags": [
+        "Marksman"
+      ],
+      "abilities": [
+        "Mark of the Kindred",
+        "Dance of Arrows",
+        "Wolf's Frenzy",
+        "Mounting Dread",
+        "Lamb's Respite"
+      ]
+    },
+    {
+      "id": "Kled",
+      "name": "Kled",
+      "title": "the Cantankerous Cavalier",
+      "tags": [
+        "Fighter"
+      ],
+      "abilities": [
+        "Skaarl, the Cowardly Lizard",
+        "Bear Trap on a Rope",
+        "Violent Tendencies",
+        "Jousting",
+        "Chaaaaaaaarge!!!"
+      ]
+    },
+    {
+      "id": "KogMaw",
+      "name": "Kog'Maw",
+      "title": "the Mouth of the Abyss",
+      "tags": [
+        "Marksman",
+        "Mage"
+      ],
+      "abilities": [
+        "Icathian Surprise",
+        "Caustic Spittle",
+        "Bio-Arcane Barrage",
+        "Void Ooze",
+        "Living Artillery"
+      ]
+    },
+    {
+      "id": "Leblanc",
+      "name": "LeBlanc",
+      "title": "the Deceiver",
+      "tags": [
+        "Assassin",
+        "Mage"
+      ],
+      "abilities": [
+        "Mirror Image",
+        "Sigil of Malice",
+        "Distortion",
+        "Ethereal Chains",
+        "Mimic"
+      ]
+    },
+    {
+      "id": "LeeSin",
+      "name": "Lee Sin",
+      "title": "the Blind Monk",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "abilities": [
+        "Flurry",
+        "Sonic Wave / Resonating Strike",
+        "Safeguard / Iron Will",
+        "Tempest / Cripple",
+        "Dragon's Rage"
+      ]
+    },
+    {
+      "id": "Leona",
+      "name": "Leona",
+      "title": "the Radiant Dawn",
+      "tags": [
+        "Tank",
+        "Support"
+      ],
+      "abilities": [
+        "Sunlight",
+        "Shield of Daybreak",
+        "Eclipse",
+        "Zenith Blade",
+        "Solar Flare"
+      ]
+    },
+    {
+      "id": "Lillia",
+      "name": "Lillia",
+      "title": "the Bashful Bloom",
+      "tags": [
+        "Fighter",
+        "Mage"
+      ],
+      "abilities": [
+        "Dream-Laden Bough",
+        "Blooming Blows",
+        "Watch Out! Eep!",
+        "Swirlseed",
+        "Lilting Lullaby"
+      ]
+    },
+    {
+      "id": "Lissandra",
+      "name": "Lissandra",
+      "title": "the Ice Witch",
+      "tags": [
+        "Mage"
+      ],
+      "abilities": [
+        "Iceborn Subjugation",
+        "Ice Shard",
+        "Ring of Frost",
+        "Glacial Path",
+        "Frozen Tomb"
+      ]
+    },
+    {
+      "id": "Locke",
+      "name": "Locke",
+      "title": "the Ashen Exorcist",
+      "tags": [
+        "Assassin",
+        "Mage"
+      ],
+      "abilities": [
+        "Silver Stake",
+        "Ritual Nails",
+        "Soul Ignition",
+        "Ashen Pursuit",
+        "Purgatory"
+      ]
+    },
+    {
+      "id": "Lucian",
+      "name": "Lucian",
+      "title": "the Purifier",
+      "tags": [
+        "Marksman",
+        "Assassin"
+      ],
+      "abilities": [
+        "Lightslinger",
+        "Piercing Light",
+        "Ardent Blaze",
+        "Relentless Pursuit",
+        "The Culling"
+      ]
+    },
+    {
+      "id": "Lulu",
+      "name": "Lulu",
+      "title": "the Fae Sorceress",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "abilities": [
+        "Pix, Faerie Companion",
+        "Glitterlance",
+        "Whimsy",
+        "Help, Pix!",
+        "Wild Growth"
+      ]
+    },
+    {
+      "id": "Lux",
+      "name": "Lux",
+      "title": "the Lady of Luminosity",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "abilities": [
+        "Illumination",
+        "Light Binding",
+        "Prismatic Barrier",
+        "Lucent Singularity",
+        "Final Spark"
+      ]
+    },
+    {
+      "id": "Malphite",
+      "name": "Malphite",
+      "title": "Shard of the Monolith",
+      "tags": [
+        "Tank",
+        "Mage"
+      ],
+      "abilities": [
+        "Granite Shield",
+        "Seismic Shard",
+        "Thunderclap",
+        "Ground Slam",
+        "Unstoppable Force"
+      ]
+    },
+    {
+      "id": "Malzahar",
+      "name": "Malzahar",
+      "title": "the Prophet of the Void",
+      "tags": [
+        "Mage"
+      ],
+      "abilities": [
+        "Void Shift",
+        "Call of the Void",
+        "Void Swarm",
+        "Malefic Visions",
+        "Nether Grasp"
+      ]
+    },
+    {
+      "id": "Maokai",
+      "name": "Maokai",
+      "title": "the Twisted Treant",
+      "tags": [
+        "Tank",
+        "Support"
+      ],
+      "abilities": [
+        "Sap Magic",
+        "Bramble Smash",
+        "Twisted Advance",
+        "Sapling Toss",
+        "Nature's Grasp"
+      ]
+    },
+    {
+      "id": "MasterYi",
+      "name": "Master Yi",
+      "title": "the Wuju Bladesman",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "abilities": [
+        "Double Strike",
+        "Alpha Strike",
+        "Meditate",
+        "Wuju Style",
+        "Highlander"
+      ]
+    },
+    {
+      "id": "Mel",
+      "name": "Mel",
+      "title": "the Soul's Reflection",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "abilities": [
+        "Searing Brilliance",
+        "Radiant Volley",
+        "Rebuttal",
+        "Solar Snare",
+        "Golden Eclipse"
+      ]
+    },
+    {
+      "id": "Milio",
+      "name": "Milio",
+      "title": "The Gentle Flame",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "abilities": [
+        "Fired Up!",
+        "Ultra Mega Fire Kick",
+        "Cozy Campfire",
+        "Warm Hugs",
+        "Breath of Life"
+      ]
+    },
+    {
+      "id": "MissFortune",
+      "name": "Miss Fortune",
+      "title": "the Bounty Hunter",
+      "tags": [
+        "Marksman",
+        "Mage"
+      ],
+      "abilities": [
+        "Love Tap",
+        "Double Up",
+        "Strut",
+        "Make It Rain",
+        "Bullet Time"
+      ]
+    },
+    {
+      "id": "Mordekaiser",
+      "name": "Mordekaiser",
+      "title": "the Iron Revenant",
+      "tags": [
+        "Fighter",
+        "Mage"
+      ],
+      "abilities": [
+        "Darkness Rise",
+        "Obliterate",
+        "Indestructible",
+        "Death's Grasp",
+        "Realm of Death"
+      ]
+    },
+    {
+      "id": "Morgana",
+      "name": "Morgana",
+      "title": "the Fallen",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "abilities": [
+        "Soul Siphon",
+        "Dark Binding",
+        "Tormented Shadow",
+        "Black Shield",
+        "Soul Shackles"
+      ]
+    },
+    {
+      "id": "Naafiri",
+      "name": "Naafiri",
+      "title": "the Hound of a Hundred Bites",
+      "tags": [
+        "Assassin",
+        "Fighter"
+      ],
+      "abilities": [
+        "We Are More",
+        "Darkin Daggers",
+        "The Call of the Pack",
+        "Eviscerate",
+        "Hounds' Pursuit"
+      ]
+    },
+    {
+      "id": "Nami",
+      "name": "Nami",
+      "title": "the Tidecaller",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "abilities": [
+        "Surging Tides",
+        "Aqua Prison",
+        "Ebb and Flow",
+        "Tidecaller's Blessing",
+        "Tidal Wave"
+      ]
+    },
+    {
+      "id": "Nasus",
+      "name": "Nasus",
+      "title": "the Curator of the Sands",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "abilities": [
+        "Soul Eater",
+        "Siphoning Strike",
+        "Wither",
+        "Spirit Fire",
+        "Fury of the Sands"
+      ]
+    },
+    {
+      "id": "Nautilus",
+      "name": "Nautilus",
+      "title": "the Titan of the Depths",
+      "tags": [
+        "Tank",
+        "Support"
+      ],
+      "abilities": [
+        "Staggering Blow",
+        "Dredge Line",
+        "Titan's Wrath",
+        "Riptide",
+        "Depth Charge"
+      ]
+    },
+    {
+      "id": "Neeko",
+      "name": "Neeko",
+      "title": "the Curious Chameleon",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "abilities": [
+        "Inherent Glamour",
+        "Blooming Burst",
+        "Shapesplitter",
+        "Tangle-Barbs",
+        "Pop Blossom"
+      ]
+    },
+    {
+      "id": "Nidalee",
+      "name": "Nidalee",
+      "title": "the Bestial Huntress",
+      "tags": [
+        "Assassin",
+        "Mage"
+      ],
+      "abilities": [
+        "Prowl",
+        "Javelin Toss / Takedown",
+        "Bushwhack / Pounce",
+        "Primal Surge / Swipe",
+        "Aspect Of The Cougar"
+      ]
+    },
+    {
+      "id": "Nilah",
+      "name": "Nilah",
+      "title": "the Joy Unbound",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "abilities": [
+        "Joy Unending",
+        "Formless Blade",
+        "Jubilant Veil",
+        "Slipstream",
+        "Apotheosis"
+      ]
+    },
+    {
+      "id": "Nocturne",
+      "name": "Nocturne",
+      "title": "the Eternal Nightmare",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "abilities": [
+        "Umbra Blades",
+        "Duskbringer",
+        "Shroud of Darkness",
+        "Unspeakable Horror",
+        "Paranoia"
+      ]
+    },
+    {
+      "id": "Nunu",
+      "name": "Nunu & Willump",
+      "title": "the Boy and His Yeti",
+      "tags": [
+        "Tank",
+        "Mage"
+      ],
+      "abilities": [
+        "Call of the Freljord",
+        "Consume",
+        "Biggest Snowball Ever!",
+        "Snowball Barrage",
+        "Absolute Zero"
+      ]
+    },
+    {
+      "id": "Olaf",
+      "name": "Olaf",
+      "title": "the Berserker",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "abilities": [
+        "Berserker Rage",
+        "Undertow",
+        "Tough It Out",
+        "Reckless Swing",
+        "Ragnarok"
+      ]
+    },
+    {
+      "id": "Orianna",
+      "name": "Orianna",
+      "title": "the Lady of Clockwork",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "abilities": [
+        "Clockwork Windup",
+        "Command: Attack",
+        "Command: Dissonance",
+        "Command: Protect",
+        "Command: Shockwave"
+      ]
+    },
+    {
+      "id": "Ornn",
+      "name": "Ornn",
+      "title": "The Fire below the Mountain",
+      "tags": [
+        "Tank"
+      ],
+      "abilities": [
+        "Living Forge",
+        "Volcanic Rupture",
+        "Bellows Breath",
+        "Searing Charge",
+        "Call of the Forge God"
+      ]
+    },
+    {
+      "id": "Pantheon",
+      "name": "Pantheon",
+      "title": "the Unbreakable Spear",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "abilities": [
+        "Mortal Will",
+        "Comet Spear",
+        "Shield Vault",
+        "Aegis Assault",
+        "Grand Starfall"
+      ]
+    },
+    {
+      "id": "Poppy",
+      "name": "Poppy",
+      "title": "Keeper of the Hammer",
+      "tags": [
+        "Tank",
+        "Fighter"
+      ],
+      "abilities": [
+        "Iron Ambassador",
+        "Hammer Shock",
+        "Steadfast Presence",
+        "Heroic Charge",
+        "Keeper's Verdict"
+      ]
+    },
+    {
+      "id": "Pyke",
+      "name": "Pyke",
+      "title": "the Bloodharbor Ripper",
+      "tags": [
+        "Support",
+        "Assassin"
+      ],
+      "abilities": [
+        "Gift of the Drowned Ones",
+        "Bone Skewer",
+        "Ghostwater Dive",
+        "Phantom Undertow",
+        "Death From Below"
+      ]
+    },
+    {
+      "id": "Qiyana",
+      "name": "Qiyana",
+      "title": "Empress of the Elements",
+      "tags": [
+        "Assassin"
+      ],
+      "abilities": [
+        "Royal Privilege",
+        "Elemental Wrath / Edge of Ixtal",
+        "Terrashape",
+        "Audacity",
+        "Supreme Display of Talent"
+      ]
+    },
+    {
+      "id": "Quinn",
+      "name": "Quinn",
+      "title": "Demacia's Wings",
+      "tags": [
+        "Marksman",
+        "Assassin"
+      ],
+      "abilities": [
+        "Harrier",
+        "Blinding Assault",
+        "Heightened Senses",
+        "Vault",
+        "Behind Enemy Lines"
+      ]
+    },
+    {
+      "id": "Rakan",
+      "name": "Rakan",
+      "title": "The Charmer",
+      "tags": [
+        "Support"
+      ],
+      "abilities": [
+        "Fey Feathers",
+        "Gleaming Quill",
+        "Grand Entrance",
+        "Battle Dance",
+        "The Quickness"
+      ]
+    },
+    {
+      "id": "Rammus",
+      "name": "Rammus",
+      "title": "the Armordillo",
+      "tags": [
+        "Tank"
+      ],
+      "abilities": [
+        "Spiked Shell",
+        "Powerball",
+        "Defensive Ball Curl",
+        "Frenzying Taunt",
+        "Soaring Slam"
+      ]
+    },
+    {
+      "id": "RekSai",
+      "name": "Rek'Sai",
+      "title": "the Void Burrower",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "abilities": [
+        "Fury of the Xer'Sai",
+        "Queen's Wrath / Prey Seeker",
+        "Burrow / Un-burrow",
+        "Furious Bite / Tunnel",
+        "Void Rush"
+      ]
+    },
+    {
+      "id": "Rell",
+      "name": "Rell",
+      "title": "the Iron Maiden",
+      "tags": [
+        "Tank",
+        "Support"
+      ],
+      "abilities": [
+        "Break the Mold",
+        "Shattering Strike",
+        "Ferromancy: Crash Down",
+        "Full Tilt",
+        "Magnet Storm"
+      ]
+    },
+    {
+      "id": "Renata",
+      "name": "Renata Glasc",
+      "title": "the Chem-Baroness",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "abilities": [
+        "Leverage",
+        "Handshake",
+        "Bailout",
+        "Loyalty Program",
+        "Hostile Takeover"
+      ]
+    },
+    {
+      "id": "Renekton",
+      "name": "Renekton",
+      "title": "the Butcher of the Sands",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "abilities": [
+        "Reign of Anger",
+        "Cull the Meek",
+        "Ruthless Predator",
+        "Slice and Dice",
+        "Dominus"
+      ]
+    },
+    {
+      "id": "Rengar",
+      "name": "Rengar",
+      "title": "the Pridestalker",
+      "tags": [
+        "Assassin",
+        "Fighter"
+      ],
+      "abilities": [
+        "Unseen Predator",
+        "Savagery",
+        "Battle Roar",
+        "Bola Strike",
+        "Thrill of the Hunt"
+      ]
+    },
+    {
+      "id": "Riven",
+      "name": "Riven",
+      "title": "the Exile",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "abilities": [
+        "Runic Blade",
+        "Broken Wings",
+        "Ki Burst",
+        "Valor",
+        "Blade of the Exile"
+      ]
+    },
+    {
+      "id": "Rumble",
+      "name": "Rumble",
+      "title": "the Mechanized Menace",
+      "tags": [
+        "Fighter",
+        "Mage"
+      ],
+      "abilities": [
+        "Junkyard Titan",
+        "Flamespitter",
+        "Scrap Shield",
+        "Electro Harpoon",
+        "The Equalizer"
+      ]
+    },
+    {
+      "id": "Ryze",
+      "name": "Ryze",
+      "title": "the Rune Mage",
+      "tags": [
+        "Mage"
+      ],
+      "abilities": [
+        "Arcane Mastery",
+        "Overload",
+        "Rune Prison",
+        "Spell Flux",
+        "Realm Warp"
+      ]
+    },
+    {
+      "id": "Samira",
+      "name": "Samira",
+      "title": "the Desert Rose",
+      "tags": [
+        "Marksman",
+        "Assassin"
+      ],
+      "abilities": [
+        "Daredevil Impulse",
+        "Flair",
+        "Blade Whirl",
+        "Wild Rush",
+        "Inferno Trigger"
+      ]
+    },
+    {
+      "id": "Sejuani",
+      "name": "Sejuani",
+      "title": "Fury of the North",
+      "tags": [
+        "Tank"
+      ],
+      "abilities": [
+        "Fury of the North",
+        "Arctic Assault",
+        "Winter's Wrath",
+        "Permafrost",
+        "Glacial Prison"
+      ]
+    },
+    {
+      "id": "Senna",
+      "name": "Senna",
+      "title": "the Redeemer",
+      "tags": [
+        "Support",
+        "Marksman"
+      ],
+      "abilities": [
+        "Absolution",
+        "Piercing Darkness",
+        "Last Embrace",
+        "Curse of the Black Mist",
+        "Dawning Shadow"
+      ]
+    },
+    {
+      "id": "Seraphine",
+      "name": "Seraphine",
+      "title": "the Starry-Eyed Songstress",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "abilities": [
+        "Stage Presence",
+        "High Note",
+        "Surround Sound",
+        "Beat Drop",
+        "Encore"
+      ]
+    },
+    {
+      "id": "Sett",
+      "name": "Sett",
+      "title": "the Boss",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "abilities": [
+        "Pit Grit",
+        "Knuckle Down",
+        "Haymaker",
+        "Facebreaker",
+        "The Show Stopper"
+      ]
+    },
+    {
+      "id": "Shaco",
+      "name": "Shaco",
+      "title": "the Demon Jester",
+      "tags": [
+        "Assassin"
+      ],
+      "abilities": [
+        "Backstab",
+        "Deceive",
+        "Jack In The Box",
+        "Two-Shiv Poison",
+        "Hallucinate"
+      ]
+    },
+    {
+      "id": "Shen",
+      "name": "Shen",
+      "title": "the Eye of Twilight",
+      "tags": [
+        "Tank"
+      ],
+      "abilities": [
+        "Ki Barrier",
+        "Twilight Assault",
+        "Spirit's Refuge",
+        "Shadow Dash",
+        "Stand United"
+      ]
+    },
+    {
+      "id": "Shyvana",
+      "name": "Shyvana",
+      "title": "the Half-Dragon",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "abilities": [
+        "Scalemail",
+        "Emberstrike",
+        "Inferno Aegis",
+        "Molten Burst",
+        "Dragon's Descent"
+      ]
+    },
+    {
+      "id": "Singed",
+      "name": "Singed",
+      "title": "the Mad Chemist",
+      "tags": [
+        "Tank",
+        "Mage"
+      ],
+      "abilities": [
+        "Noxious Slipstream",
+        "Poison Trail",
+        "Mega Adhesive",
+        "Fling",
+        "Insanity Potion"
+      ]
+    },
+    {
+      "id": "Sion",
+      "name": "Sion",
+      "title": "The Undead Juggernaut",
+      "tags": [
+        "Tank",
+        "Fighter"
+      ],
+      "abilities": [
+        "Glory in Death",
+        "Decimating Smash",
+        "Soul Furnace",
+        "Roar of the Slayer",
+        "Unstoppable Onslaught"
+      ]
+    },
+    {
+      "id": "Sivir",
+      "name": "Sivir",
+      "title": "the Battle Mistress",
+      "tags": [
+        "Marksman"
+      ],
+      "abilities": [
+        "Fleet of Foot",
+        "Boomerang Blade",
+        "Ricochet",
+        "Spell Shield",
+        "On The Hunt"
+      ]
+    },
+    {
+      "id": "Skarner",
+      "name": "Skarner",
+      "title": "the Primordial Sovereign",
+      "tags": [
+        "Tank",
+        "Fighter"
+      ],
+      "abilities": [
+        "Threads of Vibration",
+        "Shattered Earth / Upheaval",
+        "Seismic Bastion",
+        "Ixtal's Impact",
+        "Impale"
+      ]
+    },
+    {
+      "id": "Smolder",
+      "name": "Smolder",
+      "title": "the Fiery Fledgling",
+      "tags": [
+        "Marksman",
+        "Mage"
+      ],
+      "abilities": [
+        "Dragon Practice",
+        "Super Scorcher Breath",
+        "Achooo!",
+        "Flap, Flap, Flap",
+        "MMOOOMMMM!"
+      ]
+    },
+    {
+      "id": "Sona",
+      "name": "Sona",
+      "title": "Maven of the Strings",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "abilities": [
+        "Power Chord",
+        "Hymn of Valor",
+        "Aria of Perseverance",
+        "Song of Celerity",
+        "Crescendo"
+      ]
+    },
+    {
+      "id": "Soraka",
+      "name": "Soraka",
+      "title": "the Starchild",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "abilities": [
+        "Salvation",
+        "Starcall",
+        "Astral Infusion",
+        "Equinox",
+        "Wish"
+      ]
+    },
+    {
+      "id": "Swain",
+      "name": "Swain",
+      "title": "the Noxian Grand General",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "abilities": [
+        "Ravenous Flock",
+        "Death's Hand",
+        "Vision of Empire",
+        "Nevermove",
+        "Demonic Ascension"
+      ]
+    },
+    {
+      "id": "Sylas",
+      "name": "Sylas",
+      "title": "the Unshackled",
+      "tags": [
+        "Mage",
+        "Assassin"
+      ],
+      "abilities": [
+        "Petricite Burst",
+        "Chain Lash",
+        "Kingslayer",
+        "Abscond / Abduct",
+        "Hijack"
+      ]
+    },
+    {
+      "id": "Syndra",
+      "name": "Syndra",
+      "title": "the Dark Sovereign",
+      "tags": [
+        "Mage"
+      ],
+      "abilities": [
+        "Transcendent",
+        "Dark Sphere",
+        "Force of Will",
+        "Scatter the Weak",
+        "Unleashed Power"
+      ]
+    },
+    {
+      "id": "TahmKench",
+      "name": "Tahm Kench",
+      "title": "The River King",
+      "tags": [
+        "Tank",
+        "Support"
+      ],
+      "abilities": [
+        "An Acquired Taste",
+        "Tongue Lash",
+        "Abyssal Dive",
+        "Thick Skin",
+        "Devour"
+      ]
+    },
+    {
+      "id": "Taliyah",
+      "name": "Taliyah",
+      "title": "the Stoneweaver",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "abilities": [
+        "Rock Surfing",
+        "Threaded Volley",
+        "Seismic Shove",
+        "Unraveled Earth",
+        "Weaver's Wall"
+      ]
+    },
+    {
+      "id": "Talon",
+      "name": "Talon",
+      "title": "the Blade's Shadow",
+      "tags": [
+        "Assassin"
+      ],
+      "abilities": [
+        "Blade's End",
+        "Noxian Diplomacy",
+        "Rake",
+        "Assassin's Path",
+        "Shadow Assault"
+      ]
+    },
+    {
+      "id": "Taric",
+      "name": "Taric",
+      "title": "the Shield of Valoran",
+      "tags": [
+        "Support",
+        "Tank"
+      ],
+      "abilities": [
+        "Bravado",
+        "Starlight's Touch",
+        "Bastion",
+        "Dazzle",
+        "Cosmic Radiance"
+      ]
+    },
+    {
+      "id": "Teemo",
+      "name": "Teemo",
+      "title": "the Swift Scout",
+      "tags": [
+        "Marksman",
+        "Mage"
+      ],
+      "abilities": [
+        "Guerrilla Warfare",
+        "Blinding Dart",
+        "Move Quick",
+        "Toxic Shot",
+        "Noxious Trap"
+      ]
+    },
+    {
+      "id": "Thresh",
+      "name": "Thresh",
+      "title": "the Chain Warden",
+      "tags": [
+        "Support",
+        "Tank"
+      ],
+      "abilities": [
+        "Damnation",
+        "Death Sentence",
+        "Dark Passage",
+        "Flay",
+        "The Box"
+      ]
+    },
+    {
+      "id": "Tristana",
+      "name": "Tristana",
+      "title": "the Yordle Gunner",
+      "tags": [
+        "Marksman",
+        "Assassin"
+      ],
+      "abilities": [
+        "Draw a Bead",
+        "Rapid Fire",
+        "Rocket Jump",
+        "Explosive Charge",
+        "Buster Shot"
+      ]
+    },
+    {
+      "id": "Trundle",
+      "name": "Trundle",
+      "title": "the Troll King",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "abilities": [
+        "King's Tribute",
+        "Chomp",
+        "Frozen Domain",
+        "Pillar of Ice",
+        "Subjugate"
+      ]
+    },
+    {
+      "id": "Tryndamere",
+      "name": "Tryndamere",
+      "title": "the Barbarian King",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "abilities": [
+        "Battle Fury",
+        "Bloodlust",
+        "Mocking Shout",
+        "Spinning Slash",
+        "Undying Rage"
+      ]
+    },
+    {
+      "id": "TwistedFate",
+      "name": "Twisted Fate",
+      "title": "the Card Master",
+      "tags": [
+        "Mage",
+        "Marksman"
+      ],
+      "abilities": [
+        "Loaded Dice",
+        "Wild Cards",
+        "Pick a Card",
+        "Stacked Deck",
+        "Destiny"
+      ]
+    },
+    {
+      "id": "Twitch",
+      "name": "Twitch",
+      "title": "the Plague Rat",
+      "tags": [
+        "Marksman",
+        "Assassin"
+      ],
+      "abilities": [
+        "Deadly Venom",
+        "Ambush",
+        "Venom Cask",
+        "Contaminate",
+        "Spray and Pray"
+      ]
+    },
+    {
+      "id": "Udyr",
+      "name": "Udyr",
+      "title": "the Spirit Walker",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "abilities": [
+        "Bridge Between",
+        "Wilding Claw",
+        "Iron Mantle",
+        "Blazing Stampede",
+        "Wingborne Storm"
+      ]
+    },
+    {
+      "id": "Urgot",
+      "name": "Urgot",
+      "title": "the Dreadnought",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "abilities": [
+        "Echoing Flames",
+        "Corrosive Charge",
+        "Purge",
+        "Disdain",
+        "Fear Beyond Death"
+      ]
+    },
+    {
+      "id": "Varus",
+      "name": "Varus",
+      "title": "the Arrow of Retribution",
+      "tags": [
+        "Marksman",
+        "Mage"
+      ],
+      "abilities": [
+        "Living Vengeance",
+        "Piercing Arrow",
+        "Blighted Quiver",
+        "Hail of Arrows",
+        "Chain of Corruption"
+      ]
+    },
+    {
+      "id": "Vayne",
+      "name": "Vayne",
+      "title": "the Night Hunter",
+      "tags": [
+        "Marksman",
+        "Assassin"
+      ],
+      "abilities": [
+        "Night Hunter",
+        "Tumble",
+        "Silver Bolts",
+        "Condemn",
+        "Final Hour"
+      ]
+    },
+    {
+      "id": "Veigar",
+      "name": "Veigar",
+      "title": "the Tiny Master of Evil",
+      "tags": [
+        "Mage"
+      ],
+      "abilities": [
+        "Phenomenal Evil Power",
+        "Baleful Strike",
+        "Dark Matter",
+        "Event Horizon",
+        "Primordial Burst"
+      ]
+    },
+    {
+      "id": "Velkoz",
+      "name": "Vel'Koz",
+      "title": "the Eye of the Void",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "abilities": [
+        "Organic Deconstruction",
+        "Plasma Fission",
+        "Void Rift",
+        "Tectonic Disruption",
+        "Life Form Disintegration Ray"
+      ]
+    },
+    {
+      "id": "Vex",
+      "name": "Vex",
+      "title": "the Gloomist",
+      "tags": [
+        "Mage"
+      ],
+      "abilities": [
+        "Doom 'n Gloom",
+        "Mistral Bolt",
+        "Personal Space",
+        "Looming Darkness",
+        "Shadow Surge"
+      ]
+    },
+    {
+      "id": "Vi",
+      "name": "Vi",
+      "title": "the Piltover Enforcer",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "abilities": [
+        "Blast Shield",
+        "Vault Breaker",
+        "Denting Blows",
+        "Relentless Force",
+        "Cease and Desist"
+      ]
+    },
+    {
+      "id": "Viego",
+      "name": "Viego",
+      "title": "The Ruined King",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "abilities": [
+        "Sovereign's Domination",
+        "Blade of the Ruined King",
+        "Spectral Maw",
+        "Harrowed Path",
+        "Heartbreaker"
+      ]
+    },
+    {
+      "id": "Viktor",
+      "name": "Viktor",
+      "title": "the Herald of the Arcane",
+      "tags": [
+        "Mage"
+      ],
+      "abilities": [
+        "Glorious Evolution",
+        "Siphon Power",
+        "Gravity Field",
+        "Hextech Ray",
+        "Arcane Storm"
+      ]
+    },
+    {
+      "id": "Vladimir",
+      "name": "Vladimir",
+      "title": "the Crimson Reaper",
+      "tags": [
+        "Mage",
+        "Fighter"
+      ],
+      "abilities": [
+        "Crimson Pact",
+        "Transfusion",
+        "Sanguine Pool",
+        "Tides of Blood",
+        "Hemoplague"
+      ]
+    },
+    {
+      "id": "Volibear",
+      "name": "Volibear",
+      "title": "the Relentless Storm",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "abilities": [
+        "The Relentless Storm",
+        "Thundering Smash",
+        "Frenzied Maul",
+        "Sky Splitter",
+        "Stormbringer"
+      ]
+    },
+    {
+      "id": "Warwick",
+      "name": "Warwick",
+      "title": "the Uncaged Wrath of Zaun",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "abilities": [
+        "Eternal Hunger",
+        "Jaws of the Beast",
+        "Blood Hunt",
+        "Primal Howl",
+        "Infinite Duress"
+      ]
+    },
+    {
+      "id": "MonkeyKing",
+      "name": "Wukong",
+      "title": "the Monkey King",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "abilities": [
+        "Stone Skin",
+        "Crushing Blow",
+        "Warrior Trickster",
+        "Nimbus Strike",
+        "Cyclone"
+      ]
+    },
+    {
+      "id": "Xayah",
+      "name": "Xayah",
+      "title": "the Rebel",
+      "tags": [
+        "Marksman"
+      ],
+      "abilities": [
+        "Clean Cuts",
+        "Double Daggers",
+        "Deadly Plumage",
+        "Bladecaller",
+        "Featherstorm"
+      ]
+    },
+    {
+      "id": "Xerath",
+      "name": "Xerath",
+      "title": "the Magus Ascendant",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "abilities": [
+        "Mana Surge",
+        "Arcanopulse",
+        "Eye of Destruction",
+        "Shocking Orb",
+        "Rite of the Arcane"
+      ]
+    },
+    {
+      "id": "XinZhao",
+      "name": "Xin Zhao",
+      "title": "the Seneschal of Demacia",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "abilities": [
+        "Determination",
+        "Three Talon Strike",
+        "Wind Becomes Lightning",
+        "Audacious Charge",
+        "Crescent Guard"
+      ]
+    },
+    {
+      "id": "Yasuo",
+      "name": "Yasuo",
+      "title": "the Unforgiven",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "abilities": [
+        "Way of the Wanderer",
+        "Steel Tempest",
+        "Wind Wall",
+        "Sweeping Blade",
+        "Last Breath"
+      ]
+    },
+    {
+      "id": "Yone",
+      "name": "Yone",
+      "title": "the Unforgotten",
+      "tags": [
+        "Fighter",
+        "Assassin"
+      ],
+      "abilities": [
+        "Way of the Hunter",
+        "Mortal Steel",
+        "Spirit Cleave",
+        "Soul Unbound",
+        "Fate Sealed"
+      ]
+    },
+    {
+      "id": "Yorick",
+      "name": "Yorick",
+      "title": "Shepherd of Souls",
+      "tags": [
+        "Fighter",
+        "Tank"
+      ],
+      "abilities": [
+        "Shepherd of Souls",
+        "Last Rites",
+        "Dark Procession",
+        "Mourning Mist",
+        "Eulogy of the Isles"
+      ]
+    },
+    {
+      "id": "Yunara",
+      "name": "Yunara",
+      "title": "the Unbroken Faith",
+      "tags": [
+        "Marksman"
+      ],
+      "abilities": [
+        "Vow of the First Lands",
+        "Cultivation of Spirit",
+        "Arc of Judgment | Arc of Ruin",
+        "Kanmei's Steps | Untouchable Shadow",
+        "Transcend One's Self"
+      ]
+    },
+    {
+      "id": "Yuumi",
+      "name": "Yuumi",
+      "title": "the Magical Cat",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "abilities": [
+        "Feline Friendship",
+        "Prowling Projectile",
+        "You and Me!",
+        "Zoomies",
+        "Final Chapter"
+      ]
+    },
+    {
+      "id": "Zaahen",
+      "name": "Zaahen",
+      "title": "The Unsundered",
+      "tags": [
+        "Fighter"
+      ],
+      "abilities": [
+        "Cultivation of War",
+        "The Darkin Glaive",
+        "Dreaded Return",
+        "Aureate Rush",
+        "Grim Deliverance"
+      ]
+    },
+    {
+      "id": "Zac",
+      "name": "Zac",
+      "title": "the Secret Weapon",
+      "tags": [
+        "Tank",
+        "Fighter"
+      ],
+      "abilities": [
+        "Cell Division",
+        "Stretching Strikes",
+        "Unstable Matter",
+        "Elastic Slingshot",
+        "Let's Bounce!"
+      ]
+    },
+    {
+      "id": "Zed",
+      "name": "Zed",
+      "title": "the Master of Shadows",
+      "tags": [
+        "Assassin"
+      ],
+      "abilities": [
+        "Contempt for the Weak",
+        "Razor Shuriken",
+        "Living Shadow",
+        "Shadow Slash",
+        "Death Mark"
+      ]
+    },
+    {
+      "id": "Zeri",
+      "name": "Zeri",
+      "title": "The Spark of Zaun",
+      "tags": [
+        "Marksman"
+      ],
+      "abilities": [
+        "Living Battery",
+        "Burst Fire",
+        "Ultrashock Laser",
+        "Spark Surge",
+        "Lightning Crash"
+      ]
+    },
+    {
+      "id": "Ziggs",
+      "name": "Ziggs",
+      "title": "the Hexplosives Expert",
+      "tags": [
+        "Mage"
+      ],
+      "abilities": [
+        "Short Fuse",
+        "Bouncing Bomb",
+        "Satchel Charge",
+        "Hexplosive Minefield",
+        "Mega Inferno Bomb"
+      ]
+    },
+    {
+      "id": "Zilean",
+      "name": "Zilean",
+      "title": "the Chronokeeper",
+      "tags": [
+        "Support",
+        "Mage"
+      ],
+      "abilities": [
+        "Time In A Bottle",
+        "Time Bomb",
+        "Rewind",
+        "Time Warp",
+        "Chronoshift"
+      ]
+    },
+    {
+      "id": "Zoe",
+      "name": "Zoe",
+      "title": "the Aspect of Twilight",
+      "tags": [
+        "Mage"
+      ],
+      "abilities": [
+        "More Sparkles!",
+        "Paddle Star!",
+        "Spell Thief",
+        "Sleepy Trouble Bubble",
+        "Portal Jump"
+      ]
+    },
+    {
+      "id": "Zyra",
+      "name": "Zyra",
+      "title": "Rise of the Thorns",
+      "tags": [
+        "Mage",
+        "Support"
+      ],
+      "abilities": [
+        "Garden of Thorns",
+        "Deadly Spines",
+        "Rampant Growth",
+        "Grasping Roots",
+        "Stranglethorns"
+      ]
+    }
+  ]
+}

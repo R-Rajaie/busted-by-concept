@@ -11,7 +11,7 @@ The repo is private. Podcast content is not ours to redistribute.
 Each stage reads the previous stage's output and writes its own. Stages are keyed by `episode_id` (for YouTube sources, the video id).
 
 1. **ingest**: download audio via yt-dlp from the YouTube playlist in `src/coach/config.py` → `data/audio/<id>.<ext>` plus `data/audio/<id>.json` (`Episode` metadata; written last, so it marks completion)
-2. **transcribe**: WhisperX large-v3 with VAD, diarization, word timestamps, and per-episode hotwords, then speaker identification against enrolled host voiceprints → `data/transcripts/raw/`
+2. **transcribe**: WhisperX large-v3 with VAD, diarization, word timestamps, and per-episode hotwords, then speaker identification against enrolled host voiceprints → `data/transcripts/raw/`. Currently implemented with faster-whisper (`distil-large-v3`, CPU int8, ~1.8x realtime) and no diarization, so every lesson's `speaker` is `uncertain` until diarization and speaker ID land. `--max-seconds N` writes a `partial` transcript for testing; downstream stages redo an episode when its partial flag changes.
 3. **correct**: glossary fuzzy + phonetic matching, then an LLM proper-noun pass → `data/transcripts/clean/`
 4. **distill**: an LLM extracts structured lessons as JSON → `data/lessons/`
 5. **consolidate**: cluster lessons into concepts, label each lesson's status chronologically, and write concept cards → `data/concepts/`
@@ -49,7 +49,7 @@ tests/
 ```
 uv sync
 uv run python -m coach.ingest --all                # --episode <id>, --limit N, --cookies cookies.txt
-uv run python -m coach.transcribe --episode <id>   # or --all
+uv run python -m coach.transcribe --episode <id>   # or --all; --limit N, --max-seconds N, --model
 uv run python -m coach.correct --all
 uv run python -m coach.distill --all
 uv run python -m coach.consolidate --all            # or --episode <id> to update only touched concepts
@@ -141,5 +141,11 @@ Run `coach.eval` before and after the change, and report both hit rates. Most qu
 ## TODO / unknowns
 
 - <PODCAST_NAME> (source is the YouTube playlist in `src/coach/config.py`)
-- Transcription hardware: local GPU or hosted API
-- Vector store choice (pgvector, Chroma, or LanceDB)
+- Transcription hardware: the dev machine has no CUDA GPU, so only sample episodes are transcribed locally on CPU. The full 530-hour run still needs a GPU or hosted API (undecided).
+- Diarization and host speaker ID: not built yet (pyannote needs a Hugging Face token)
+
+## Decisions
+
+- **LLM backend**: `coach.llm` shells out to the Claude Code CLI (`claude -p`, tool-less, own system prompt, `--json-schema` for structured output), so it runs on the user's Claude subscription with no API key. `FAST_MODEL` (haiku) handles bulk correction; `SMART_MODEL` (sonnet) handles distill and anything needing judgment.
+- **Vector store**: LanceDB, embedded under `data/index/`.
+- **PyAV is pinned below 16**: newer releases dropped an `av.open` argument that faster-whisper 1.2.1 still passes.

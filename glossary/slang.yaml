@@ -1,0 +1,36 @@
+# Hand-curated League jargon and host catchphrases. Do not bulk-generate.
+# Add a term when an eval or correction log shows Whisper missing it.
+#   term:     canonical spelling
+#   misheard: transcription errors seen in practice (used by the fuzzy matcher)
+#   meaning:  short gloss, for the LLM correction pass
+#   core:     true = always included in the per-episode hotword list
+
+- {term: CS, meaning: creep score, core: true}
+- {term: SoloQ, misheard: [solo queue, solo cue], meaning: ranked solo/duo queue, core: true}
+- {term: gank, meaning: jungler attacking a lane, core: true}
+- {term: jungler, meaning: jungle role player, core: true}
+- {term: ADC, misheard: [A.D.C., a DC], meaning: bot lane carry, core: true}
+- {term: wave management, meaning: controlling minion wave position, core: true}
+- {term: freeze, meaning: holding the wave near your tower, core: true}
+- {term: slow push, meaning: building a large wave gradually, core: true}
+- {term: crash, meaning: pushing a wave into the enemy tower, core: true}
+- {term: back timing, misheard: [back time], meaning: when to recall, core: true}
+- {term: tempo, meaning: time advantage from moving first, core: true}
+- {term: prio, misheard: [preo, pre-o], meaning: lane priority, core: true}
+- {term: roam, meaning: leaving lane to affect another, core: true}
+- {term: TP, misheard: [teepee], meaning: Teleport summoner spell, core: true}
+- {term: Flash, meaning: Flash summoner spell, core: true}
+- {term: Ignite, meaning: Ignite summoner spell, core: true}
+- {term: Baron, misheard: [barren], meaning: Baron Nashor objective, core: true}
+- {term: Herald, meaning: Rift Herald objective, core: true}
+- {term: Voidgrubs, misheard: [void grubs], meaning: early void objective, core: true}
+- {term: Atakhan, misheard: [Atta Khan, a taccan], meaning: mid-game objective, core: true}
+- {term: dragon soul, meaning: fourth-dragon buff, core: true}
+- {term: Elder, meaning: Elder Dragon, core: true}
+- {term: tilt, meaning: playing worse from frustration, core: true}
+- {term: MMR, meaning: hidden matchmaking rating, core: true}
+- {term: LP, misheard: [L.P.], meaning: league points, core: true}
+- {term: win con, misheard: [wing con, wincon, win khan], meaning: win condition, core: true}
+- {term: side laning, misheard: [side landing], meaning: pushing a side lane alone, core: true}
+- {term: sync pressure, misheard: [sinking pressure, sink pressure], meaning: syncing timings with teammates to apply pressure}
+- {term: Elo, misheard: [Ilo, Eelo], meaning: skill rating / rank bracket, core: true}
