@@ -17,6 +17,9 @@ from coach.ingest.youtube import download_episode, list_playlist
 
 log = logging.getLogger("coach.ingest")
 
+BOT_BLOCK = "not a bot"  # from YouTube's "Sign in to confirm you're not a bot"
+MAX_BOT_BLOCKS = 3  # consecutive blocks before giving up on this run
+
 
 def is_ingested(episode_id: str, audio_dir: Path) -> bool:
     meta = audio_dir / f"{episode_id}.json"
@@ -57,6 +60,7 @@ def main(argv: list[str] | None = None) -> int:
         targets = [(None, vid, "") for vid in args.episode]
 
     downloaded, skipped, failed = 0, 0, []
+    attempted, bot_blocks = 0, 0
     for n, (index, video_id, title) in enumerate(targets, start=1):
         tag = f"[{n}/{len(targets)}] {video_id}"
         if not args.force and is_ingested(video_id, args.out):
@@ -65,15 +69,21 @@ def main(argv: list[str] | None = None) -> int:
         if args.limit is not None and downloaded >= args.limit:
             log.info("hit --limit %d, stopping", args.limit)
             break
-        if downloaded:
+        if attempted:  # pause after failures too, or a block turns into a request flood
             time.sleep(random.uniform(0.5, 1.5) * args.sleep)
+        attempted += 1
         log.info("%s downloading %s", tag, title)
         try:
             episode = download_episode(video_id, args.out, index, cookies=args.cookies)
         except Exception as e:  # keep going; a rerun picks failures back up
             log.error("%s failed: %s", tag, e)
             failed.append(video_id)
+            bot_blocks = bot_blocks + 1 if BOT_BLOCK in str(e) else 0
+            if bot_blocks >= MAX_BOT_BLOCKS:
+                log.error("YouTube is bot-blocking; stopping. Wait, or rerun with --cookies")
+                break
             continue
+        bot_blocks = 0
         write_episode(episode, args.out)
         downloaded += 1
         log.info("%s done -> %s", tag, episode.audio_file)
