@@ -1,10 +1,12 @@
 """Speaker diarization with pyannote, and assigning its labels to whisper's words.
 
 Needs the `diarize` extra (`uv sync --extra diarize`) and `HF_TOKEN` in `.env`: the pipeline
-is gated, so accept its terms on Hugging Face first.
+is gated, so accept its terms on Hugging Face first. With `HF_HUB_OFFLINE=1` and the models
+already in the Hugging Face cache (as on Kaggle), no token is needed.
 """
 
 import logging
+import os
 from bisect import bisect_left
 from collections import defaultdict
 from dataclasses import dataclass
@@ -38,7 +40,7 @@ def load_pipeline(device: str):
     from pyannote.audio import Pipeline
 
     token = env.get("HF_TOKEN")
-    if not token:
+    if not token and not os.environ.get("HF_HUB_OFFLINE"):  # offline: models already cached
         raise RuntimeError(f"HF_TOKEN is not set; diarization needs it to download {PIPELINE}")
     log.info("loading %s (%s)", PIPELINE, device)
     pipeline = Pipeline.from_pretrained(PIPELINE, use_auth_token=token)

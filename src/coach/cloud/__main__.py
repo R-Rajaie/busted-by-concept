@@ -50,12 +50,32 @@ def shrink_all(episodes: list[Episode], out_dir: Path, workers: int) -> list[Epi
     return small
 
 
-def pack(args: argparse.Namespace) -> int:
-    episodes = [
+def add_code(tar: tarfile.TarFile) -> None:
+    """The repo's files at their repo paths: tracked plus untracked-but-not-ignored, so
+    uncommitted edits go along and secrets (`.env`, cookies) don't."""
+    files = subprocess.run(
+        ["git", "ls-files", "-z", "--cached", "--others", "--exclude-standard"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.split("\0")
+    for f in filter(None, files):
+        if (ROOT / f).is_file():  # skip files deleted but not yet committed
+            tar.add(ROOT / f, arcname=f, recursive=False)
+
+
+def pending() -> list[Episode]:
+    """Ingested episodes without a finished, diarized transcript."""
+    return [
         e
         for e in ingested_episodes(AUDIO_DIR)
-        if not is_transcribed(e.episode_id, TRANSCRIPTS_RAW_DIR, True)
+        if not is_transcribed(e.episode_id, TRANSCRIPTS_RAW_DIR, need_diarized=True)
     ]
+
+
+def pack(args: argparse.Namespace) -> int:
+    episodes = pending()
     if args.limit:
         episodes = episodes[: args.limit]
     if not episodes:
@@ -64,19 +84,9 @@ def pack(args: argparse.Namespace) -> int:
     audio_dir = CLOUD_DIR / "audio"
     small = shrink_all(episodes, audio_dir, args.workers)
 
-    tracked = subprocess.run(
-        ["git", "ls-files", "-z", "--cached", "--others", "--exclude-standard"],
-        cwd=ROOT,
-        check=True,
-        capture_output=True,
-        text=True,
-    ).stdout.split("\0")
     bundle = CLOUD_DIR / "bundle.tar"
     with tarfile.open(bundle, "w") as tar:
-        for f in filter(None, tracked):  # uncommitted edits included; .gitignore'd files not
-            if not (ROOT / f).is_file():
-                continue
-            tar.add(ROOT / f, arcname=f, recursive=False)
+        add_code(tar)
         for e in small:
             for name in (e.audio_file, f"{e.episode_id}.json"):
                 tar.add(audio_dir / name, arcname=f"data/audio/{name}")

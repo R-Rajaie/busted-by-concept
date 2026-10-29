@@ -1,7 +1,44 @@
-# GPU run on a rented cloud box
+# GPU run in the cloud
 
-Transcribe and diarize every episode on a rented GPU, then bring the transcripts home.
+Transcribe and diarize every episode on a cloud GPU, then bring the transcripts home.
 Everything after transcription (speaker ID, correct, distill, ...) runs on the laptop.
+
+There are two ways: **Kaggle** (free, the one in use) and a **rented GPU** (RunPod, paid).
+
+# Kaggle (free)
+
+Kaggle gives about 30 free GPU hours a week, in sessions of up to 12 hours on two T4s.
+`coach.cloud.kaggle` uploads the audio once as a private dataset, then pushes a script kernel
+per batch, waits for it, downloads the finished transcripts, and pushes the next batch with
+whatever is left. Measured on the trial: about 14x realtime per T4 including diarization,
+so ~500 hours of audio is about 18 GPU hours, two sessions.
+
+Once: verify your phone number on Kaggle (needed for GPUs and internet), create an API token
+(Settings → API), and save it as `~/.kaggle/access_token`. Also do step 0 below (Hugging Face).
+
+```
+uv sync --extra pack --extra diarize
+uv run python -m coach.cloud.kaggle prepare --limit 2   # trial: two episodes
+uv run python -m coach.cloud.kaggle upload
+uv run python -m coach.cloud.kaggle run --max-batches 1
+uv run python -m coach.cloud.kaggle prepare             # then everything
+uv run python -m coach.cloud.kaggle upload
+uv run python -m coach.cloud.kaggle run                 # leave the laptop on; hours
+```
+
+- The gated pyannote models are copied into the private audio dataset, so Kaggle never gets
+  the Hugging Face token. The kernel loads them offline (`HF_HUB_OFFLINE`, `PYANNOTE_CACHE`).
+- Kaggle runs `large-v3-turbo` rather than `large-v3`: several times faster on a T4, nearly
+  as accurate.
+- Each batch stops itself at 11 hours so its outputs are saved; `run` then pushes the next.
+  It stops if a batch finishes nothing (quota used up, or a setup error: see the logs in
+  `data/cloud/kaggle/out/`).
+- `uv run python -m coach.cloud.kaggle status` shows the kernel's state and what's left.
+- Episodes downloaded later: `prepare` and `upload` again, then `run`.
+
+Then go to step 8 below.
+
+# Rented GPU (RunPod)
 
 The steps assume RunPod. Any Linux box with an NVIDIA GPU works the same way; only the file
 transfer differs (use `scp` on Vast.ai, for example).

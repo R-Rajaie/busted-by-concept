@@ -24,6 +24,7 @@ diarize = [
 ]
 pack = [
     "imageio-ffmpeg>=0.7.0",
+    "kaggle>=2.2.5",
 ]
 
 [dependency-groups]

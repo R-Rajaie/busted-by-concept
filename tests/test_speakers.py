@@ -119,3 +119,9 @@ def test_enroll_drops_chunks_unlike_the_rest():
 def test_video_id_from_urls():
     assert video_id("https://www.youtube.com/watch?v=Dn2l7Kg8bb4&t=3") == "Dn2l7Kg8bb4"
     assert video_id("https://youtu.be/qq5_nuL2Q5U") == "qq5_nuL2Q5U"
+
+
+def test_kaggle_job_has_the_batch_placeholder():
+    from coach.cloud import kaggle
+
+    assert "EPISODES: list[str] = []" in kaggle.JOB.read_text(encoding="utf-8")

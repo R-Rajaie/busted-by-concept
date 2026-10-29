@@ -11,7 +11,7 @@ The repo is private. Podcast content is not ours to redistribute.
 Each stage reads the previous stage's output and writes its own. Stages are keyed by `episode_id` (for YouTube sources, the video id).
 
 1. **ingest**: download audio via yt-dlp from the YouTube playlist in `src/coach/config.py` → `data/audio/<id>.<ext>` plus `data/audio/<id>.json` (`Episode` metadata; written last, so it marks completion)
-2. **transcribe**: faster-whisper with VAD, word timestamps, and per-episode hotwords, plus pyannote 3.1 diarization (`--diarize`) that labels every word with an anonymous speaker and stores each speaker's embedding → `data/transcripts/raw/`. On CPU it runs `distil-large-v3` int8 (~1.8x realtime, samples only); on a CUDA GPU it runs `large-v3` float16, batched. The full run happens on a rented GPU: see `docs/cloud.md`. `--max-seconds N` writes a `partial` transcript for testing; downstream stages redo an episode when its partial or diarized flag changes.
+2. **transcribe**: faster-whisper with VAD, word timestamps, and per-episode hotwords, plus pyannote 3.1 diarization (`--diarize`) that labels every word with an anonymous speaker and stores each speaker's embedding → `data/transcripts/raw/`. On CPU it runs `distil-large-v3` int8 (~1.8x realtime, samples only); on a CUDA GPU it runs `large-v3` float16, batched. The full run happens on Kaggle's free T4s (`coach.cloud.kaggle`, with `large-v3-turbo`): see `docs/cloud.md`. `--max-seconds N` writes a `partial` transcript for testing; downstream stages redo an episode when its partial or diarized flag changes.
    - **speakers**: map each episode's diarized speakers to hosts by voiceprint → `data/speakers/`. Cheap, so it always redoes every episode.
 3. **correct**: glossary fuzzy + phonetic matching, then an LLM proper-noun pass → `data/transcripts/clean/`
 4. **distill**: an LLM extracts structured lessons as JSON → `data/lessons/`
@@ -60,7 +60,8 @@ uv run python -m coach.transcribe --episode <id>   # or --all; --limit N, --max-
 uv run python -m coach.transcribe --all --device cuda --diarize   # GPU box; needs --extra diarize, HF_TOKEN
 uv run python -m coach.speakers.enroll --host curtis --url <solo clip>   # needs --extra diarize
 uv run python -m coach.speakers                    # diarized speakers -> hosts
-uv run python -m coach.cloud pack                  # needs --extra pack; then unpack results.tar
+uv run python -m coach.cloud.kaggle prepare        # then upload, run, status (Kaggle GPU run)
+uv run python -m coach.cloud pack                  # rented-GPU alternative; then unpack results.tar
 uv run python -m coach.correct --all
 uv run python -m coach.distill --all                # --reattribute: redo speakers only, no LLM
 uv run python -m coach.consolidate --all            # or --episode <id> to update only touched concepts
@@ -157,7 +158,7 @@ Run `coach.eval` before and after the change, and report both hit rates. Most qu
 ## TODO / unknowns
 
 - <PODCAST_NAME> (source is the YouTube playlist in `src/coach/config.py`)
-- The full GPU run (`docs/cloud.md`) hasn't happened yet, so diarization has never run end to end, and the speaker-ID thresholds in `coach/speakers/identify.py` are uncalibrated guesses.
+- The full GPU run (`docs/cloud.md`) hasn't happened yet, so diarization has only been checked on two episodes from the Kaggle trial, and the speaker-ID thresholds in `coach/speakers/identify.py` are uncalibrated guesses.
 - Speaker attribution error hasn't been measured: there's no hand-labeled sample in `src/coach/eval/` yet.
 
 ## Decisions
@@ -168,6 +169,7 @@ Run `coach.eval` before and after the change, and report both hit rates. Most qu
 - **Agent**: `coach.serve.agent` runs its own tool loop on `claude -p` structured output (one tool call or the answer per step, max 6 calls). `RIOT_API_KEY` in `.env` enables match history; Data Dragon and Riot responses are cached under `data/cache/`.
 - **Eval data**: `src/coach/eval/questions.yaml` and `glossary_refs.yaml`. Items marked `verified: false` were seeded by Claude from transcripts and need a human check; the glossary refs in particular were picked from known corrections, so the clean term error rate is optimistic until real listened-to windows replace them.
 - **YouTube bot blocks**: ingest pauses between every attempt and stops after 3 consecutive blocks. Pass `--cookies <file>` with a browser export (cookie files are gitignored).
-- **Transcription hardware**: rent a GPU (an RTX 4090 on RunPod or similar) for the full run, rather than a hosted API, because the run includes diarization. The dev laptop has no CUDA GPU.
+- **Transcription hardware**: Kaggle's free T4 x2 sessions, babysat from the laptop by `coach.cloud.kaggle` (measured ~14x realtime per T4 with diarization, so about 18 GPU hours for the archive). A rented GPU (`coach.cloud pack`, `scripts/cloud/run.sh`) is the paid fallback. Not a hosted API, because the run includes diarization. The dev laptop has no CUDA GPU.
+- **Kaggle specifics**: the gated pyannote models travel inside the private audio dataset and load offline, so the Hugging Face token never goes to Kaggle. pyannote reads its own `PYANNOTE_CACHE`, not `HF_HOME`. Kaggle extracts uploaded tar files, so the kernel accepts either form.
 - **Diarization pins**: the `diarize` extra pins `pyannote.audio<4`, `torch<2.6` (2.6 changed `torch.load` defaults and pyannote 3.x checkpoints fail to load), and `huggingface-hub<1` (1.0 dropped the `use_auth_token` argument pyannote 3.x passes).
 - **PyAV is pinned below 16**: newer releases dropped an `av.open` argument that faster-whisper 1.2.1 still passes.
