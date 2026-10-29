@@ -2,25 +2,29 @@
 
 uv run python -m coach.distill --all
 uv run python -m coach.distill --episode <id>
+uv run python -m coach.distill --all --reattribute   # redo only speakers, after coach.speakers
 """
 
 import argparse
 import logging
 import sys
+from collections import defaultdict
 from datetime import date
 from pathlib import Path
 
 from pydantic import BaseModel
 
 from coach import llm
-from coach.config import AUDIO_DIR, LESSONS_DIR, TRANSCRIPTS_CLEAN_DIR
+from coach.config import AUDIO_DIR, LESSONS_DIR, SPEAKERS_DIR, TRANSCRIPTS_CLEAN_DIR
 from coach.correct.models import CleanSegment, CleanTranscript
 from coach.distill.models import EpisodeLessons, ExtractedLesson, Lesson
 from coach.ingest.models import Episode
+from coach.speakers.models import SpeakerMap
 
 log = logging.getLogger("coach.distill")
 
 WINDOW_S = 600  # transcript window per LLM call
+MIN_SHARE = 0.7  # one host must say this much of a lesson's span to be credited with it
 
 SYSTEM = """You extract coaching lessons from a League of Legends improvement podcast.
 
@@ -59,8 +63,37 @@ def windows(segments: list[CleanSegment], size: float = WINDOW_S) -> list[list[C
     return out
 
 
+def load_hosts(episode_id: str, speakers_dir: Path = SPEAKERS_DIR) -> dict[str, str]:
+    """Diarization label -> host for one episode; empty until coach.speakers has run."""
+    path = speakers_dir / f"{episode_id}.json"
+    if not path.exists():
+        return {}
+    return SpeakerMap.model_validate_json(path.read_text(encoding="utf-8")).hosts_by_label()
+
+
+def attribute(start: float, end: float, segments: list[CleanSegment], hosts: dict[str, str]) -> str:
+    """The host who says at least MIN_SHARE of the words in [start, end], else "uncertain".
+
+    Word time is counted, so short interjections and crosstalk weigh little, and a lesson
+    built from a back-and-forth stays uncertain instead of being pinned on one host.
+    """
+    by_host: dict[str, float] = defaultdict(float)
+    for s in segments:
+        if s.end < start or s.start > end:
+            continue
+        for w in s.words:
+            if start <= w.start <= end:
+                by_host[hosts.get(w.speaker or "", "uncertain")] += w.end - w.start
+    total = sum(by_host.values())
+    if not total:
+        return "uncertain"
+    best = max(by_host, key=by_host.__getitem__)
+    return best if by_host[best] / total >= MIN_SHARE else "uncertain"
+
+
 def distill(clean: CleanTranscript, episode: Episode) -> EpisodeLessons:
     season, flag = season_for(episode.upload_date)
+    hosts = load_hosts(clean.episode_id)
     lessons: list[Lesson] = []
     chunks = windows(clean.segments)
     for w, chunk in enumerate(chunks, start=1):
@@ -79,12 +112,13 @@ def distill(clean: CleanTranscript, episode: Episode) -> EpisodeLessons:
                     episode_date=episode.upload_date,
                     season=season,
                     season_flag=flag,
-                    # No diarization yet, so nothing can be attributed to a host.
-                    speaker="uncertain",
+                    speaker=attribute(x.start_ts, x.end_ts, clean.segments, hosts),
                 )
             )
         log.info("  window %d/%d: %d lessons", w, len(chunks), len(extracted.lessons))
-    return EpisodeLessons(episode_id=clean.episode_id, partial=clean.partial, lessons=lessons)
+    return EpisodeLessons(
+        episode_id=clean.episode_id, partial=clean.partial, diarized=clean.diarized, lessons=lessons
+    )
 
 
 def is_distilled(clean: CleanTranscript, out_dir: Path) -> bool:
@@ -92,7 +126,17 @@ def is_distilled(clean: CleanTranscript, out_dir: Path) -> bool:
     if not path.exists():
         return False
     done = EpisodeLessons.model_validate_json(path.read_text(encoding="utf-8"))
-    return done.partial == clean.partial
+    return (done.partial, done.diarized) == (clean.partial, clean.diarized)
+
+
+def reattribute(clean: CleanTranscript, path: Path) -> None:
+    result = EpisodeLessons.model_validate_json(path.read_text(encoding="utf-8"))
+    hosts = load_hosts(clean.episode_id)
+    for lesson in result.lessons:
+        lesson.speaker = attribute(lesson.start_ts, lesson.end_ts, clean.segments, hosts)
+    tmp = path.with_suffix(".json.tmp")
+    tmp.write_text(result.model_dump_json(indent=2), encoding="utf-8")
+    tmp.replace(path)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -104,6 +148,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--audio", type=Path, default=AUDIO_DIR, help="ingest dir (metadata)")
     parser.add_argument("--out", type=Path, default=LESSONS_DIR, help="output directory")
     parser.add_argument("--force", action="store_true", help="redo existing episodes")
+    parser.add_argument(
+        "--reattribute",
+        action="store_true",
+        help="only recompute each existing lesson's speaker (no LLM calls)",
+    )
     args = parser.parse_args(argv)
 
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
@@ -122,6 +171,12 @@ def main(argv: list[str] | None = None) -> int:
             failed.append(path.stem)
             continue
         clean = CleanTranscript.model_validate_json(path.read_text(encoding="utf-8"))
+        out = args.out / f"{clean.episode_id}.json"
+        if args.reattribute:
+            if is_distilled(clean, args.out):
+                reattribute(clean, out)
+                done += 1
+            continue
         if not args.force and is_distilled(clean, args.out):
             skipped += 1
             continue
@@ -133,7 +188,6 @@ def main(argv: list[str] | None = None) -> int:
             log.error("%s failed: %s", tag, e)
             failed.append(clean.episode_id)
             continue
-        out = args.out / f"{clean.episode_id}.json"
         tmp = out.with_suffix(".json.tmp")
         tmp.write_text(result.model_dump_json(indent=2), encoding="utf-8")
         tmp.replace(out)

@@ -11,7 +11,8 @@ The repo is private. Podcast content is not ours to redistribute.
 Each stage reads the previous stage's output and writes its own. Stages are keyed by `episode_id` (for YouTube sources, the video id).
 
 1. **ingest**: download audio via yt-dlp from the YouTube playlist in `src/coach/config.py` → `data/audio/<id>.<ext>` plus `data/audio/<id>.json` (`Episode` metadata; written last, so it marks completion)
-2. **transcribe**: WhisperX large-v3 with VAD, diarization, word timestamps, and per-episode hotwords, then speaker identification against enrolled host voiceprints → `data/transcripts/raw/`. Currently implemented with faster-whisper (`distil-large-v3`, CPU int8, ~1.8x realtime) and no diarization, so every lesson's `speaker` is `uncertain` until diarization and speaker ID land. `--max-seconds N` writes a `partial` transcript for testing; downstream stages redo an episode when its partial flag changes.
+2. **transcribe**: faster-whisper with VAD, word timestamps, and per-episode hotwords, plus pyannote 3.1 diarization (`--diarize`) that labels every word with an anonymous speaker and stores each speaker's embedding → `data/transcripts/raw/`. On CPU it runs `distil-large-v3` int8 (~1.8x realtime, samples only); on a CUDA GPU it runs `large-v3` float16, batched. The full run happens on a rented GPU: see `docs/cloud.md`. `--max-seconds N` writes a `partial` transcript for testing; downstream stages redo an episode when its partial or diarized flag changes.
+   - **speakers**: map each episode's diarized speakers to hosts by voiceprint → `data/speakers/`. Cheap, so it always redoes every episode.
 3. **correct**: glossary fuzzy + phonetic matching, then an LLM proper-noun pass → `data/transcripts/clean/`
 4. **distill**: an LLM extracts structured lessons as JSON → `data/lessons/`
 5. **consolidate**: cluster lessons into concepts, label each lesson's status chronologically, and write concept cards → `data/concepts/`
@@ -25,7 +26,9 @@ Each stage reads the previous stage's output and writes its own. Stages are keye
 src/coach/
   config.py     # paths, playlist URL
   ingest/       # audio download, episode metadata
-  transcribe/   # whisperx wrapper, hotword builder
+  transcribe/   # faster-whisper wrapper, pyannote diarization, hotword builder
+  speakers/     # host voiceprint enrollment, speaker identification
+  cloud/        # audio shrinking, GPU-run bundle packing
   correct/      # fuzzy/phonetic matcher, LLM cleanup
   distill/      # lesson extraction, Lesson schema
   consolidate/  # concept clustering, status labeling, concept cards
@@ -37,9 +40,13 @@ glossary/
   items.json       # generated from Data Dragon, do not hand-edit
   slang.yaml       # hand-curated jargon and host catchphrases
 hosts/
+  hosts.yaml       # host ids and the host identified by elimination
   <host_id>/
-    reference/     # clean solo clips for voiceprint enrollment
+    reference/     # clean solo clips for voiceprint enrollment (audio gitignored)
+    voiceprint.json
     profile.json   # stated background claims, each with an episode citation
+docs/cloud.md      # runbook for the GPU transcription run
+scripts/cloud/     # what runs on the GPU box
 data/              # gitignored
 tests/
 ```
@@ -50,8 +57,12 @@ tests/
 uv sync
 uv run python -m coach.ingest --all                # --episode <id>, --limit N, --cookies cookies.txt
 uv run python -m coach.transcribe --episode <id>   # or --all; --limit N, --max-seconds N, --model
+uv run python -m coach.transcribe --all --device cuda --diarize   # GPU box; needs --extra diarize, HF_TOKEN
+uv run python -m coach.speakers.enroll --host curtis --url <solo clip>   # needs --extra diarize
+uv run python -m coach.speakers                    # diarized speakers -> hosts
+uv run python -m coach.cloud pack                  # needs --extra pack; then unpack results.tar
 uv run python -m coach.correct --all
-uv run python -m coach.distill --all
+uv run python -m coach.distill --all                # --reattribute: redo speakers only, no LLM
 uv run python -m coach.consolidate --all            # or --episode <id> to update only touched concepts
 uv run python -m coach.index --rebuild
 uv run python -m coach.index.search "query"        # inspect raw retrieval
@@ -108,10 +119,13 @@ The podcast's views evolve, so newer episodes should outweigh older ones, but on
 
 ## Speaker attribution
 
-- Diarization (pyannote via WhisperX) gives anonymous per-episode labels that reset each episode. Speaker identification maps them to hosts.
-- Enroll each host from a few minutes of clean solo audio in `hosts/<host_id>/reference/`. Embed with pyannote's embedding model, SpeechBrain ECAPA-TDNN, or NeMo TitaNet (pick one and keep it consistent).
-- Match each diarized speaker to the nearest host by cosine similarity. Below the threshold, label it `guest_unknown`, never a forced match.
-- Use self-introductions ("I'm X") as a free check on the mapping.
+- Diarization (pyannote 3.1) gives anonymous per-episode labels that reset each episode. Speaker identification maps them to hosts.
+- Enroll each host from a few minutes of clean solo audio in `hosts/<host_id>/reference/`. Voiceprints use pyannote's `wespeaker-voxceleb-resnet34-LM`, the same model the diarization pipeline clusters with, so a voiceprint is directly comparable to a diarized speaker's embedding. Keep it that way: `coach.speakers` refuses voiceprints from another model.
+- Match each diarized speaker to the nearest host by cosine similarity. Below the threshold, label it `guest_unknown`, never a forced match. If two hosts are too close to call, label it `uncertain`.
+- Curtis and Nathan are enrolled from solo videos. Charlie has no solo clip, so Charlie is identified by elimination: in an episode without a guest (no "ft." in the title, at most three substantial speakers), the one substantial speaker who is clearly neither Curtis nor Nathan is Charlie. `coach.speakers` then averages a Charlie voiceprint from the clearest such episodes (`hosts/charlie/voiceprint.json`, `source: bootstrapped`) and rematches everything with it, so a guest the title didn't mention fails the Charlie match instead of being called Charlie.
+- Guest episodes are out of scope: unmatched speakers there are `guest_unknown`.
+- Lessons get a host only when that host says at least 70% of the words in the lesson's span (`coach.distill.attribute`); otherwise `uncertain`.
+- Use self-introductions ("I'm X") as a free check on the mapping (not built yet).
 - Segments under ~2 seconds, crosstalk, and short interjections are unreliable. Mark lessons from them `uncertain`.
 - Misattribution invents fake disagreements, which is worse than no attribution. Before trusting a run, measure attribution error on the hand-labeled sample in `src/coach/eval/`.
 - If a lesson attributed to host X contradicts X's stated position in the same episode, treat it as a likely diarization error and flag it instead of labeling it `evolved` or `disagreement`.
@@ -143,8 +157,8 @@ Run `coach.eval` before and after the change, and report both hit rates. Most qu
 ## TODO / unknowns
 
 - <PODCAST_NAME> (source is the YouTube playlist in `src/coach/config.py`)
-- Transcription hardware: the dev machine has no CUDA GPU, so only sample episodes are transcribed locally on CPU. The full 530-hour run still needs a GPU or hosted API (undecided).
-- Diarization and host speaker ID: not built yet (pyannote needs a Hugging Face token)
+- The full GPU run (`docs/cloud.md`) hasn't happened yet, so diarization has never run end to end, and the speaker-ID thresholds in `coach/speakers/identify.py` are uncalibrated guesses.
+- Speaker attribution error hasn't been measured: there's no hand-labeled sample in `src/coach/eval/` yet.
 
 ## Decisions
 
@@ -154,4 +168,6 @@ Run `coach.eval` before and after the change, and report both hit rates. Most qu
 - **Agent**: `coach.serve.agent` runs its own tool loop on `claude -p` structured output (one tool call or the answer per step, max 6 calls). `RIOT_API_KEY` in `.env` enables match history; Data Dragon and Riot responses are cached under `data/cache/`.
 - **Eval data**: `src/coach/eval/questions.yaml` and `glossary_refs.yaml`. Items marked `verified: false` were seeded by Claude from transcripts and need a human check; the glossary refs in particular were picked from known corrections, so the clean term error rate is optimistic until real listened-to windows replace them.
 - **YouTube bot blocks**: ingest pauses between every attempt and stops after 3 consecutive blocks. Pass `--cookies <file>` with a browser export (cookie files are gitignored).
+- **Transcription hardware**: rent a GPU (an RTX 4090 on RunPod or similar) for the full run, rather than a hosted API, because the run includes diarization. The dev laptop has no CUDA GPU.
+- **Diarization pins**: the `diarize` extra pins `pyannote.audio<4`, `torch<2.6` (2.6 changed `torch.load` defaults and pyannote 3.x checkpoints fail to load), and `huggingface-hub<1` (1.0 dropped the `use_auth_token` argument pyannote 3.x passes).
 - **PyAV is pinned below 16**: newer releases dropped an `av.open` argument that faster-whisper 1.2.1 still passes.

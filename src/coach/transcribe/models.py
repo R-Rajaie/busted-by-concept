@@ -8,6 +8,7 @@ class Word(BaseModel):
     end: float
     text: str
     prob: float
+    speaker: str | None = None  # diarization label, e.g. "SPEAKER_01"
 
 
 class Segment(BaseModel):
@@ -15,11 +16,19 @@ class Segment(BaseModel):
     start: float
     end: float
     text: str
-    speaker: str | None = None  # diarization label; None until diarization runs
+    speaker: str | None = None  # majority diarization label of its words; None if undiarized
     avg_logprob: float
     no_speech_prob: float
     suspect: bool = False  # flagged by the repeated-line detector; kept, not deleted
     words: list[Word] = []
+
+
+class DiarizedSpeaker(BaseModel):
+    """One anonymous speaker from diarization. Labels reset every episode."""
+
+    label: str
+    seconds: float  # total speaking time
+    embedding: list[float] | None  # pyannote centroid; None when too little speech to embed
 
 
 class RawTranscript(BaseModel):
@@ -33,4 +42,5 @@ class RawTranscript(BaseModel):
     partial: bool = False  # only part of the audio was transcribed (--max-seconds)
     diarized: bool = False
     hotwords: list[str]
+    speakers: list[DiarizedSpeaker] = []  # empty unless diarized
     segments: list[Segment]

@@ -48,4 +48,5 @@ class EpisodeLessons(BaseModel):
 
     episode_id: str
     partial: bool  # copied from the clean transcript
+    diarized: bool = False  # copied from the clean transcript
     lessons: list[Lesson]

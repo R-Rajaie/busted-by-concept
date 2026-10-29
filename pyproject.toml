@@ -15,6 +15,17 @@ dependencies = [
     "yt-dlp[default]>=2025.10.22",
 ]
 
+[project.optional-dependencies]
+diarize = [
+    "huggingface-hub<1",
+    "pyannote-audio>=3.3,<4",
+    "torch>=2.4,<2.6",
+    "torchaudio>=2.4,<2.6",
+]
+pack = [
+    "imageio-ffmpeg>=0.7.0",
+]
+
 [dependency-groups]
 dev = [
     "pytest>=8",

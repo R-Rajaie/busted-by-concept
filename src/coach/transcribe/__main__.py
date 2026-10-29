@@ -3,6 +3,7 @@
 uv run python -m coach.transcribe --episode <id>
 uv run python -m coach.transcribe --all --limit 3
 uv run python -m coach.transcribe --episode <id> --max-seconds 600   # quick partial run
+uv run python -m coach.transcribe --all --device cuda --diarize      # the GPU run
 """
 
 import argparse
@@ -14,18 +15,26 @@ from pathlib import Path
 from coach import glossary
 from coach.config import AUDIO_DIR, TRANSCRIPTS_RAW_DIR
 from coach.ingest.models import Episode
-from coach.transcribe import hallucination, hotwords
+from coach.transcribe import diarize, hallucination, hotwords
 from coach.transcribe.models import RawTranscript
-from coach.transcribe.whisper import DEFAULT_MODEL, transcribe
+from coach.transcribe.whisper import (
+    DEFAULT_MODEL,
+    GPU_BATCH_SIZE,
+    GPU_MODEL,
+    load_audio,
+    resolve_device,
+    transcribe,
+)
 
 log = logging.getLogger("coach.transcribe")
 
 
-def is_transcribed(episode_id: str, out_dir: Path) -> bool:
+def is_transcribed(episode_id: str, out_dir: Path, need_diarized: bool) -> bool:
     path = out_dir / f"{episode_id}.json"
     if not path.exists():
         return False
-    return not RawTranscript.model_validate_json(path.read_text(encoding="utf-8")).partial
+    done = RawTranscript.model_validate_json(path.read_text(encoding="utf-8"))
+    return not done.partial and (done.diarized or not need_diarized)
 
 
 def ingested_episodes(audio_dir: Path) -> list[Episode]:
@@ -51,7 +60,18 @@ def main(argv: list[str] | None = None) -> int:
     target.add_argument("--episode", action="append", metavar="ID", help="episode id (repeatable)")
     parser.add_argument("--audio", type=Path, default=AUDIO_DIR, help="ingest output directory")
     parser.add_argument("--out", type=Path, default=TRANSCRIPTS_RAW_DIR, help="output directory")
-    parser.add_argument("--model", default=DEFAULT_MODEL, help="faster-whisper model name")
+    parser.add_argument(
+        "--device", default="auto", choices=["auto", "cpu", "cuda"], help="default: cuda if found"
+    )
+    parser.add_argument(
+        "--model", help=f"faster-whisper model (default {DEFAULT_MODEL} on CPU, {GPU_MODEL} on GPU)"
+    )
+    parser.add_argument(
+        "--batch-size",
+        type=int,
+        help=f"batched decoding (default {GPU_BATCH_SIZE} on GPU, off on CPU)",
+    )
+    parser.add_argument("--diarize", action="store_true", help="label speakers (needs HF_TOKEN)")
     parser.add_argument("--force", action="store_true", help="re-transcribe existing episodes")
     parser.add_argument("--limit", type=int, help="stop after this many new transcripts")
     parser.add_argument("--max-seconds", type=float, help="only transcribe the first N seconds")
@@ -59,8 +79,15 @@ def main(argv: list[str] | None = None) -> int:
 
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     logging.getLogger("httpx").setLevel(logging.WARNING)  # model download chatter
+    logging.getLogger("speechbrain").setLevel(logging.WARNING)
     args.out.mkdir(parents=True, exist_ok=True)
     gloss = glossary.load()
+    device = resolve_device(args.device)
+    model = args.model or (GPU_MODEL if device == "cuda" else DEFAULT_MODEL)
+    batch_size = args.batch_size or (GPU_BATCH_SIZE if device == "cuda" else 1)
+    log.info(
+        "device %s, model %s, batch size %d, diarize %s", device, model, batch_size, args.diarize
+    )
 
     episodes = ingested_episodes(args.audio)
     if args.episode:
@@ -74,7 +101,7 @@ def main(argv: list[str] | None = None) -> int:
     done, skipped, failed = 0, 0, []
     for n, episode in enumerate(episodes, start=1):
         tag = f"[{n}/{len(episodes)}] {episode.episode_id}"
-        if not args.force and is_transcribed(episode.episode_id, args.out):
+        if not args.force and is_transcribed(episode.episode_id, args.out, args.diarize):
             skipped += 1
             continue
         if args.limit is not None and done >= args.limit:
@@ -84,9 +111,15 @@ def main(argv: list[str] | None = None) -> int:
         log.info("%s transcribing %s (%d hotwords)", tag, episode.title, len(words))
         started = time.monotonic()
         try:
-            segments, language, duration = transcribe(
-                episode.audio_path(args.audio), args.model, words, args.max_seconds
+            audio, duration = load_audio(episode.audio_path(args.audio), args.max_seconds)
+            segments, language = transcribe(
+                audio, model, words, device, batch_size, name=episode.episode_id
             )
+            speakers = []
+            if args.diarize:
+                turns, speakers = diarize.diarize(audio, device)
+                diarize.assign_speakers(segments, turns)
+                log.info("%s diarized: %d speakers", tag, len(speakers))
         except Exception as e:  # keep going; a rerun picks failures back up
             log.error("%s failed: %s", tag, e)
             failed.append(episode.episode_id)
@@ -96,12 +129,14 @@ def main(argv: list[str] | None = None) -> int:
         write_transcript(
             RawTranscript(
                 episode_id=episode.episode_id,
-                model=args.model,
+                model=model,
                 language=language,
                 duration_s=duration,
                 transcribed_s=transcribed,
                 partial=transcribed < duration,
+                diarized=args.diarize,
                 hotwords=words,
+                speakers=speakers,
                 segments=segments,
             ),
             args.out,

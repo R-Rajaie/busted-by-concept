@@ -24,7 +24,8 @@ def is_corrected(raw: RawTranscript, out_dir: Path) -> bool:
     if not path.exists():
         return False
     clean = CleanTranscript.model_validate_json(path.read_text(encoding="utf-8"))
-    return clean.partial == raw.partial  # a finished raw transcript supersedes a partial one
+    # A finished or newly diarized raw transcript supersedes the one this was made from.
+    return (clean.partial, clean.diarized) == (raw.partial, raw.diarized)
 
 
 def correct(raw: RawTranscript, matcher: Matcher, use_llm: bool) -> CleanTranscript:
@@ -85,6 +86,7 @@ def correct(raw: RawTranscript, matcher: Matcher, use_llm: bool) -> CleanTranscr
     return CleanTranscript(
         episode_id=raw.episode_id,
         partial=raw.partial,
+        diarized=raw.diarized,
         segments=segments,
         corrections=corrections,
         rejected_chunks=rejected,

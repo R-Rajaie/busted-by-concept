@@ -29,6 +29,7 @@ class CleanTranscript(BaseModel):
 
     episode_id: str
     partial: bool  # copied from the raw transcript
+    diarized: bool = False  # copied from the raw transcript
     segments: list[CleanSegment]
     corrections: list[Correction]
     rejected_chunks: list[RejectedChunk] = []

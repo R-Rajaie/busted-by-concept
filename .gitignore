@@ -8,3 +8,5 @@ __pycache__/
 *.log
 cookies.txt
 *cookies*.txt
+hosts/*/reference/*
+!hosts/*/reference/.gitkeep

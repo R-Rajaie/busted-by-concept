@@ -1,0 +1,8 @@
+# The regular hosts. Speaker ID matches each episode's diarized speakers to these by voiceprint
+# (hosts/<id>/voiceprint.json, built by `coach.speakers.enroll`).
+hosts: [curtis, nathan, charlie]
+
+# A host with no clean solo clip. In episodes without a guest, the one substantial speaker who
+# matches no other host is labeled as them. Once enough episodes are labeled this way, their
+# voiceprint is averaged from those speakers and later runs match it like any other.
+by_elimination: charlie

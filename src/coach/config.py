@@ -12,6 +12,7 @@ TRANSCRIPTS_CLEAN_DIR = DATA_DIR / "transcripts" / "clean"
 LESSONS_DIR = DATA_DIR / "lessons"
 CONCEPTS_DIR = DATA_DIR / "concepts"
 INDEX_DIR = DATA_DIR / "index"
+SPEAKERS_DIR = DATA_DIR / "speakers"
 
 GLOSSARY_DIR = ROOT / "glossary"
 HOSTS_DIR = ROOT / "hosts"
