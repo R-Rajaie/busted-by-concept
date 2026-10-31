@@ -34,6 +34,8 @@ uv run python -m coach.cloud.kaggle run                 # leave the laptop on; h
   It stops if a batch finishes nothing (quota used up, or a setup error: see the logs in
   `data/cloud/kaggle/out/`).
 - `uv run python -m coach.cloud.kaggle status` shows the kernel's state and what's left.
+- `scripts/cloud/kaggle.ps1` runs prepare, upload and run in its own window, so closing the
+  Claude app doesn't kill it, and keeps Windows from idle-sleeping. Log: `data/cloud/kaggle.log`.
 - Episodes downloaded later: `prepare` and `upload` again, then `run`.
 
 Then go to step 8 below.
