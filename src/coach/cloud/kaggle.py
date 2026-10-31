@@ -40,6 +40,7 @@ ACCELERATOR = "NvidiaTeslaT4"  # "GPU T4 x2"
 GATED_MODELS = [PIPELINE, "pyannote/segmentation-3.0", EMBEDDING_MODEL]
 POLL_S = 300
 JOB = Path(__file__).with_name("kaggle_job.py")
+UPLOADED = KAGGLE_DIR / "uploaded.json"  # episode ids in the audio dataset on Kaggle
 
 
 def kaggle(*args: str, check: bool = True) -> subprocess.CompletedProcess:
@@ -102,6 +103,10 @@ def prepare(args: argparse.Namespace) -> int:
     if not episodes:
         log.info("every episode is already transcribed and diarized")
         return 0
+    if {e.episode_id for e in episodes} <= uploaded():
+        log.info("all %d are already uploaded; next: run", len(episodes))
+        return 0
+    UPLOADED.unlink(missing_ok=True)
     small = shrink_all(episodes, CLOUD_DIR / "audio", args.workers)
 
     audio = KAGGLE_DIR / "audio"
@@ -143,9 +148,25 @@ def push_dataset(folder: Path, slug: str) -> None:
     log.info("%s is ready", ref)
 
 
+def staged_ids() -> list[str]:
+    return sorted(p.stem for p in (KAGGLE_DIR / "audio").glob("*.opus"))
+
+
+def uploaded() -> set[str]:
+    try:
+        return set(json.loads(UPLOADED.read_text(encoding="utf-8")))
+    except FileNotFoundError:
+        return set()
+
+
 def upload(args: argparse.Namespace) -> int:
-    if not args.code_only:
+    if args.code_only:
+        pass
+    elif set(staged_ids()) == uploaded():
+        log.info("the audio is already uploaded")
+    else:
         push_dataset(KAGGLE_DIR / "audio", AUDIO_SLUG)
+        UPLOADED.write_text(json.dumps(staged_ids()), encoding="utf-8")
     push_dataset(stage_code(), CODE_SLUG)  # always the current code
     return 0
 
@@ -209,17 +230,41 @@ def staged_pending() -> list[str]:
     ]
 
 
+def ended(status: str) -> bool:
+    return status in ("complete", "error") or status.startswith("cancel")
+
+
+def wait(batch: int) -> str:
+    """Poll until the kernel ends. Anything unrecognized (no network right after the laptop
+    wakes, say) is treated as still running."""
+    while not ended(status := kernel_status()):
+        log.info("batch %d: %s", batch, status)
+        time.sleep(POLL_S)
+    return status
+
+
 def run(args: argparse.Namespace) -> int:
-    for batch in range(1, args.max_batches + 1):
-        todo = staged_pending()
-        if not todo:
-            log.info("every uploaded episode is transcribed and diarized")
-            return 0
-        push_batch(todo)
-        time.sleep(60)
-        while (status := kernel_status()) in ("queued", "running"):
-            log.info("batch %d: %s", batch, status)
-            time.sleep(POLL_S)
+    # Restarting (after a reboot, say) must not push over a batch that's still going on Kaggle
+    # or one whose outputs weren't downloaded yet: pushing replaces the kernel and its outputs.
+    first = len(list((KAGGLE_DIR / "out").glob("batch*"))) + 1
+    status = kernel_status()
+    resume = status in ("queued", "running")
+    if resume:
+        log.info("a batch is already %s on Kaggle; waiting for it", status)
+    elif ended(status):
+        log.info("downloading the last run's outputs first")
+        log.info("%d transcripts from the last run", fetch(first))
+        first += 1
+    for batch in range(first, first + args.max_batches):
+        if not resume:
+            todo = staged_pending()
+            if not todo:
+                log.info("every uploaded episode is transcribed and diarized")
+                return 0
+            push_batch(todo)
+            time.sleep(60)
+        resume = False
+        status = wait(batch)
         got = fetch(batch)
         out = KAGGLE_DIR / "out" / f"batch{batch}"
         log.info("batch %d ended (%s): %d new transcripts, logs in %s", batch, status, got, out)
