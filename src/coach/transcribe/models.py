@@ -9,6 +9,7 @@ class Word(BaseModel):
     text: str
     prob: float
     speaker: str | None = None  # diarization label, e.g. "SPEAKER_01"
+    overlap: bool = False  # said while another speaker was also talking (crosstalk)
 
 
 class Segment(BaseModel):

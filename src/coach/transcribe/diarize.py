@@ -7,7 +7,7 @@ already in the Hugging Face cache (as on Kaggle), no token is needed.
 
 import logging
 import os
-from bisect import bisect_left
+from bisect import bisect_left, bisect_right
 from collections import defaultdict
 from dataclasses import dataclass
 from functools import cache
@@ -74,11 +74,31 @@ def diarize(audio: np.ndarray, device: str) -> tuple[list[Turn], list[DiarizedSp
     return turns, speakers
 
 
+def crosstalk(turns: list[Turn]) -> list[tuple[float, float]]:
+    """Sorted, disjoint time ranges where two or more speakers' turns overlap."""
+    # At equal times ends (-1) sort before starts (+1), so back-to-back turns don't count.
+    events = sorted([(t.start, 1) for t in turns] + [(t.end, -1) for t in turns])
+    out: list[tuple[float, float]] = []
+    active, start = 0, 0.0
+    for time, delta in events:
+        before, active = active, active + delta
+        if before < 2 <= active:
+            start = time
+        elif active < 2 <= before and time > start:
+            out.append((start, time))
+    return out
+
+
 def assign_speakers(segments: list[Segment], turns: list[Turn]) -> None:
     """Label each word with the speaker whose turns overlap it most, then each segment with
-    its majority speaker by word time. Words no turn overlaps keep `speaker=None`."""
+    its majority speaker by word time. Words no turn overlaps keep `speaker=None`.
+
+    Words whose midpoint falls where pyannote heard two people at once get `overlap=True`:
+    whisper writes down only one voice there, so who said them is a guess."""
     if not turns:
         return
+    talk_over = crosstalk(turns)
+    talk_over_starts = [a for a, _ in talk_over]
     turns = sorted(turns, key=lambda t: t.start)
     starts = [t.start for t in turns]
     longest = max(t.end - t.start for t in turns)
@@ -87,11 +107,14 @@ def assign_speakers(segments: list[Segment], turns: list[Turn]) -> None:
         near = [t for t in turns[lo:hi] if t.end > s.start]
         by_speaker: dict[str, float] = defaultdict(float)
         for w in s.words:
-            overlap: dict[str, float] = defaultdict(float)
+            mid = (w.start + w.end) / 2
+            i = bisect_right(talk_over_starts, mid) - 1
+            w.overlap = i >= 0 and mid < talk_over[i][1]
+            shared: dict[str, float] = defaultdict(float)
             for t in near:
-                overlap[t.speaker] += max(0.0, min(w.end, t.end) - max(w.start, t.start))
-            best = max(overlap, key=overlap.__getitem__, default=None)
-            if best is not None and overlap[best] > 0:
+                shared[t.speaker] += max(0.0, min(w.end, t.end) - max(w.start, t.start))
+            best = max(shared, key=shared.__getitem__, default=None)
+            if best is not None and shared[best] > 0:
                 w.speaker = best
                 by_speaker[best] += w.end - w.start
         s.speaker = max(by_speaker, key=by_speaker.__getitem__, default=None)

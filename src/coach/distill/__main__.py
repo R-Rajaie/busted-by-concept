@@ -74,15 +74,16 @@ def load_hosts(episode_id: str, speakers_dir: Path = SPEAKERS_DIR) -> dict[str, 
 def attribute(start: float, end: float, segments: list[CleanSegment], hosts: dict[str, str]) -> str:
     """The host who says at least MIN_SHARE of the words in [start, end], else "uncertain".
 
-    Word time is counted, so short interjections and crosstalk weigh little, and a lesson
-    built from a back-and-forth stays uncertain instead of being pinned on one host.
+    Word time is counted, so short interjections weigh little, and a lesson built from a
+    back-and-forth stays uncertain instead of being pinned on one host. Words said over
+    someone else are skipped: their speaker label is a guess.
     """
     by_host: dict[str, float] = defaultdict(float)
     for s in segments:
         if s.end < start or s.start > end:
             continue
         for w in s.words:
-            if start <= w.start <= end:
+            if start <= w.start <= end and not w.overlap:
                 by_host[hosts.get(w.speaker or "", "uncertain")] += w.end - w.start
     total = sum(by_host.values())
     if not total:

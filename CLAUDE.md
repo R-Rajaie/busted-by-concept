@@ -125,7 +125,8 @@ The podcast's views evolve, so newer episodes should outweigh older ones, but on
 - Match each diarized speaker to the nearest host by cosine similarity. Below the threshold, label it `guest_unknown`, never a forced match. If two hosts are too close to call, label it `uncertain`.
 - Curtis and Nathan are enrolled from solo videos. Charlie has no solo clip, so Charlie is identified by elimination: in an episode without a guest (no "ft." in the title, at most three substantial speakers), the one substantial speaker who is clearly neither Curtis nor Nathan is Charlie. `coach.speakers` then averages a Charlie voiceprint from the clearest such episodes (`hosts/charlie/voiceprint.json`, `source: bootstrapped`) and rematches everything with it, so a guest the title didn't mention fails the Charlie match instead of being called Charlie.
 - Guest episodes are out of scope: unmatched speakers there are `guest_unknown`.
-- Lessons get a host only when that host says at least 70% of the words in the lesson's span (`coach.distill.attribute`); otherwise `uncertain`.
+- Lessons get a host only when that host says at least 70% of the words in the lesson's span (`coach.distill.attribute`); otherwise `uncertain`. Words said during crosstalk (`Word.overlap`, where pyannote heard two speakers at once) don't count: whisper writes down only one voice there, so their speaker is a guess.
+- Low-confidence lines aren't flagged separately: each segment's `avg_logprob` and each word's `prob` are stored, so a downstream stage can use them without rerunning the GPU step.
 - Use self-introductions ("I'm X") as a free check on the mapping (not built yet).
 - Segments under ~2 seconds, crosstalk, and short interjections are unreliable. Mark lessons from them `uncertain`.
 - Misattribution invents fake disagreements, which is worse than no attribution. Before trusting a run, measure attribution error on the hand-labeled sample in `src/coach/eval/`.

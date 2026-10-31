@@ -5,7 +5,7 @@ from coach.distill.__main__ import attribute
 from coach.speakers import identify
 from coach.speakers.enroll import average, video_id
 from coach.speakers.models import HostConfig, Voiceprint
-from coach.transcribe.diarize import Turn, assign_speakers
+from coach.transcribe.diarize import Turn, assign_speakers, crosstalk
 from coach.transcribe.models import DiarizedSpeaker, Segment, Word
 
 CONFIG = HostConfig(hosts=["curtis", "nathan", "charlie"], by_elimination="charlie")
@@ -96,6 +96,25 @@ def test_assign_speakers_by_overlap_and_majority():
     assert [w.speaker for w in segs[0].words] == ["S0", "S0", "S1"]
     assert segs[0].speaker == "S0"
     assert segs[1].words[0].speaker is None and segs[1].speaker is None
+
+
+def test_crosstalk_marks_words_said_over_someone():
+    segs = [segment(0, [word(0, 1), word(1, 2), word(2, 3), word(3, 4)])]
+    # S1 talks over S0 from 1.5 to 2.5; S0 and S2 only touch at 4.
+    turns = [Turn(0, 4, "S0"), Turn(1.5, 2.5, "S1"), Turn(4, 6, "S2")]
+    assert crosstalk(turns) == [(1.5, 2.5)]
+    assign_speakers(segs, turns)
+    assert [w.overlap for w in segs[0].words] == [False, True, False, False]
+
+
+def test_attribute_ignores_crosstalk():
+    words = [word(t, t + 1) for t in range(4)]
+    for w, label in zip(words, ["S0", "S1", "S1", "S1"], strict=True):
+        w.speaker = label
+    for w in words[1:]:
+        w.overlap = True  # S1 only ever talked over S0
+    seg = CleanSegment(**segment(0, words).model_dump(), raw_text="")
+    assert attribute(0, 4, [seg], {"S0": "curtis", "S1": "nathan"}) == "curtis"
 
 
 def test_attribute_needs_one_dominant_host():
