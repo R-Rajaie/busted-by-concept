@@ -108,8 +108,8 @@ def main() -> None:
             continue
         args = [python, "-m", "coach.transcribe", "--audio", str(audio_dir), "--out", str(OUT)]
         args += ["--device", "cuda", "--diarize", "--model", MODEL]
-        for e in shard:
-            args += ["--episode", e]
+        # "--episode=<id>": some YouTube ids start with "-", which argparse would take for a flag
+        args += [f"--episode={e}" for e in shard]
         logfile = open(WORK / f"gpu{gpu}.log", "w")  # closed when the session ends
         procs.append(
             subprocess.Popen(

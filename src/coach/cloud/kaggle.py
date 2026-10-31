@@ -208,7 +208,10 @@ def fetch(batch: int) -> int:
     """Download a finished run's outputs and copy valid transcripts in; returns the count."""
     dest = KAGGLE_DIR / "out" / f"batch{batch}"
     dest.mkdir(parents=True, exist_ok=True)
-    kaggle("kernels", "output", f"{username()}/{KERNEL_SLUG}", "-p", str(dest), "-o", "-q")
+    # check=False: a cancelled run may have no outputs to download
+    kaggle(
+        "kernels", "output", f"{username()}/{KERNEL_SLUG}", "-p", str(dest), "-o", "-q", check=False
+    )
     TRANSCRIPTS_RAW_DIR.mkdir(parents=True, exist_ok=True)
     count = 0
     for path in sorted(dest.rglob("*.json")):
