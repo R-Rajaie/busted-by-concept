@@ -21,6 +21,7 @@ from coach.distill.models import EpisodeLessons, ExtractedLesson, Lesson
 from coach.glossary import Concept
 from coach.ingest.models import Episode
 from coach.speakers.models import SpeakerMap
+from coach.speakers.split import Stretch, load_splits
 
 log = logging.getLogger("coach.distill")
 
@@ -83,7 +84,22 @@ def load_hosts(episode_id: str, speakers_dir: Path = SPEAKERS_DIR) -> dict[str, 
     return SpeakerMap.model_validate_json(path.read_text(encoding="utf-8")).hosts_by_label()
 
 
-def attribute(start: float, end: float, segments: list[CleanSegment], hosts: dict[str, str]) -> str:
+def host_of(label: str, t: float, hosts: dict[str, str], splits: dict[str, list[Stretch]]) -> str:
+    """The host saying a word: the speaker map's host for its label, unless coach.speakers.split
+    re-assigned that stretch of a merged speaker."""
+    for s in splits.get(label, ()):
+        if s.start <= t <= s.end:
+            return s.host
+    return hosts.get(label, "uncertain")
+
+
+def attribute(
+    start: float,
+    end: float,
+    segments: list[CleanSegment],
+    hosts: dict[str, str],
+    splits: dict[str, list[Stretch]] | None = None,
+) -> str:
     """The host who says at least MIN_SHARE of the words in [start, end], else "uncertain".
 
     Word time is counted, so short interjections weigh little, and a lesson built from a
@@ -96,7 +112,7 @@ def attribute(start: float, end: float, segments: list[CleanSegment], hosts: dic
             continue
         for w in s.words:
             if start <= w.start <= end and not w.overlap:
-                by_host[hosts.get(w.speaker or "", "uncertain")] += w.end - w.start
+                by_host[host_of(w.speaker or "", w.start, hosts, splits or {})] += w.end - w.start
     total = sum(by_host.values())
     if not total:
         return "uncertain"
@@ -106,7 +122,7 @@ def attribute(start: float, end: float, segments: list[CleanSegment], hosts: dic
 
 def distill(clean: CleanTranscript, episode: Episode) -> EpisodeLessons:
     season, flag = season_for(episode.upload_date)
-    hosts = load_hosts(clean.episode_id)
+    hosts, splits = load_hosts(clean.episode_id), load_splits(clean.episode_id)
     concepts = glossary.load().concepts
     names = {n.lower(): c.term for c in concepts for n in [c.term, *c.aliases]}
     system = SYSTEM + "\n\nThe show's concepts:\n" + (concept_list(concepts) or "(none yet)")
@@ -131,7 +147,7 @@ def distill(clean: CleanTranscript, episode: Episode) -> EpisodeLessons:
                     episode_date=episode.upload_date,
                     season=season,
                     season_flag=flag,
-                    speaker=attribute(x.start_ts, x.end_ts, clean.segments, hosts),
+                    speaker=attribute(x.start_ts, x.end_ts, clean.segments, hosts, splits),
                 )
             )
         log.info("  window %d/%d: %d lessons", w, len(chunks), len(extracted.lessons))
@@ -150,9 +166,9 @@ def is_distilled(clean: CleanTranscript, out_dir: Path) -> bool:
 
 def reattribute(clean: CleanTranscript, path: Path) -> None:
     result = EpisodeLessons.model_validate_json(path.read_text(encoding="utf-8"))
-    hosts = load_hosts(clean.episode_id)
+    hosts, splits = load_hosts(clean.episode_id), load_splits(clean.episode_id)
     for lesson in result.lessons:
-        lesson.speaker = attribute(lesson.start_ts, lesson.end_ts, clean.segments, hosts)
+        lesson.speaker = attribute(lesson.start_ts, lesson.end_ts, clean.segments, hosts, splits)
     tmp = path.with_suffix(".json.tmp")
     tmp.write_text(result.model_dump_json(indent=2), encoding="utf-8")
     tmp.replace(path)

@@ -8,6 +8,7 @@ the episodes that define them by `coach.glossary.concepts` and then reviewed by 
 import json
 from functools import cache
 from pathlib import Path
+from typing import Literal
 
 import yaml
 from pydantic import BaseModel
@@ -49,6 +50,9 @@ class Concept(BaseModel):
     aliases: list[str] = []
     meaning: str
     sources: list[Source] = []
+    # set once a person has checked it: "current" (kept), "suggested" (the automated check's
+    # fix), or "revised" (rewritten from their note)
+    reviewed: Literal["current", "suggested", "revised"] | None = None
 
 
 class Glossary(BaseModel):

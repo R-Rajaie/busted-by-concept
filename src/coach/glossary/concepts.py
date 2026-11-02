@@ -4,6 +4,7 @@ uv run python -m coach.glossary.concepts                 # the episodes that def
 uv run python -m coach.glossary.concepts --episode <id>  # others too (repeatable)
 uv run python -m coach.glossary.concepts --term "weak side"  # one term, from the whole archive
 uv run python -m coach.glossary.concepts --verify  # check each entry against its sources
+uv run python -m coach.glossary.concepts --apply-reviews data/concept-reviews  # a person's answers
 
 Reads clean transcripts in 10-minute windows and asks the smart model for every concept the
 hosts name and explain, then one more call merges duplicates across windows and episodes into
@@ -197,7 +198,7 @@ def define(term: str, clean_dir: Path) -> Concept | None:
     return got.concept
 
 
-def verify(concept: Concept, clean_dir: Path) -> Review:
+def cited_passages(concept: Concept, clean_dir: Path) -> str:
     cited = []
     for s in concept.sources[:5]:
         segs = _segments(s.episode_id, clean_dir)
@@ -205,10 +206,16 @@ def verify(concept: Concept, clean_dir: Path) -> Review:
             t for start, t in segs if s.t - VERIFY_BEFORE_S <= start <= s.t + VERIFY_AFTER_S
         )
         cited.append(f"[{s.episode_id} @ {s.t}s] {body}")
-    entry = yaml.safe_dump(
-        concept.model_dump(exclude={"sources"}), sort_keys=False, allow_unicode=True
-    )
-    prompt = f"Entry:\n{entry}\nCited passages:\n\n" + "\n\n".join(cited)
+    return "\n\n".join(cited)
+
+
+def _entry(concept: Concept) -> str:
+    fields = concept.model_dump(exclude={"sources", "reviewed"})
+    return yaml.safe_dump(fields, sort_keys=False, allow_unicode=True)
+
+
+def verify(concept: Concept, clean_dir: Path) -> Review:
+    prompt = f"Entry:\n{_entry(concept)}\nCited passages:\n\n{cited_passages(concept, clean_dir)}"
     review = llm.complete_model(prompt, VERIFY, Review, model=llm.SMART_MODEL)
     review.term = concept.term
     return review
@@ -238,6 +245,117 @@ def verify_all(concepts: list[Concept], clean_dir: Path, out: Path) -> int:
     return 0
 
 
+REVISE = """You rewrite one entry in a glossary of the "Broken by Concept" League of Legends
+podcast (hosts Curtis, Nathan, and Charlie). A person who knows the show reviewed it. Their
+note is authoritative: it overrides the draft, the automated check, and your own reading of the
+passages. Apply exactly what it says (a distinction to draw, a name to keep or drop, a fact to
+fix). Otherwise stay strictly within what the cited passages support.
+
+Return the corrected entry: term, aliases (other names the hosts actually use for this same
+idea), and meaning (one to three sentences, standalone, in the hosts' terms). Set drop to true
+only if the reviewer says to remove it or the passages show it isn't one of the show's ideas.
+Background the reviewer gave: the hosts' coaching programs are Botlane Academy (BLA), Toplane
+Academy (TLA), Midlane Academy (MLA) and Jungle Academy (formerly Saltu, said "saltoo"), and
+their mentors mentor the academy's players, not the hosts."""
+
+
+class _Revised(BaseModel):
+    drop: bool = False
+    term: str
+    aliases: list[str] = []
+    meaning: str
+
+
+def revise(
+    concept: Concept, check: dict | None, choice: str, note: str, clean_dir: Path
+) -> Concept | None:
+    """Rewrite one entry from its passages, the automated check, and the reviewer's note."""
+    verdict = {
+        "wrong": "The reviewer marked the current definition WRONG.",
+        "suggested": "The reviewer accepted the suggested fix, with the note below.",
+        "current": "The reviewer said the current definition is right, with the note below.",
+    }[choice]
+    prompt = (
+        f"Entry:\n{_entry(concept)}\n"
+        f"Automated check:\n{json.dumps(check or {}, ensure_ascii=False, indent=1)}\n\n"
+        f"{verdict}\nReviewer's note: {note or '(none)'}\n\n"
+        f"Cited passages:\n\n{cited_passages(concept, clean_dir)}"
+    )
+    got = llm.complete_model(prompt, REVISE, _Revised, model=llm.SMART_MODEL)
+    if got.drop:
+        return None
+    return Concept(
+        term=got.term,
+        aliases=got.aliases,
+        meaning=got.meaning,
+        sources=concept.sources,
+        reviewed="revised",
+    )
+
+
+def review_id(term: str, revised: bool = False) -> str:
+    """The review page's id for an entry. A rewritten entry gets a fresh one, so the answer
+    given to the old version doesn't count as a check of the new one."""
+    slug = re.sub(r"[^a-z0-9]+", "-", term.lower()).strip("-")[:120] or "concept"
+    return slug + "-rev" if revised else slug
+
+
+def apply_reviews(reviews_dir: Path, path: Path, clean_dir: Path) -> int:
+    """Apply a person's answers from the review page (exported as JSON files named by entry id).
+    Entries already settled are left alone, so this can be rerun as more answers come in; a
+    rewritten entry is settled again by the answer to its rewritten version."""
+    concepts = [Concept(**c) for c in yaml.safe_load(path.read_text(encoding="utf-8")) or []]
+    checks = json.loads(REVIEW_PATH.read_text(encoding="utf-8")) if REVIEW_PATH.exists() else {}
+    answers = {}
+    for f in reviews_dir.rglob("*.json"):
+        doc = json.loads(f.read_text(encoding="utf-8"))
+        data = doc.get("data", doc)
+        if data.get("choice"):
+            answers[doc.get("id", f.stem)] = data
+    out, counts = [], Counter()
+    for c in concepts:
+        if c.reviewed in ("current", "suggested"):
+            out.append(c)
+            continue
+        a = answers.get(review_id(c.term, revised=c.reviewed == "revised"))
+        if a is None:
+            out.append(c)
+            continue
+        confirmed = a["choice"] in ("current", "suggested") and not a.get("note")
+        if c.reviewed == "revised" and confirmed:
+            c.reviewed = "current"  # the rewrite was confirmed
+            counts["confirmed"] += 1
+            out.append(c)
+            continue
+        choice, note, check = a["choice"], (a.get("note") or "").strip(), checks.get(c.term)
+        if choice == "wrong" or note:
+            new = revise(c, check, choice, note, clean_dir)
+            counts["dropped" if new is None else "revised"] += 1
+            log.info("%s: %s", c.term, "dropped" if new is None else "revised")
+            if new is not None:
+                out.append(new)
+            continue
+        if choice == "suggested" and check and check.get("suggested_meaning"):
+            wrong = {x.lower() for x in check.get("wrong_aliases", [])}
+            c.meaning = check["suggested_meaning"]
+            c.aliases = [x for x in c.aliases if x.lower() not in wrong]
+        c.reviewed = choice
+        counts[choice] += 1
+        out.append(c)
+    path.write_text(
+        "# The show's own named ideas. Drafted by coach.glossary.concepts; review by hand.\n"
+        + yaml.safe_dump(
+            [c.model_dump(exclude_none=True) for c in out],
+            sort_keys=False,
+            allow_unicode=True,
+            width=100,
+        ),
+        encoding="utf-8",
+    )
+    log.info("applied %s; %d entries -> %s", dict(counts), len(out), path)
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="coach.glossary.concepts", description=__doc__)
     parser.add_argument("--episode", action="append", metavar="ID", help="also read this one")
@@ -249,11 +367,19 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="check every entry against its sources -> data/concepts-review.json",
     )
+    parser.add_argument(
+        "--apply-reviews",
+        type=Path,
+        metavar="DIR",
+        help="apply review-page answers exported as JSON files in DIR",
+    )
     parser.add_argument("--clean", type=Path, default=TRANSCRIPTS_CLEAN_DIR)
     parser.add_argument("--out", type=Path, default=GLOSSARY_DIR / "concepts.yaml")
     args = parser.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
+    if args.apply_reviews:
+        return apply_reviews(args.apply_reviews, args.out, args.clean)
     if args.verify:
         saved = yaml.safe_load(args.out.read_text(encoding="utf-8")) or []
         return verify_all([Concept(**c) for c in saved], args.clean, REVIEW_PATH)

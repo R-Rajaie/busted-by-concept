@@ -2,14 +2,13 @@
 - term: mental stack
   aliases:
   - mental bandwidth
-  - working memory
-  - mental capacity
-  - mental stack capacity
-  - mental stack development
-  - mental stack overload
-  meaning: The limited pool of attention and working memory you have for everything going on in a game
-    (CS, waves, jungle tracking, objectives, spell execution). Reps, muscle memory and pattern recognition
-    free it up, while novel or overwhelming situations overload it and cause basic mistakes.
+  meaning: The mental stack is the hosts' term for your mental bandwidth, meaning how occupied your mind
+    is. It is limited by working memory, and it decides how much you can track and execute in a game (information
+    gathering, fights, abilities) before you get overwhelmed. It develops over long play through reps,
+    muscle memory and pattern recognition, and it caps out if you play without intention. A heavy or unfamiliar
+    load, such as a new champion or mechanic like Mel's reflect, throws it off and causes basic mistakes.
+    This is why the hosts keep in-game learning objectives to about one, and why lull states, when the
+    stack is free, are used to gather information.
   sources:
   - episode_id: Jbw9Dq4GWUc
     t: 157
@@ -47,16 +46,17 @@
     t: 4960
   - episode_id: rWp2ZO2zHy4
     t: 1608
+  reviewed: suggested
 - term: lull state
   aliases:
   - lull states
-  - major lull states
-  - miniature lull states
-  - mini lull states
-  meaning: Downtime in a game when little is happening and your mental bandwidth is free, such as walking
-    back to lane, between waves or trades, or clearing a known camp. Major lull states are long (dead,
-    coming off a reset) and miniature ones are brief (last hitting, mid-camp); use them to gather information
-    and zoom out.
+  meaning: 'A lull state is any period of downtime in a game when little is happening and your mental
+    stack is free, so you can think about the bigger picture instead of just controlling your character.
+    It is relative to skill: clearing a camp or last hitting only counts once it is automatic. Major lull
+    states are the long ones, such as being dead, recalling, or walking out of base after a reset. Miniature
+    lull states are brief ones, such as between waves or trades, or mid-camp. Use them to gather information,
+    plan objectives and a win condition, and prime your mental stack, not to alt-tab or let your mind
+    wander.'
   sources:
   - episode_id: Jbw9Dq4GWUc
     t: 131
@@ -70,6 +70,7 @@
     t: 767
   - episode_id: uZQvmLrUVKM
     t: 3341
+  reviewed: suggested
 - term: quantity and quality of lull states
   aliases:
   - lull state usage
@@ -128,11 +129,13 @@
   - playing with intensity
   - low intensity
   - autopilot (low intensity)
-  - repetition with intention and intensity
-  - keeping high intensity
-  meaning: How focused and deliberately engaged you are in a game, as opposed to being on autopilot. It
-    covers actively using lull states, posture, having your life in order, and not rolling over when behind;
-    it's about inputs, not outcomes, and is why you play only about three games per block.
+  meaning: Intensity is how fully you commit to a game. The hosts define it simply as playing with intention
+    (a reason or hypothesis behind each decision), using your lull states, and trying your best, as opposed
+    to autopilot or low intensity. It also includes physical engagement (upright posture, gripping the
+    mouse) and having your life in order (eaten, showered, nothing else on your mind). It is all inputs
+    and says nothing about the result, since you can play with high intensity and still lose. It is why
+    they cap a session at about three games (a three block), which is roughly how long you can keep it
+    up.
   sources:
   - episode_id: Jbw9Dq4GWUc
     t: 732
@@ -154,6 +157,7 @@
     t: 11607
   - episode_id: rWp2ZO2zHy4
     t: 1436
+  reviewed: suggested
 - term: intent
   aliases:
   - intention
@@ -181,22 +185,27 @@
 - term: autopilot
   aliases:
   - intuition
-  - muscle memory
   - instinct
-  - monkey brain
-  meaning: 'Decisions made solely from muscle memory and pattern recognition. Not necessarily bad: the
-    best play combines intention for strategy with intuition for obvious lower-level decisions.'
+  - muscle memory
+  meaning: 'Autopilot is making decisions solely from muscle memory and intuition, without bringing intention
+    to the forefront. Muscle memory is one ingredient of it, not quite the same thing. The hosts treat
+    autopilot as the negative connotation of intuition or instinct, and they link over-relying on it to
+    playing without intention and plateauing. It isn''t necessarily bad: for a sophisticated player some
+    responses are so obvious (standing behind minions against Blitzcrank, or not fighting a Malphite with
+    R) that they are borderline intuitive, though the hosts say it''s still good to do them intentionally.'
   sources:
   - episode_id: EgAO9qiKYm4
     t: 5714
+  reviewed: revised
 - term: champion identity
   aliases:
   - champ identity
-  - clear identity
   - champ's identity
-  meaning: What a champion fundamentally is about, its strengths, weaknesses and why it wants to do what
-    it does. It lets you think as the champion, mainly tells you what to avoid, and dictates decisions
-    so fundamentals make sense.
+  meaning: 'A high-level description of what a champion fundamentally is about: its strengths and weaknesses,
+    how it should optimally play, and why it wants to do what it does. It is largely based on the kit
+    but is an interpretation, and it can be flexible. Its purpose is to let you think as the champion,
+    and its main practical use is knowing what to avoid. Many decisions can be tied back to it, and reference
+    points are derived from it.'
   sources:
   - episode_id: Jbw9Dq4GWUc
     t: 1384
@@ -208,16 +217,19 @@
     t: 2003
   - episode_id: uZQvmLrUVKM
     t: 2794
+  reviewed: suggested
 - term: champion reference points
   aliases:
   - reference points
   - reference point
   - key reference points
-  - baseline reference points
-  meaning: Practical, champion-specific guidelines based on its strengths and weaknesses (fight around
-    your ult, recall on a certain item, play off your ult cooldown). They set walls around your gameplay,
-    give consistency and a resting point when the game gets confusing; if identity is the why, reference
-    points are the what.
+  meaning: Champion reference points are practical, granular, champion-specific guiding principles based
+    on the champion's inherent strengths and weaknesses. Examples are fight around your ult, recall on
+    a certain item, and play off your ult cooldown. They act as walls around your gameplay, tell you what
+    not to do, and give consistency and a resting point to return to when the game gets confusing. If
+    champion identity is the why, reference points are the what. They are split into laning-phase and
+    mid-game sets. They matter most while learning a champion, and high-mastery players can deliberately
+    break them.
   sources:
   - episode_id: Jbw9Dq4GWUc
     t: 1539
@@ -237,13 +249,18 @@
     t: 2794
   - episode_id: uZQvmLrUVKM
     t: 3226
+  reviewed: suggested
 - term: champion mastery
   aliases:
   - champ mastery
-  - next level of champ mastery
-  meaning: 'Not mastery points, but time spent playing a champion with intensity and intentional repetition:
-    knowing its identity, reference points, limits, and how to win even hard games. It covers both knowledge
-    and execution and is the bedrock that frees mental stack for role and game mastery.'
+  meaning: 'Champion mastery is the level of expertise a player has on a champion, in both knowledge and
+    execution. It is not in-game mastery points. It comes from lots of repetition played with intention
+    and intensity, pushing the champion''s limits. It shows up as understanding the champion''s identity,
+    reference points, good and bad ability usage, and good and bad fights and games. It also shows up
+    as being able to pilot and adapt the champion through any game or comp, including winning hard games.
+    It is tied to rank and exists on a scale: lower-ranked players can have real elements of it, but the
+    hosts wouldn''t call someone a master of a champion until they''ve performed with it at about Master+,
+    because that is where the macro limits become clear.'
   sources:
   - episode_id: Jbw9Dq4GWUc
     t: 1859
@@ -255,6 +272,7 @@
     t: 2531
   - episode_id: rWp2ZO2zHy4
     t: 5115
+  reviewed: suggested
 - term: master of the champion
   aliases: []
   meaning: Someone who has performed with the champion at Master+ rank; below that a player may have mechanics
@@ -267,8 +285,12 @@
   - champion mastery before fundamentals
   - champ mastery first
   - learn the game through a champion
-  meaning: Learn the game through the lens of one champion (ability usage, damage, trading, ult use) before
-    generic fundamentals like wave management, warding or roaming, over roughly 60-80 games for beginners.
+  meaning: 'The hosts'' philosophy that you should learn the game through the lens of your champion: for
+    true beginners, focus first on the champion''s specifics (ability usage, how to trade, when it is
+    strong, how to cast the ult, how to do damage without taking damage and win fights) and set aside
+    generic fundamentals like wave management, resets, jungle tracking, warding, threat assessment and
+    roaming. Only after roughly 60-80 games on that champion do you turn to those fundamentals, which
+    are still important but come second.'
   sources:
   - episode_id: EgAO9qiKYm4
     t: 195
@@ -276,6 +298,7 @@
     t: 5410
   - episode_id: 1AO2iZwUt9s
     t: 5495
+  reviewed: suggested
 - term: champion mastery → role mastery → game mastery
   aliases:
   - mastery order
@@ -288,12 +311,15 @@
 - term: can play a champion
   aliases:
   - I can play the champ
-  - pilot the champion
-  meaning: Piloting a champion through every part of every game, adapting to role, win condition and comp;
-    isolated good trades or kills don't count.
+  meaning: 'Ordinary players say \"I can play the champ\" when they land a few good trades, roams or kills.
+    The hosts hold a higher standard: you can pilot the champion through the whole game and every phase
+    of it, across metas. That means adapting to your role, win condition and team comp, even from a bad
+    start, and getting the most out of every ability with good threat assessment and knowledge of your
+    limits.'
   sources:
   - episode_id: 2WQ8zHtK6fc
     t: 905
+  reviewed: suggested
 - term: win condition
   aliases:
   - win con
@@ -314,30 +340,38 @@
   - episode_id: uZQvmLrUVKM
     t: 5615
 - term: red light green light
-  aliases:
-  - red light
-  - green light
-  - orange light
-  meaning: 'Nathan''s framework for map windows: green light means your team is on the map and it''s your
-    turn to make plays; red light means your strong teammates are off the map or the enemy has a big wave,
-    so there''s no play; yellow/orange is ambiguous and needs more creativity.'
+  aliases: []
+  meaning: 'A framework that splits the game into states by whether it''s your turn to make plays. In
+    a green light your team is on the map (for example back from base with items, with the man advantage),
+    so you can be aggressive: skip camps, ganking, entering their jungle, taking space. In a red light
+    your team is off the map, meaning in base, stuck clearing waves, low HP or too far away to help, or
+    your strongest member is away or the enemy has a big built-up wave, so you shouldn''t make plays or
+    walk into danger. An orange (yellow) light is an even, contested in-between state that needs more
+    nuance and creativity, and the hosts treat it as a more advanced step after learning red and green.
+    The states change constantly, and the hosts use the framework as a simple starting point for good
+    habits.'
   sources:
   - episode_id: Jbw9Dq4GWUc
     t: 2358
   - episode_id: EgAO9qiKYm4
     t: 9156
+  reviewed: suggested
 - term: mechanics
   aliases:
   - mechanics and micro
   - inputs
-  meaning: The raw inputs that dictate how your character moves and interacts (clicks, skillshots, movement,
-    dodging), as well as the strategy of how you move. Most players struggle more with the strategic side
-    than raw inputs.
+  meaning: 'Mechanics are the inputs that dictate how your character moves and interacts with the game:
+    the quality of your clicks, skillshots and movement on keyboard and mouse. The hosts say it''s often
+    used interchangeably with micro, though Curtis once framed it as an umbrella that also covers the
+    strategy of how you move, and he wasn''t sure he had the labels the right way round. "Mechanics maxing"
+    means putting nearly all your focus on clean inputs, which can lift your play above baseline but costs
+    mental stack and attention to macro.'
   sources:
   - episode_id: Jbw9Dq4GWUc
     t: 2474
   - episode_id: EgAO9qiKYm4
     t: 2611
+  reviewed: revised
 - term: mechanics maxing
   aliases:
   - mechanic max
@@ -349,10 +383,12 @@
 - term: micro
   aliases:
   - micro (versus macro)
-  - micro oriented player
   - execution
-  meaning: 'The execution side of the game: mechanics turned into intentional ability usage, timing, positioning
-    and fighting, as opposed to big-picture strategy.'
+  meaning: 'Micro is the execution aspect of the game: how you turn raw mechanical inputs into intentional
+    play, covering ability usage, timing, positioning and target selection in a fight. It is separate
+    from mechanics, which are the raw inputs, and it is the opposite of macro, which covers strategic
+    decisions such as whether to attend a fight at all. The hosts review a fight ''through a micro lens''
+    when they look at how it was executed.'
   sources:
   - episode_id: Jbw9Dq4GWUc
     t: 2957
@@ -360,12 +396,15 @@
     t: 2878
   - episode_id: EgAO9qiKYm4
     t: 3038
+  reviewed: suggested
 - term: macro
   aliases:
   - macro decision
-  - macro oriented player
-  meaning: An umbrella term for bigger-picture strategic decision making aligned with win conditions (rotations,
-    ganks, resets, builds); any decision not about executing a fight.
+  meaning: Macro is the umbrella term for bigger-picture strategic decision making that aligns with win
+    conditions. It covers things like win condition assessment, whether to gank, whether to reset on a
+    wave, rotations, and probably item builds. It is the opposite of micro, which is the execution of
+    a fight (ability usage, timing, positioning, target selection). Factors such as win conditions or
+    who is strong or weak inform a macro decision, but the decision itself is the macro part.
   sources:
   - episode_id: Jbw9Dq4GWUc
     t: 2902
@@ -373,16 +412,18 @@
     t: 2993
   - episode_id: EgAO9qiKYm4
     t: 3068
+  reviewed: suggested
 - term: micro macro framework
   aliases:
   - zoom in then zoom out
   - micro first, then macro
-  - micro/macro lens
   - micro macro it up
-  - micro/macro review
-  meaning: 'A review method: first look at a play through a micro lens (ability usage, target selection,
-    positioning), then zoom out to macro (should you have been there, map state, win condition). Start
-    with micro because if it can be played better mechanically, it''s not a macro problem.'
+  meaning: 'A review method the hosts use to simplify reviews. You look at a play (a fight, a gank death,
+    a wave position) first through a micro lens: ability usage, timing, positioning, and target selection.
+    Then you zoom out to macro: should I even be here, was this a good fight to take, what are the map
+    state, jungler location, and win condition. You start with micro because big micro findings usually
+    mean it wasn''t a macro problem (if you could play it better and win, it was an okay play), but you
+    should do both so you don''t jump to a conclusion either way.'
   sources:
   - episode_id: ANlsvzO-fdc
     t: 2081
@@ -398,6 +439,7 @@
     t: 2142
   - episode_id: uZQvmLrUVKM
     t: 4960
+  reviewed: suggested
 - term: spacing and tethering
   aliases:
   - tethering
@@ -471,14 +513,13 @@
   - ACE
   - ACE framework
   - ACE mindset
-  - Coach Cupcake's ACE
   - Ace mentality
-  - acknowledge the best play
-  - communicate
-  - embrace reality
-  meaning: 'A framework for when your team isn''t aligned: Acknowledge the best play, Communicate it with
-    pings and body language, and Embrace reality by accepting what your team actually does and picking
-    your best response. It supports playing with intention and handling tilt.'
+  meaning: 'A three-step framework for making in-game decisions: Acknowledge the best play, Communicate
+    it to your team with pings, body language and chat, and Embrace reality, meaning actively accept the
+    chaos of solo queue and what your team actually does, then pick your best response. Charlie says it
+    is best used when you think a teammate isn''t aligned with you, because you can''t control your team,
+    only influence it. It also works as a post-game review check and as a mindset for handling frustration,
+    and it supports playing with intention.'
   sources:
   - episode_id: Jbw9Dq4GWUc
     t: 3331
@@ -490,26 +531,30 @@
     t: 4558
   - episode_id: uZQvmLrUVKM
     t: 4190
+  reviewed: suggested
 - term: focus on the controllables
   aliases:
   - focus on what you can control
-  - not being a victim
-  - it's a choice to be a victim
-  meaning: Put attention on your own play and decisions rather than teammates; when someone flames or
-    ints, choose not to be a victim and play your best.
+  meaning: 'Putting your attention only on what you can control: your own play, decisions, mistakes and
+    learnings (for example, reviewing your VOD), rather than on teammates'' or opponents'' errors, flaming
+    or trolling. In practice that means muting or turning off chat, letting a bad-ganking jungler die,
+    copping the loss if someone AFKs, and taking responsibility for your own choices.'
   sources:
   - episode_id: Jbw9Dq4GWUc
     t: 3804
   - episode_id: ANlsvzO-fdc
     t: 3706
+  reviewed: suggested
 - term: getting 1% better every game
-  aliases:
-  - your own journey
-  meaning: Treat each game as a step in your own journey, take as many learnings as you can and carry
-    them forward whatever the result.
+  aliases: []
+  meaning: 'The hosts'' goal for improving: accept that you make a lot of errors and own them, and treat
+    each game as part of your own journey. Go into every game trying to take as many learnings as you
+    can, have a crack, and carry them into the next game to get 1% better each time. The result of the
+    individual game doesn''t matter.'
   sources:
   - episode_id: Jbw9Dq4GWUc
     t: 3775
+  reviewed: suggested
 - term: you don't have the right to open chat
   aliases:
   - party chat on
@@ -519,28 +564,35 @@
   - episode_id: Jbw9Dq4GWUc
     t: 3862
 - term: own the error / equal responsibility
-  aliases:
-  - foresight
-  meaning: If you die to a bad jungler gank, you clicked the buttons, so you share responsibility and
-    should have had the foresight to say no.
+  aliases: []
+  meaning: When you die after a teammate (e.g. the jungler) makes a bad play, the hosts say you share
+    equal responsibility, because you clicked the buttons and nobody made you do anything. If you'd had
+    the foresight to read it as a bad play, or had simply said no and let the jungler die while you kept
+    farming, you wouldn't have taken part. The point is to be more internal than external and not blame
+    the teammate.
   sources:
   - episode_id: Jbw9Dq4GWUc
     t: 3889
+  reviewed: suggested
 - term: graveyard of duoQ
-  aliases:
-  - online graveyard
-  meaning: The view that many players duo queue constantly and never improve.
+  aliases: []
+  meaning: The hosts' claim, based on what they have seen, that there is a 'graveyard' of players who
+    duoQ'd and did not improve at the game. They use it to back their stance that duoQ is bad for learning,
+    and it is the stance a listener challenges in the mailbag by saying duoing helped him improve.
   sources:
   - episode_id: Jbw9Dq4GWUc
     t: 3994
+  reviewed: suggested
 - term: rubber duck troubleshooting
-  aliases:
-  - rubber duck method
-  meaning: Explaining a problem aloud to notice what you missed; applied to duoing by voicing map info
-    and plans to your partner.
+  aliases: []
+  meaning: A programming technique where you explain a problem to a rubber duck. Saying it out loud, clearly
+    and simply, makes you notice something you missed or see the problem differently. In duoing, it means
+    constantly voicing map information, which pushes you to gather and internalize more of it, and voicing
+    your plans and reasons, which pushes you to think ahead and check whether the plan is good.
   sources:
   - episode_id: Jbw9Dq4GWUc
     t: 4224
+  reviewed: suggested
 - term: training grips analogy
   aliases:
   - grips
@@ -556,20 +608,26 @@
   - episode_id: Jbw9Dq4GWUc
     t: 4452
 - term: diminishing returns on duoQ
-  aliases:
-  - duo diminishing returns
-  meaning: Duoing helps new players a lot but its value drops around Platinum/Emerald and above, where
-    you must solve puzzles yourself.
+  aliases: []
+  meaning: 'Duoing works like soft coaching for a new player: an experienced partner fills knowledge gaps
+    and the new player learns fast. The benefit shrinks over time, once you have taken all the information
+    from that one partner, and it is small for experienced players (''platinum and above''), who have
+    little to learn and miss the deeper understanding of working things out themselves. The experienced
+    partner often gains nothing, and may get worse by relying on the duo''s ganks and communication.'
   sources:
   - episode_id: Jbw9Dq4GWUc
     t: 4478
+  reviewed: suggested
 - term: duoQ as a bandaid for the mental stack
   aliases: []
-  meaning: A duo partner's information covers a weak mental stack but doesn't develop yours, and you may
-    take it as gospel.
+  meaning: 'The hosts say duoQ (and comms) is appealing at first because a partner supplies information
+    and covers up your inferior mental stack, but it''s only a bandaid: you aren''t actually developing
+    your own mental stack. You also tend to take the partner''s info as gospel without processing it yourself,
+    even though it can be wrong, and comms are often too slow for how fast the game moves.'
   sources:
   - episode_id: G1A0U5bJRZM
     t: 1821
+  reviewed: suggested
 - term: spoon-fed
   aliases:
   - getting spoon fed information
@@ -581,43 +639,52 @@
 - term: mental blocks
   aliases:
   - champion mental blocks
-  - community sentiment
-  meaning: Beliefs about a champion (broken, no counterplay, must win early) that make you play worse
-    against or with it, feeding narratives stronger than its stats.
+  meaning: Mental blocks (\"champion mental blocks\") are beliefs a player holds about a champion, such
+    as that it's broken, has no counterplay, or that they must win early with it (Elise, Rell). These
+    beliefs make them play worse against it or with it. The hosts' example is Mel, where the community's
+    \"broken, no counterplay\" reaction fueled narratives and a huge ban rate even though its win rate
+    was low. They file this under \"stage four\" issues, meaning your relationship with the game.
   sources:
   - episode_id: Jbw9Dq4GWUc
     t: 5072
   - episode_id: 2WQ8zHtK6fc
     t: 3775
+  reviewed: suggested
 - term: core mage
-  aliases:
-  - pepper in other champions
-  - branching out archetypally
-  meaning: Pick one main mage as foundation, then add a few champions from other archetypes to fill gaps,
-    starting around mid-gold.
+  aliases: []
+  meaning: Your core mage is the one mage you make your main and stay on (e.g., Viktor) instead of running
+    two hard mages like Viktor and Orianna. You then pepper in other champions around it, such as other
+    mages or hybrids like Taliyah, Veigar, Aurora, Galio or TF, to fill archetypes and gaps the core doesn't
+    cover. The host would optimally start doing this around mid-gold, but he is flexible and says it's
+    fine earlier, even in silver.
   sources:
   - episode_id: Jbw9Dq4GWUc
     t: 5355
+  reviewed: suggested
 - term: Mottism
-  aliases:
-  - Morganism
-  - Pinglish
-  meaning: A joking name for the hosts' in-group jargon and coined terms listeners may not follow.
+  aliases: []
+  meaning: A half-joking name one host suggests ('I like Mottism') for the hosts' own version of League
+    of Legends language, the jargon they use that listeners may not follow, which came up while wrapping
+    the dictionary episode. The origin is not explained, and the hosts don't clearly settle on it as the
+    name. Rival suggestions such as Pinglish and Morganism are separate jokes.
   sources:
   - episode_id: Jbw9Dq4GWUc
     t: 5520
+  reviewed: suggested
 - term: process
-  aliases:
-  - the BBC process
-  - three-block process
-  meaning: An intentional way of conducting your League learning, knowing what you're testing, how many
-    games and reviews you do, so League becomes a vessel for improvement. It can be tailored but must
-    be deliberate.
+  aliases: []
+  meaning: A process is an intentional, deliberate way of conducting your League learning. You know what
+    you're testing and you set the dials (how many games, what your reviews look like, how many days a
+    week you play) to suit your schedule and energy, so you can see what works. It can be tailored however
+    you like, including no reviews, short reviews or long reviews, but it has to be yours and it has to
+    be real. A fake process goes through the steps without intensity, curiosity or accountability. Three-blocking
+    is one possible part of a process and is a separate concept.
   sources:
   - episode_id: ANlsvzO-fdc
     t: 282
   - episode_id: 2WQ8zHtK6fc
     t: 3409
+  reviewed: suggested
 - term: dials
   aliases:
   - dials on a wall
@@ -649,15 +716,15 @@
   - three block system
   - three block method
   - three block process
-  - three block-a-roo
   - block
   - blocks
   - the block process
   - two block
-  - 0-3 block
-  meaning: 'The hosts'' signature structure: play a block of about three focused games (sometimes two
-    or four) with high intensity, then stop regardless of results. It prevents tilt queuing and marathon
-    sessions, and reviews can be slotted after each game, after the block, or before the next block.'
+  meaning: 'The hosts'' core session structure: play a set block of about three games (sometimes two or
+    four) at high intensity and focus, then stop and take a break or play the next day, whatever the results
+    (0-3, 1-2 or 3-0). It is a discipline tool that prevents tilt queuing, chasing LP, and playing marathon
+    low-intensity sessions. It means fewer, higher-quality games with more learnings, and getting off
+    the computer afterward.'
   sources:
   - episode_id: ANlsvzO-fdc
     t: 658
@@ -677,6 +744,7 @@
     t: 198
   - episode_id: rWp2ZO2zHy4
     t: 669
+  reviewed: suggested
 - term: relationship with the game
   aliases:
   - healthy relationship with League
@@ -720,12 +788,16 @@
   aliases:
   - alternative universe
   - different universe
-  - decision tree
-  meaning: The harder, less structured game state after a major error where you have fewer options; also
-    the imagined timeline where you made the right play.
+  meaning: After a major early error (an 'end of review' mistake), you branch, as in a decision tree,
+    into an 'alternate reality' or 'different universe'. In it you have fewer options, the game is chaotic,
+    complicated and unstructured, and it is much easier for the enemy team, so you must bend over backwards
+    to win. Because of the snowball nature of the game you can't go back, though you can still dig out.
+    Separately, the hosts imagine 'alternative universes' in which you made the right play (for example,
+    taking a missed dive) to find the one learning per game.
   sources:
   - episode_id: ANlsvzO-fdc
     t: 1066
+  reviewed: suggested
 - term: snowball nature of League
   aliases:
   - respect the snowball
@@ -745,11 +817,12 @@
   aliases:
   - learning objectives
   - learn objective
-  - major learning objective
-  - in-game learning objectives vs post-game
-  meaning: A specific thing you deliberately focus on improving, in or out of game, to narrow attention
-    (e.g. jungle tracking, looking at lanes). Because in-game objectives tax the mental stack, they're
-    mostly set for post-game.
+  meaning: A learning objective is a specific thing you direct your attention to, in game or out of game,
+    to narrow your focus (e.g. jungle tracking, warding and leaning, looking at lanes), so you pick one
+    or two things instead of being overwhelmed by everything in League. The hosts split these into in-game
+    and out-of-game (post-game review) objectives. In-game ones tax the mental stack, so they set very
+    few (usually just one, and simple), while out-of-game ones can number two or three. Most objectives
+    therefore end up post-game, and they are best judged over a sample of several games.
   sources:
   - episode_id: ANlsvzO-fdc
     t: 1441
@@ -759,6 +832,7 @@
     t: 1380
   - episode_id: G1A0U5bJRZM
     t: 2264
+  reviewed: suggested
 - term: in-game learning objective
   aliases:
   - in game learning objectives
@@ -796,15 +870,17 @@
 - term: champion pool cycling
   aliases:
   - champ pool cycling
-  - champion cycling
-  - champ cycling
-  meaning: Keep a small pool of 2-4 champions and swap one in and one out at a time, avoiding burnout
-    and big LP losses while staying fresh.
+  meaning: 'A champion pool management process: you commit to a small pool (usually about 2-4 champs,
+    depending on rank and champion complexity) and, when you want to change it, drop only one champion
+    and add one new one at a time instead of overhauling the whole pool. This avoids burnout from one-tricking
+    and big LP losses from abrupt pool changes, keeps play fresh, and each new champ should get a fair
+    trial (around 30-45 games) before you bail.'
   sources:
   - episode_id: ANlsvzO-fdc
     t: 1729
   - episode_id: EgAO9qiKYm4
     t: 785
+  reviewed: suggested
 - term: champ hopping rule (30 to 45 games)
   aliases:
   - healthy champ hopping
@@ -816,17 +892,15 @@
   aliases:
   - stage 1-4
   - Stage 1, 2, 3, 4 model
-  - four stages of improving at League of Legends
   - the pyramid
-  - stages
   - stages (the pyramid)
-  - pyramid of success
   - BBC pyramid scheme
-  - four stages pyramid
-  meaning: 'The hosts'' four-stage pyramid for categorizing mistakes: stage 4 (mindset/out-of-game) at
-    the base, stage 3 (identity, win condition, role), stage 2 (decision making) and stage 1 (mechanical
-    execution) on top. You review from the base up, and lower stages take precedence; stage 1 is a tiny
-    capstone.'
+  meaning: 'Curtis''s framework for categorizing mistakes, drawn as a pyramid and branded the BBC pyramid.
+    Stage 4 is the base: out-of-game problems such as your relationship with the game and tilt from earlier
+    games. Above it, stage 3 covers reference points, win condition, and role in the comp. Stage 2 covers
+    whether a decision makes sense from a macro view. Stage 1 is at the top and covers execution, such
+    as missed skill shots. When reviewing, you start at stage 4 and work up, though with practice you
+    can go straight to stage 1 when the mistake is obviously one.'
   sources:
   - episode_id: ANlsvzO-fdc
     t: 1387
@@ -842,19 +916,20 @@
     t: 0
   - episode_id: uZQvmLrUVKM
     t: 5425
+  reviewed: suggested
 - term: stage four issues
   aliases:
   - stage four
   - stage 4
   - stage 4 issues
-  - stateful issues
   - out of game problems
-  - relationship with the game (stage 4)
-  - living in stage four
-  meaning: 'The base of the pyramid: out-of-game problems and mindset (sleep, tilt, narratives, LP fixation,
-    ranked anxiety, expectations, bad relationship with the game) that undermine everything above. Until
-    they''re addressed there''s no point reviewing in-game details; they are the only legitimate source
-    of inconsistency.'
+  meaning: 'Stage 4 is the bottom of the BBC pyramid: out-of-game problems that stop you from expressing
+    your best self, such as too little sleep, tilt from previous blocks, comparing yourself to friends,
+    narratives about the game or teammates, champion mental blocks, LP fixation, ranked anxiety, toxic
+    expectations, and a bad relationship with the game (a common cause and example, not a synonym). Curtis''s
+    rule is that there''s no point getting into in-game details or the micro until these are addressed,
+    since the same player with a clear mind wouldn''t make those mistakes. They are also the main real
+    source of off-days versus on-days.'
   sources:
   - episode_id: ANlsvzO-fdc
     t: 3447
@@ -878,6 +953,7 @@
     t: 1878
   - episode_id: uZQvmLrUVKM
     t: 5495
+  reviewed: suggested
 - term: stage three
   aliases:
   - stage 3
@@ -885,11 +961,13 @@
   - stage three issues
   - big picture thinking in game
   - big picture in game mindset issues
-  - layer two
-  - zooming out
-  meaning: 'The pyramid level about how you think as your champion: identity, reference points, role,
-    win condition and the player''s view of the game. Mistakes here mean you don''t know what you should
-    be doing, and many players misdiagnose them as stage 2 issues.'
+  meaning: Stage 3 is the in-game, big-picture mindset level of the pyramid. It covers how you think as
+    your champion (champion identity and reference points), your role and win condition assessment, and
+    your overall view of the game. Problems here mean you are acting through the wrong lens or don't know
+    your role or win con, for example by perma-roaming for kills or feeling you must save every teammate.
+    These are distinct from stage 2 decision-making in a specific game, stage 4 out-of-game issues, and
+    stage 1 execution. The hosts say the community mostly misses it, because people judge individual decisions
+    and ignore the mindset behind them.
   sources:
   - episode_id: 1AO2iZwUt9s
     t: 743
@@ -907,6 +985,7 @@
     t: 4317
   - episode_id: uZQvmLrUVKM
     t: 5529
+  reviewed: suggested
 - term: stage two
   aliases:
   - stage 2
@@ -942,19 +1021,26 @@
   - episode_id: uZQvmLrUVKM
     t: 5284
 - term: stage one goblins
-  aliases:
-  - stage two goblins
-  meaning: Joking label for players whose personality over-emphasizes one stage of the pyramid.
+  aliases: []
+  meaning: A joking label the hosts use for players whose personality leads them to fixate on stage one
+    of the pyramid (the pyramid of stages they use to think about the game). They give 'stage two goblins'
+    as a parallel label for stage two, and mention people who live permanently in stage four, who mainly
+    want to talk about out-of-game issues. The passage doesn't say what stage one contains.
   sources:
   - episode_id: uZQvmLrUVKM
     t: 5688
+  reviewed: suggested
 - term: cycling through the stages
-  aliases:
-  - the cycle
-  meaning: Players keep moving through the pyramid as they learn, returning to stage 4 and repeating.
+  aliases: []
+  meaning: The hosts mean that players don't climb the pyramid once and finish. At different points they
+    have to revisit different stages as they improve, e.g. champion mastery (stage 3), then mental stack
+    (stage 2), then dialing in stage 1, then possibly stage 4 again, and so on. Even top players, like
+    Challenger Ekko players with a wrong view of the champion, sometimes have to go back to an earlier
+    stage such as stage 3.
   sources:
   - episode_id: uZQvmLrUVKM
     t: 5558
+  reviewed: suggested
 - term: 1-3-1
   aliases:
   - 1-3-1 lane assignment
@@ -974,12 +1060,14 @@
     t: 2645
 - term: get into the details
   aliases:
-  - GITD
   - getting specific
   - get specific
-  meaning: 'A mindset and behavior that rejects generic questions and checklist advice: pull up the VOD,
-    look at what actually happened and name exactly what went wrong, then ask if it''s reasonable for
-    your stage.'
+  meaning: 'A mindset first and a behaviour second: when you''re confused or ask a vague question, you
+    stop talking in general terms and look at what actually happened in the specific case, for example
+    by pulling up the VOD or op.gg. You name exactly what you did (which Qs, which positioning, which
+    summoner spell use) instead of \"I played badly\". The hosts push this because there are no generic
+    checklists or shortcuts, so advice has to be case by case. In one mailbag answer, they add asking
+    whether it''s reasonable to expect that fix of yourself at your stage.'
   sources:
   - episode_id: ANlsvzO-fdc
     t: 2199
@@ -987,6 +1075,7 @@
     t: 11435
   - episode_id: 2WQ8zHtK6fc
     t: 5135
+  reviewed: suggested
 - term: broken by concept
   aliases:
   - BBC
@@ -1001,22 +1090,27 @@
     t: 8531
 - term: inconsistency (doesn't exist)
   aliases:
-  - consistency
   - inconsistent
-  meaning: Perceived inconsistency is really facing different puzzles each game; wins come from known
-    puzzles and losses from unknown ones, so treat losses as fixable.
+  meaning: The hosts argue that 'inconsistency' isn't real for almost all players. Your level of play
+    isn't swinging. Each game gives you different puzzles, so you win the ones your known concepts cover
+    and lose the ones they don't. Real consistency only becomes a topic once you've mastered nearly every
+    concept, at the highest levels. Below that, treat each loss as a sign you made a specific mistake.
+    Review your deaths, find it, and fix it.
   sources:
   - episode_id: ANlsvzO-fdc
     t: 3062
+  reviewed: suggested
 - term: League as a thousand concepts
-  aliases:
-  - theory and execution components
-  - concepts you understand
-  meaning: League is about a thousand concepts, each with theory and execution components; an Iron player
-    knows maybe 50. Use every game to pick up new ones.
+  aliases: []
+  meaning: The hosts ask you to imagine League as made up of about a thousand concepts, each with a theory
+    part and an execution part. An Iron player understands only some of them (say 50), and not the same
+    50 as other Iron players. That explains why the same level of play wins some games and loses others.
+    It isn't inconsistency, because the opponent or matchup may test a concept you lack. The job is to
+    use every game, win or loss, to learn new concepts and get better at executing them.
   sources:
   - episode_id: ANlsvzO-fdc
     t: 3201
+  reviewed: suggested
 - term: logical mindset about toxic players
   aliases:
   - empathy for them
@@ -1028,21 +1122,27 @@
     t: 3762
 - term: solo queue as a mental quest
   aliases:
-  - make it a minigame
   - mental quest
-  meaning: When a teammate is inting, reframe the game as a creative problem-solving challenge while building
-    mental fortitude.
+  meaning: 'When a teammate is toxic or inting, such as a support who ganks top from level 1 and never
+    returns, don''t go down to their level. Ignore them, pretend they don''t exist, and play your own
+    game as well as you can. Curtis frames this as a ''quest'' or ''minigame'': problem-solve the game
+    with a level 2 mid gank, creative resets and XP sapping, and try to win against the odds. He also
+    frames it as a ''mental quest'', which is you versus yourself, developing stoicism, mental fortitude
+    and emotional regulation while the flamers stagnate.'
   sources:
   - episode_id: ANlsvzO-fdc
     t: 3959
+  reviewed: suggested
 - term: pretend they don't exist
-  aliases:
-  - ignore the person
-  - mute all
-  meaning: Ignore and mute someone provoking you, acting as if they aren't in the game.
+  aliases: []
+  meaning: When a teammate or opponent is flaming or inting to provoke you, refuse to engage or take it
+    personally and act as if they aren't there (muting is just one aid). Don't go down to their level
+    or give them the reaction they want. Put your energy into playing your own game as well as you can,
+    even treating it as a mental quest or minigame to win against the odds.
   sources:
   - episode_id: ANlsvzO-fdc
     t: 3924
+  reviewed: suggested
 - term: losses as indicators
   aliases:
   - losses are indicators that you need to change your behavior
@@ -1067,15 +1167,17 @@
   - episode_id: ANlsvzO-fdc
     t: 4452
 - term: lead by example
-  aliases:
-  - express your level play
-  meaning: You change teammates' behavior by earning authority through competence; team games are where
-    you show your level, while improvement happens individually.
+  aliases: []
+  meaning: 'Leading by example means earning the authority to change a friend''s or teammate''s behavior
+    by visibly being more competent, for example by climbing high in SoloQ, because people who don''t
+    recognize your level won''t take criticism. The hosts pair it with a separate point: improve individually
+    on your own, and treat team games as the place to express that level, not to improve.'
   sources:
   - episode_id: ANlsvzO-fdc
     t: 4829
   - episode_id: ANlsvzO-fdc
     t: 4978
+  reviewed: suggested
 - term: tackle issues in isolation
   aliases:
   - solve them one by one
@@ -1100,13 +1202,15 @@
   - episode_id: 2WQ8zHtK6fc
     t: 260
 - term: threat assessment
-  aliases:
-  - knowing limits
-  meaning: Knowing when you can go forward, kill someone, or take trades, down to within 10-20 damage;
-    scales indefinitely.
+  aliases: []
+  meaning: Threat assessment is one skill within real champion mastery. It means reading a situation to
+    know when you can go forward, when you can kill someone, and what trades you can take. The hosts say
+    this one skill scales indefinitely. They tie it to knowing your limits, and they note that high-level
+    players can judge free kills to within about 10-20 damage.
   sources:
   - episode_id: 2WQ8zHtK6fc
     t: 1006
+  reviewed: suggested
 - term: detaching from LP
   aliases:
   - focusing on the learning over the LP
@@ -1155,12 +1259,16 @@
   - episode_id: 2WQ8zHtK6fc
     t: 1643
 - term: fighting
-  aliases:
-  - fighting game
-  meaning: Winning fights is the basic requirement for winning, historically under-taught.
+  aliases: []
+  meaning: Fighting is the ability to actually win teamfights and skirmishes (\"click the buttons\"),
+    which the hosts call a basic requirement, since you must win fights to kill the Nexus, however good
+    your macro knowledge is. Many players underrate it because they focus on macro theory like rotations
+    and priority. Fighting content was historically less emphasized because macro had larger gaps to fix
+    first.
   sources:
   - episode_id: 2WQ8zHtK6fc
     t: 1691
+  reviewed: suggested
 - term: out fight bad macro
   aliases:
   - you can out fight your way out of bad macro but you can't out macro your way out of bad fighting
@@ -1169,12 +1277,11 @@
   - episode_id: 2WQ8zHtK6fc
     t: 1938
 - term: growth mindset
-  aliases:
-  - fixed mindset
-  - fixed mindset (opposite)
-  meaning: Believing effort and practice let you improve, so every game is a chance to learn. The opposite,
-    a fixed mindset ('noob or beast', needing to look talented), produces ego protection, insecurity and
-    toxicity.
+  aliases: []
+  meaning: The belief that you can learn, change and improve through effort, time and practice, rather
+    than being capped by talent. Challenges are seen as positives to overcome, and every game is a chance
+    to get a bit better and to learn how to learn. It is the opposite of a fixed mindset, which the hosts
+    treat as a separate concept.
   sources:
   - episode_id: 2WQ8zHtK6fc
     t: 2032
@@ -1186,6 +1293,7 @@
     t: 8982
   - episode_id: uZQvmLrUVKM
     t: 387
+  reviewed: suggested
 - term: joy
   aliases:
   - fun
@@ -1210,24 +1318,30 @@
   - episode_id: 2WQ8zHtK6fc
     t: 2594
 - term: long-term thinking
-  aliases:
-  - marathon not a sprint
-  meaning: Judging your journey in months rather than single games, and keeping playing after a bad early
-    moment.
+  aliases: []
+  meaning: 'Viewing your League journey in months (e.g. six months out) rather than individual games,
+    blocks or days, so you build skills through a steady process instead of clawing for quick LP or a
+    few fast wins. The hosts liken it to a marathon, not a sprint: progress takes time, and most people
+    quit or keep changing things before results show.'
   sources:
   - episode_id: 2WQ8zHtK6fc
     t: 2762
+  reviewed: suggested
 - term: execution
   aliases:
   - League is a game of execution
-  - disrespect for the execution of the game
-  meaning: Consistently applying the knowledge you have in game; tied to mental stack. The hosts criticize
-    glossing over mechanical mistakes and blaming macro or teammates.
+  meaning: 'Execution is being able to apply the knowledge you already have, consistently, in the game.
+    The hosts tie it to the mental stack: reps on the Rift build the habits so that wave management, resets,
+    objectives, and landing spells take less energy. It is hard because you can forget one small thing,
+    such as an ability, a summoner spell, or an item like Zhonya''s. The hosts criticize "disrespect for
+    the execution": glossing over your own failed skill shots and blaming a teammate (for example your
+    ADC) instead of owning the misses.'
   sources:
   - episode_id: 2WQ8zHtK6fc
     t: 3098
   - episode_id: 1AO2iZwUt9s
     t: 1702
+  reviewed: suggested
 - term: signal versus noise
   aliases:
   - noise
@@ -1250,17 +1364,26 @@
 - term: open-minded
   aliases:
   - open-mindedness
-  meaning: Willing to admit your read was wrong instead of blaming others, and adapt.
+  meaning: Being open to all possibilities and willing to change your opinion. When a read or hypothesis
+    (for example a win-condition assessment or how bot lane should play out) turns out wrong, you consider
+    that you may have been off instead of blaming a teammate ('that player sucks'). You then adjust, for
+    example by shifting the win con or accepting unexpected player tendencies. The hosts say it is very
+    closely linked to adaptation.
   sources:
   - episode_id: 2WQ8zHtK6fc
     t: 3275
+  reviewed: suggested
 - term: thousands of miniature hypotheses
   aliases: []
-  meaning: In game you constantly predict outcomes and reality confirms or disproves them; closed-minded
-    players blame others when wrong.
+  meaning: The hosts' framing, in the context of being open-minded, that during a League game you are
+    constantly forming thousands of small predictions or reads, such as how bot lane will play out or
+    what your win condition is, and reality either bears them out or doesn't. When one is proven wrong,
+    a closed-minded player blames others ('that was their fault, it should have played out this way').
+    An open-minded player admits their assessment may have been off, takes the lesson, and adapts.
   sources:
   - episode_id: 2WQ8zHtK6fc
     t: 3328
+  reviewed: suggested
 - term: quality versus quantity
   aliases:
   - Goldilocks zone
@@ -1280,12 +1403,15 @@
   aliases:
   - theory versus practice
   - get in the arena
-  - Rift as your dojo
-  meaning: Value the person who plays and makes mistakes over the theorist; practice on the Rift instead
-    of only watching content.
+  meaning: 'From Theodore Roosevelt''s ''man in the arena'' quote: credit goes to the person who actually
+    plays and risks error, not the critic or theorist. The hosts use it to say you should get on the Rift
+    and get messy instead of only watching coaching content or guides, because every game at every Elo
+    is chaotic and you can''t theory your way out of it. They respect a player who stumbles but does so
+    with intention.'
   sources:
   - episode_id: 2WQ8zHtK6fc
     t: 3886
+  reviewed: suggested
 - term: tough conversation with yourself
   aliases:
   - the conversation you have with yourself
@@ -1326,12 +1452,15 @@
 - term: Zoom out
   aliases:
   - zooming out
-  - looking through other people's lenses
-  meaning: Seeing the game through teammates' perspectives and putting a game or block in perspective
-    of your longer journey.
+  meaning: Zooming out means stepping back from your own narrow view to get perspective. In game, that
+    means not seeing yourself as the main character (you're one champion on the rift) and viewing the
+    game through other people's lenses, like your jungler's, to build mid-game macro. Over the longer
+    run, it means treating a single game, block or decision as one small part of your journey (a 0-3 block
+    is just a block), taking a few learnings and moving on.
   sources:
   - episode_id: 2WQ8zHtK6fc
     t: 4639
+  reviewed: suggested
 - term: soloq journey
   aliases:
   - your journey
@@ -1380,12 +1509,15 @@
   aliases:
   - ahead in tempo
   - behind in tempo
-  - off tempo
-  meaning: 'The relative time advantage between you and your opponent: ahead means you finish tasks first
-    and can act first.'
+  meaning: Tempo is the relative time advantage between a player and their opponent. Being ahead in tempo
+    means you finished a mandatory task first (clearing a wave, resetting, finishing camps), so you are
+    on the map and able to attend plays before they can. Being behind means you are slower to finish and
+    so slower, or unable, to attend plays. It can also describe a whole team's time advantage, for example
+    when everyone is back on the map before the enemy respawns.
   sources:
   - episode_id: EgAO9qiKYm4
     t: 1004
+  reviewed: suggested
 - term: tempo reset
   aliases:
   - tempo base
@@ -1510,14 +1642,6 @@
   sources:
   - episode_id: EgAO9qiKYm4
     t: 4149
-- term: necessary evil
-  aliases:
-  - state of desperation
-  meaning: Overloading or forcing a play knowing you'll lose something else because no normal way to progress
-    exists.
-  sources:
-  - episode_id: EgAO9qiKYm4
-    t: 4270
 - term: map split
   aliases:
   - split the map
@@ -1597,14 +1721,17 @@
     t: 6929
 - term: 100 to 0 trade
   aliases:
-  - clean trade
   - one-way trade
-  - free trade
   - one-sided trade
-  meaning: A lane trade where you deal damage and take none; a mindset of staying healthy and poking.
+  meaning: 'A lane-phase trade where you deal damage to the enemy and take none in return. It doesn''t
+    mean a solo kill: you are the 0 and they are the 100. It isn''t only poke, because melee champions
+    can do it too (Renekton going in and out, Garen with shield), and the hosts use it as a mindset ("I
+    don''t want you taking damage"). It''s about laning, not chunking someone in the jungle or picking
+    them off.'
   sources:
   - episode_id: EgAO9qiKYm4
     t: 7033
+  reviewed: revised
 - term: short trade
   aliases:
   - short trades
@@ -1657,13 +1784,13 @@
 - term: make them react
   aliases:
   - make the enemy react
-  - pin
-  - pinning
-  - draw pressure
-  - tempo windows
   - making them react
-  meaning: Pushing a wave or splitting so the enemy must respond, then using that time elsewhere to create
-    numbers or take objectives.
+  meaning: Pushing a wave (pinning the enemy to it) so they have to respond, either by giving up the wave
+    or by catching it, and using the time they spend responding to create a temporary numbers advantage,
+    start a neutral objective or fight, or reset. The hosts treat it as a mindset as well as an action,
+    meant to avoid coin-flip fights. What you do next sets the style. Shove and move means leaving to
+    play elsewhere, while a split pusher or a tank like Illaoi stays and makes several enemies come to
+    the side lane.
   sources:
   - episode_id: EgAO9qiKYm4
     t: 7773
@@ -1671,6 +1798,7 @@
     t: 7969
   - episode_id: 2WQ8zHtK6fc
     t: 1789
+  reviewed: suggested
 - term: shove and move
   aliases:
   - shoving and moving
@@ -1761,16 +1889,18 @@
   - episode_id: uZQvmLrUVKM
     t: 607
 - term: self-sabotage
-  aliases:
-  - soft flaming
-  - soft toxicity
-  meaning: Actively lowering your win chances through poor mental state, ego, flaming or queuing at the
-    wrong time.
+  aliases: []
+  meaning: Actively making poor choices that lower your chance of winning, usually driven by a poor mental
+    state and ego-protecting mechanisms. It can happen in game (e.g. flaming or subtly toxic pinging that
+    makes teammates play worse) or before it, such as queuing at the wrong time like a fifth game of the
+    block after going 0-4. The hosts say reducing it matters as much as improving, because it is built
+    into your rank.
   sources:
   - episode_id: EgAO9qiKYm4
     t: 10281
   - episode_id: EgAO9qiKYm4
     t: 10334
+  reviewed: suggested
 - term: having a crack
   aliases:
   - have a crack
@@ -1828,10 +1958,10 @@
 - term: accepting your level of play
   aliases:
   - accepting your current level
-  - embrace being a Diamond 1 level player
-  - rank system is a mirror
-  meaning: Acknowledging your rank is accurate and adopting a growth mindset instead of thinking you deserve
-    higher.
+  meaning: Acknowledging that your current rank accurately reflects your level and adopting a growth mindset,
+    instead of thinking you deserve a higher rank. The hosts say the 'I deserve to be higher' mindset
+    comes from ego and comparison and makes you less focused, more judgmental of others, more insecure
+    and quicker to make excuses, and it is a precursor to a fixed mindset.
   sources:
   - episode_id: EgAO9qiKYm4
     t: 11896
@@ -1839,6 +1969,7 @@
     t: 2270
   - episode_id: uZQvmLrUVKM
     t: 1470
+  reviewed: suggested
 - term: mental stack as two variables
   aliases:
   - mental stack formula
@@ -1930,11 +2061,14 @@
 - term: expanded mental stack
   aliases:
   - broadening the picture
-  - narrow aperture
-  meaning: Anticipating gives a broader picture; an overloaded stack is a narrow aperture like horse blinders.
+  meaning: 'An expanded mental stack is having a broad picture of the game: you anticipate things, track
+    more information, and have more context, like a wide camera aperture. It contrasts with an overloaded
+    mental stack, where you get a narrow aperture (horse blinders), stop taking in information, focus
+    only on the here and now, and become easy to gank.'
   sources:
   - episode_id: G1A0U5bJRZM
     t: 1379
+  reviewed: suggested
 - term: limiting your champion pull
   aliases:
   - role mastery
@@ -1982,12 +2116,17 @@
   - episode_id: G1A0U5bJRZM
     t: 2687
 - term: reference point complexity vs execution complexity
-  aliases:
-  - champion difficulty levels
-  meaning: Champion difficulty has strategic information load and mechanical difficulty as separate parts.
+  aliases: []
+  meaning: Two separate sources of a champion's difficulty, both of which load the mental stack. Reference
+    point complexity is how much there is to consider strategically on the champion (who to kill, what
+    to set up, when to go). Execution complexity is how hard the mechanics are to carry out, such as combos
+    and engage timing. A champion can be high on one and low on the other (Kha'Zix is easy to execute
+    but has a lot to set up, while Zed has a clear target but harder execution), or high on both (Fiddle,
+    Maokai).
   sources:
   - episode_id: G1A0U5bJRZM
     t: 2772
+  reviewed: suggested
 - term: uncharacteristic mistake
   aliases:
   - red flag
@@ -2083,13 +2222,17 @@
   - episode_id: 1AO2iZwUt9s
     t: 2929
 - term: spawning gold for your opponent
-  aliases:
-  - creating gold for your opponent
-  - stop generating gold for your opponent
-  meaning: A Reddit idea that each death spawns new gold for the enemy; the hosts find the framing convoluted.
+  aliases: []
+  meaning: 'A Summoner School Reddit climbing tip: when you''re losing lane, your opponent''s lane gold
+    is capped by the fixed minions and plates, so each death adds gold beyond that cap. Instead, minimize,
+    take the CS loss, and let your team carry rather than forcing plays. The hosts agree that dying gives
+    the enemy gold and objectives while you get no gold or XP, and that gold comes from many sources besides
+    kills. They don''t like how the post is framed, because it mixes the gold-cap idea with "don''t be
+    the protagonist," and they don''t see how it affects other lanes.'
   sources:
   - episode_id: 1AO2iZwUt9s
     t: 3347
+  reviewed: revised
 - term: die strategically and purposefully
   aliases:
   - test your limits
@@ -2203,14 +2346,17 @@
 - term: fixation on LP
   aliases:
   - LP fixation
-  - rushing for LP
-  - scrambling to the rank I deserved
-  meaning: Going into games to gain LP rather than learn, or rushing to the rank you believe you deserve.
+  meaning: Fixation on LP is when you go into games to gain LP instead of making good decisions, improving,
+    or focusing on champ mastery. It shows up as staying up all night to win back lost LP, counting how
+    many games you need to reach the next rank, and reading your match history as just wins and losses.
+    The hosts say that caring about LP, being excited about it, or using it as a measuring stick is healthy,
+    and the problem is the fixation. Fixation on LP doesn't always have to be a stage four issue.
   sources:
   - episode_id: uZQvmLrUVKM
     t: 976
   - episode_id: uZQvmLrUVKM
     t: 1331
+  reviewed: suggested
 - term: ranked anxiety
   aliases: []
   meaning: Fear of queuing because of what others think or losing LP, often with a fixed mindset.
@@ -2259,13 +2405,16 @@
   - episode_id: uZQvmLrUVKM
     t: 1681
 - term: playing for kills
-  aliases:
-  - solo bolo mindset
-  meaning: A stage three mindset problem of loading in to kill the laner, which makes you wrong from the
-    start.
+  aliases: []
+  meaning: A stage three mindset problem where, on loading into the game, your whole approach is to kill
+    the enemy laner (e.g. playing for a solo bolo), theorycrafting how to kill them from first sight.
+    The hosts say this leaves you 'doomed' because it's the wrong mindset; a better frame, e.g. on Orianna,
+    is less about who you kill and more about who can kill you, which changes warding, how you approach
+    fights, and how you use abilities.
   sources:
   - episode_id: uZQvmLrUVKM
     t: 2290
+  reviewed: suggested
 - term: lens of the champion
   aliases:
   - glasses
@@ -2300,11 +2449,14 @@
     t: 2768
 - term: brick wall electric fence mindset
   aliases: []
-  meaning: A fundamentally wrong understanding of how your champion wants to fight, like Udyr running
-    into the enemy team.
+  meaning: The hosts' label for fighting in the wrong style for your champion, for example an Udyr running
+    into the enemy team. They say it isn't a misread of one fight or of what the abilities do. It means
+    your understanding of how the champion wants to play fights is fundamentally wrong, so nothing goes
+    well. They file it as one way of missing a champion's reference points.
   sources:
   - episode_id: uZQvmLrUVKM
     t: 3070
+  reviewed: revised
 - term: gathering problem vs processing problem
   aliases:
   - information gathering
@@ -2336,13 +2488,16 @@
   - episode_id: uZQvmLrUVKM
     t: 4272
 - term: where I'd be directing my attention
-  aliases:
-  - directing attention
-  - deploy
-  meaning: State which inputs you focus on before stating the action; inputs matter more than the decision.
+  aliases: []
+  meaning: 'A coaching phrase the hosts use as the opening statement when breaking down a macro decision.
+    You first name the specific inputs you''d watch (e.g. my jungler is about to full clear, my top laner
+    is in base, my mid laner is pushing outside), then say what action follows from them. The focus is
+    on the underlying variables, not the decision itself, because it''s about signal versus noise: knowing
+    which information to look at and which to ignore.'
   sources:
   - episode_id: uZQvmLrUVKM
     t: 4294
+  reviewed: suggested
 - term: reverse engineering method
   aliases: []
   meaning: Go back from a pivotal bad moment to work out how to change behavior and what info to gather.
@@ -2394,17 +2549,20 @@
 - term: reviewing before the next block
   aliases:
   - reviewing at the start of the next block
-  - delayed review
-  - reviewing after the block
   - calibration review
   - reviews before the block
-  meaning: Play a block with no reviews, then spend about 20 minutes reviewing at the start of the next,
-    letting you zoom out, separate noise from signal and recapture your mindset.
+  meaning: Curtis's idea of playing a three-game block with no review afterward, then spending about 20
+    minutes at the start of the next block reviewing all three games together. Seeing the games together
+    lets you zoom out, tell noise from signal, and spot repeated mistakes and strengths. The delay also
+    means you are less emotionally charged and more objective. The review works like a bookmark or warm-up
+    that puts you back in your earlier mindset, and Nathan calls it a calibration. Curtis suggests that
+    a learning objective makes the review more streamlined.
   sources:
   - episode_id: rWp2ZO2zHy4
     t: 669
   - episode_id: rWp2ZO2zHy4
     t: 1249
+  reviewed: suggested
 - term: review as a bookmark / pre-game warm-up
   aliases:
   - bookmark
@@ -2470,12 +2628,16 @@
 - term: X rank attachment
   aliases:
   - tied to some X rank
-  - rank-agnostic mindset
-  meaning: Being tied to a past rank makes you feel regressed; instead focus on whether gameplay is good
-    and improving.
+  meaning: Being 'tied to some X rank' means anchoring your self-image to a rank you held in the past
+    (like Daniel, once high plat and now Gold 1), so you feel you've regressed and expect to play better
+    than your current level allows. Curtis avoids it by not thinking in ranks at all and judging only
+    whether his gameplay is good and improving. The other host's fix is to accept he is a Diamond 1 level
+    player, expect mistakes at that level, and look for the opponents' mistakes and other ways to still
+    win.
   sources:
   - episode_id: rWp2ZO2zHy4
     t: 2127
+  reviewed: suggested
 - term: next best decision
   aliases:
   - what's next in the game
@@ -2549,12 +2711,16 @@
   - episode_id: rWp2ZO2zHy4
     t: 3355
 - term: every game might be your last
-  aliases:
-  - time limit
-  meaning: Treat each game as possibly your last chance, internalizing a time limit.
+  aliases: []
+  meaning: 'A viewer''s (CZ''s) suggested mindset for anyone aiming to go pro or hit Challenger: treat
+    every game as if it might be your last, as a way to internalize the BBC advice to "set a time limit."
+    Unlike traditional sports, which have a built-in time limit, League always lets you queue one more
+    ranked game (up to ~15 a day), so the limit is hard to feel. CZ admits they aren''t sure this is the
+    answer.'
   sources:
   - episode_id: rWp2ZO2zHy4
     t: 3494
+  reviewed: revised
 - term: input and output distortion
   aliases:
   - distorted output
@@ -2637,16 +2803,13 @@
   aliases:
   - weak-sided
   - 'weak-sided (verb: getting weak-sided)'
-  - losing gracefully on weak side
-  meaning: 'The side of the map, top or bot, where your team has a numbers disadvantage because the jungler
-    and support are putting their resources and attention on the other side. It''s a game-state label,
-    not a judgment on how well you''re playing. Because the jungler can''t be everywhere, someone is always
-    weak-sided, and it can change within seconds in the mid game as objectives shift. On weak side you
-    should play slow: don''t heavy trade, thin waves from a distance, ward defensively, concede plates
-    or a wave rather than get dove, and lose gracefully. Then use the small windows you get to do something,
-    and avoid dying, because that wastes waves and plates. The cost of dying depends on resources: dying
-    weak-sided while you''re the carry is very costly, but dying while behind can drag enemy resources
-    away from your fed teammates.'
+  meaning: 'Weak side is the side of the map, top or bot, where a team has a numbers disadvantage. It
+    is decided mostly by where the jungler and support put their resources in early and mid game, so you
+    can be weak-sided even while 3-0 if the jungler goes to the other lane and leaves you on an island.
+    On weak side, recognize it and accept it. Don''t heavy trade, thin waves from a distance, ward defensively
+    so you can''t be dove, and give up plates or a wave if needed. Lose gracefully, don''t die, and use
+    the small windows you get to do something. Dying on weak side is judged by resources: dying lazily
+    to a quick drive-by is a pretty bad mistake, and it matters more if you''re the carry with the resources.'
   sources:
   - episode_id: EgAO9qiKYm4
     t: 4585
@@ -2656,6 +2819,7 @@
     t: 6876
   - episode_id: 9rUbtBCanT0
     t: 367
+  reviewed: suggested
 - term: one trick
   aliases:
   - OTP
@@ -2677,18 +2841,18 @@
     t: 972
   - episode_id: 3QJr5O9EY-E
     t: 2022
+  reviewed: current
 - term: front to back
   aliases:
   - front-to-back teamfight
-  - front line / no front line
   - playing front to back
   - straight front to back
-  meaning: 'The traditional way of fighting a 5v5: the teams line up with tanks/frontline absorbing damage
-    while backline carries (ADC, control mages) stay behind and use abilities and autos at range on the
-    closest target, rather than diving, flanking or splitting. Champions like Azir, Malzahar, Orianna
-    or a peeling Ahri ''win the front to back'' by sitting behind the frontline and peeling the carry,
-    whereas assassins and divers (Zed, Xin Zhao) avoid it by looping the side, collapsing on one target,
-    or using side lanes and man advantages to bypass it.'
+  meaning: Front to back is the classic way of fighting a teamfight. Each team lines up a frontline of
+    tanks to absorb damage so the backline carries (ADC, mages) can hit safely from behind. Players 'sit
+    front to back' and peel the fed carry, as Ahri does for a Jinx. Champions like Azir are said to 'win
+    the front to back', and Darius is told to play like a peel tank in front of his carries. The hosts
+    contrast it with diving and assassin play, which bypasses it with terrain and vision, several divers
+    collapsing on one target, or a split pusher on the side.
   sources:
   - episode_id: 5oiwK6rlcRQ
     t: 650
@@ -2698,21 +2862,19 @@
     t: 652
   - episode_id: 2CXi04mpPkM
     t: 1562
+  reviewed: suggested
 - term: flank
   aliases:
   - flanking
-  - threaten the flank
-  - flank angle
-  - multi-threat
+  - threaten flanks
+  - flank angles
   - coming from behind
-  meaning: 'Engaging from the side or behind, from an angle the enemy isn''t watching, rather than front
-    to back. Flankers (Twitch, Rengar, Sett with Flash, Diana, Rek''Sai) wait for a fight to start and
-    use fog of war, bushes and a creative angle to reach the carries. They want assassinations and pick-offs,
-    and they fight best when the enemy has no vision of the approach. Even just threatening a flank pulls
-    enemy attention and cooldowns. The defensive side is to group up, ward your flanks, track missing
-    threats and hold CC, because champions like Caitlyn, AD Shaco and other ADCs are weak when flanked.
-    A fed Smolder or any fed AD carry is beaten by flanking, not by diving the front. Natty Nat''s Rengar
-    play adds a flank rule: stay on the opposite side of the map from your team while they siege.'
+  meaning: Flanking means engaging from the side or behind instead of front to back. Flankers like Twitch,
+    Rengar, Sett with Flash and Rek'Sai wait for the fight to start, then come from a creative angle to
+    assassinate or scoop up the carries. The hosts' main use is against fed AD carries such as Smolder,
+    who are strong front to back and weak when you get behind them, ideally with a side lane or other
+    "multi-threat". NattyNatt's Rengar stays on the opposite side from his team while they siege so he
+    can threaten flanks, and he comes from flank angles instead of using R straight forward.
   sources:
   - episode_id: ucBNpFPiZJc
     t: 2396
@@ -2724,17 +2886,16 @@
     t: 5144
   - episode_id: m5nCBykuiVM
     t: 1476
+  reviewed: revised
 - term: cheese
   aliases:
-  - cheesing
   - cheese builds
-  - cheese pairings
-  - cheesy
-  meaning: Doing something out of the ordinary that isn't good on paper but works in practice because
-    the opponent doesn't expect it, instead of simply playing better than them. Examples are a level 1
-    or 2 invade or gank, or an off-meta build like Halo Blade plus Ignite Tryndamere. It's unpredictable
-    and dishonest play, as opposed to consistent play. The hosts say they don't encourage it. It can gain
-    rank quickly, but it's an unsustainable band-aid shortcut that League eventually punishes.
+  meaning: Cheese is a gimmicky shortcut, such as an early jungle invade or an unusual build, that wins
+    games or climbs rank quickly without building real fundamentals. The hosts call it an \"easier cheat
+    code\" and a band-aid solution. It is unsustainable, because League \"will hit you like a ton of bricks
+    eventually\" and the climb stops working at higher ranks. They contrast it with a structured, consistent,
+    long-term approach. They also say a champion can have \"a cheese attached\", meaning a trick that
+    can win games, and Ziggs has none.
   sources:
   - episode_id: A5Jwx8XbJag
     t: 3641
@@ -2742,24 +2903,40 @@
     t: 4761
   - episode_id: 8bXmcBHJhbQ
     t: 1111
+  reviewed: suggested
 - term: outplayed
   aliases:
   - getting outplayed
-  - good death
-  meaning: A category of loss or death where you had the information and made a sound decision, but the
-    opponent was simply better or more creative in that situation. The hosts separate it from not understanding
-    the game and from your own mechanical misexecution. Because you can name it, you can accept it without
-    tilt or an ego hit ("props to him"), stay curious, and review for what to learn. It's a "good death"
-    and is treated as a healthy part of learning.
+  - got outplayed
+  meaning: 'Losing a fight or trade even though you made the right decision, because the opponent simply
+    played it better. The hosts separate it from a wrong decision: in review, work out whether the call
+    itself was right, since you can be 100% correct and still get outplayed, which happens all the time.
+    It is not the same thing as a good death.'
   sources:
-  - episode_id: 7s_M-Aezjbk
-    t: 2671
-  - episode_id: h1RRR4rJozQ
-    t: 968
   - episode_id: 56l-OINH0J8
-    t: 9178
-  - episode_id: 7ONqlWcp51I
-    t: 1586
+    t: 9283
+  - episode_id: 5i4ZwypKYd8
+    t: 2592
+- term: good death vs bad death
+  aliases:
+  - good death
+  - bad death
+  - good deaths and bad deaths
+  meaning: 'Not every death is a mistake. A good death comes from pushing your limits: you believed it
+    was the right play, went for it, and it didn''t work out, or you died in a fight you chose on purpose
+    while doing your job (damage, engage) so your team could win it. A bad death comes from being unfocused
+    or sloppy, such as not tracking the jungler, dying randomly, or dying with no objective up or your
+    camps up. Review your deaths by which kind they were, not by KDA. Related to high value versus low
+    value deaths.'
+  sources:
+  - episode_id: 56l-OINH0J8
+    t: 6594
+  - episode_id: 3k7y5EsVfas
+    t: 1214
+  - episode_id: 3k7y5EsVfas
+    t: 1464
+  - episode_id: 1AO2iZwUt9s
+    t: 3546
 - term: learning phase
   aliases:
   - learning phase vs execution phase
@@ -2783,15 +2960,15 @@
 - term: execution phase
   aliases:
   - learning and execution phases
-  - execute phase
-  meaning: The half of Curtis's two-phase model of a SoloQ journey. After a learning objective has been
-    drilled into a habit or muscle memory, you stop focusing on anything new. You just play and express
-    your best self with the new skill set, and see where it takes you and where you plateau. Only then
-    do you go back to the learning phase to find the next weakness and set a new objective. Curtis warns
-    that moving on from a learning objective before executing on it enough leads to a toxic learning cycle.
-    In the moment-to-moment sense, 'execution' also means the points in a game where there is no time
-    to think (skirmishes, ganks, fights) and you just rely on muscle memory. These alternate with thinking
-    moments called 'lull states'.
+  - execution
+  meaning: 'Curtis''s learning-versus-execution split, which applies at two levels. Across a SoloQ journey,
+    you work a learning objective for a few weeks until it''s a habit or muscle memory. Then you spend
+    an execution phase (he mentions about two weeks) with nothing new to focus on: you just play, results-focused
+    and with little reflection, to see where the new skill gets you. When results stop coming, you go
+    back to the learning phase, like Swagnar''s company switching between a metrics focus and a process
+    focus. Within a single game, the same split appears as executing in moments with no time to think
+    (skirmishes, ganks, fights), where you rely on muscle memory. Those moments alternate with ''lol states'',
+    where you think and calibrate before executing again.'
   sources:
   - episode_id: MIZTyxIIx_o
     t: 1177
@@ -2801,6 +2978,7 @@
     t: 3344
   - episode_id: gPvRbUqX594
     t: 3628
+  reviewed: revised
 - term: neuro surgeon
   aliases:
   - neurosurgeon
@@ -2875,12 +3053,13 @@
   aliases:
   - warding and leaning
   - leaning to your ward
-  - lean
-  meaning: 'A mid-lane fundamental. You place a ward on one side of the lane and then physically position
-    yourself toward that warded side, so the unwarded side is the only place a gank can come from. It
-    is defensive, because you can run away from a gank along the river instead of dying. It is also offensive,
-    because the vision lets you step past the wave and take space, which gives you better trades and prio.
-    The hosts'' rule: if you''re not leaning, you shouldn''t be pushing.'
+  meaning: A mid-lane fundamental where you ward one side of the lane and position yourself toward that
+    warded side (\"lean toward your ward\"). It makes you harder to gank, but the hosts say its main value
+    is offensive. The vision lets you posture aggressively and park further up the lane, which gives better-quality
+    trades, wave contests and prio. In some matchups you physically can't win trades without it. It goes
+    hand in hand with trading. The hosts' rule is that you should always be leaning to one side of mid,
+    and if you're not leaning, you shouldn't be pushing. They also treat a good ward you don't lean toward
+    as a red flag for rank.
   sources:
   - episode_id: 71c133Qc6uI
     t: 414
@@ -2888,17 +3067,19 @@
     t: 5226
   - episode_id: ntpv1MPiK5E
     t: 922
+  reviewed: suggested
 - term: disrespect
   aliases:
   - disrespecting the difficulty of the game
-  - disrespect for the craft
-  - lack of respect for the game
-  meaning: Failing to respect how hard League of Legends is, and how much craft there is in playing and
-    coaching it. Players assume it is simple because things look easy in isolation, so they expect fast
-    results, think they are better than their rank, and blame teammates. The hosts say this is the root
-    cause of toxic expectations, anger and ego problems. Their remedy is to make peace with the game's
-    difficulty and trust process and fundamentals, because League will humble you otherwise. They also
-    use it for the community's dismissal of coaching as a craft that takes years to learn.
+  meaning: 'Disrespecting the difficulty of the game means not respecting how hard League is. For example,
+    people assume any champion is easy because it only has four abilities, and they miss the many levels
+    of mastery. The hosts call this the root cause of toxic expectations: expecting more results than
+    you are getting, then being humbled. Their remedy is to make peace with the difficulty and never think
+    you are above the fundamentals, because League always humbles you. Disrespecting your opponents is
+    a different thing. It is the "I''m better than everyone" ego mindset, where you assume you will dominate
+    and can get away with disrespectful plays, as in the Mysterious/Jimmy example. The hosts also say
+    the coaching craft is disrespected, both by the community treating it as an easy job anyone can do
+    and by expecting quick results without years of work, as in the Ellis example.'
   sources:
   - episode_id: 3gh-AlQTF_Q
     t: 1357
@@ -2908,6 +3089,7 @@
     t: 3150
   - episode_id: gER9YLKDfAk
     t: 598
+  reviewed: revised
 - term: death cycle
   aliases:
   - chain death
@@ -2930,17 +3112,16 @@
   - episode_id: kivnIR7Hj-8
     t: 3008
 - term: final domino
-  aliases:
-  - last domino
-  - last stand
-  meaning: 'A mindset for games that are going badly: picture your team as a chain of falling dominoes
-    with you as the last one still upright. Your job is to stay upright and keep holding the line, because
-    if you fall the game is over. Instead of blaming teammates, you accept the weight, keep your team
-    in the game and make the enemy sweat. The hosts add that it works best if you hold this mentality
-    from the start of the game, with max accountability, and not only once the game has gone bad.'
+  aliases: []
+  meaning: A mindset Charlie got from Johnny, one of the mentors at Botlane Academy (BLA), for when things
+    around you are collapsing and you risk checking out or becoming emotionally incoherent. Picture your
+    team as a chain of dominoes where every other one has fallen and you are the final one still upright.
+    It's your job to stay upright and hold down the fort, because if one little breeze knocks you over,
+    the whole chain is done and the game is over.
   sources:
   - episode_id: qMcLBCTFDtI
     t: 2115
+  reviewed: revised
 - term: carnivore ADC
   aliases:
   - carnivore hypercarry
@@ -2960,15 +3141,13 @@
   - herbivore jungle
   - herbivore jungler
   - herbivore hypercarry
-  - greedy/selfish jungler
-  - full-clear jungler
-  meaning: A champion or player style that plays passively for farm and scaling instead of fighting early.
-    Herbivore junglers (Karthus, Master Yi-style full clearers, Gwen) full clear and minimize their laners'
-    deaths to slow the game down, while herbivore hypercarries (Jinx, Sivir) can neutralize lane and play
-    for the wave. The opposite is the "carnivore" champion (Vayne, Twitch, Tristana, Aphelios), which
-    must trade and fight early or it bleeds out and never scales. The hosts warn that herbivore junglers
-    still owe the map. They need to read when teammates will die, and when to leave camps for high-percentage
-    counter-ganks, or they plateau around Diamond.
+  meaning: Herbivore describes a champion or player that farms and scales rather than fighting early.
+    In the jungle (e.g. Karthus, or a full-clearing player like Malos) it means farming camps and minimizing
+    your laners' deaths to slow the game's pace. For ADCs, herbivores like Jinx and Sivir can neutralize
+    lane and play for the wave. The opposite is the \"carnivore\" hypercarry (Vayne, Twitch, Tristana,
+    Aphelios), which must trade and fight early or it bleeds out and never scales. The hosts stress that
+    a herbivore jungler still has a responsibility to the map. For example, they shouldn't blindly full
+    clear when they can see a gank or dive coming that will kill a laner.
   sources:
   - episode_id: 3gh-AlQTF_Q
     t: 5721
@@ -2978,3 +3157,4 @@
     t: 544
   - episode_id: MhKsROFHAPA
     t: 3852
+  reviewed: suggested

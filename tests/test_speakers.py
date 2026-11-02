@@ -162,3 +162,17 @@ def test_kaggle_job_has_the_batch_placeholder():
     from coach.cloud import kaggle
 
     assert "EPISODES: list[str] = []" in kaggle.JOB.read_text(encoding="utf-8")
+
+
+def test_split_stretches_override_the_speaker_map():
+    from coach.speakers.split import Stretch
+
+    words = [word(t, t + 1) for t in range(6)]
+    for w in words:
+        w.speaker = "S0"  # one diarized speaker, really two hosts
+    seg = CleanSegment(**segment(0, words).model_dump(), raw_text="")
+    splits = {"S0": [Stretch(start=3, end=6, host="curtis", similarity={})]}
+    hosts = {"S0": "charlie"}
+    assert attribute(0, 2, [seg], hosts, splits) == "charlie"
+    assert attribute(3, 6, [seg], hosts, splits) == "curtis"
+    assert attribute(0, 6, [seg], hosts, splits) == "uncertain"  # half and half
