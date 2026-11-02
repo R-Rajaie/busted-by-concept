@@ -12,6 +12,7 @@ import argparse
 import logging
 import sys
 from collections import Counter
+from datetime import date
 from pathlib import Path
 
 from coach.config import AUDIO_DIR, HOSTS_DIR, SPEAKERS_DIR, TRANSCRIPTS_RAW_DIR
@@ -33,11 +34,13 @@ def diarized(raw_dir: Path) -> dict[str, list[DiarizedSpeaker]]:
     return out
 
 
-def title(episode_id: str, audio_dir: Path) -> str:
+def episode(episode_id: str, audio_dir: Path) -> tuple[str, date | None]:
+    """The episode's title and upload date, when its metadata is there."""
     meta = audio_dir / f"{episode_id}.json"
     if not meta.exists():
-        return ""
-    return Episode.model_validate_json(meta.read_text(encoding="utf-8")).title
+        return "", None
+    ep = Episode.model_validate_json(meta.read_text(encoding="utf-8"))
+    return ep.title, ep.upload_date
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -68,12 +71,14 @@ def main(argv: list[str] | None = None) -> int:
     if not speakers:
         log.error("no diarized transcripts in %s", args.raw)
         return 1
-    titles = {e: title(e, args.audio) for e in speakers}
+    meta = {e: episode(e, args.audio) for e in speakers}
 
     def run() -> list[SpeakerMap]:
-        return [
-            identify.identify(e, titles[e], s, voiceprints, config) for e, s in speakers.items()
-        ]
+        maps = []
+        for e, s in speakers.items():
+            title, aired = meta[e]
+            maps.append(identify.identify(e, title, s, voiceprints, config, aired=aired))
+        return maps
 
     maps = run()
     if elim and elim not in voiceprints:

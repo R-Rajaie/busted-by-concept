@@ -19,6 +19,9 @@ class ExtractedLesson(BaseModel):
     role: Role
     phase: Phase
     champions: list[str] = Field(description="champions the lesson is specifically about")
+    concepts: list[str] = Field(
+        default=[], description="the show's named concepts this lesson applies, from the given list"
+    )
     durability: Durability = Field(
         description="patch: depends on current stats/items/meta; macro: strategy that shifts "
         "slowly; evergreen: fundamentals and mindset"

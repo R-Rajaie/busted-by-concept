@@ -24,6 +24,22 @@ class LLMError(RuntimeError):
     pass
 
 
+class LLMStop(LLMError):
+    """Every later call would fail the same way (logged out, usage limit): stop the run."""
+
+
+# Substrings of claude's error text that no retry or next episode can get past.
+FATAL = ("authenticate", "/login", "usage limit")
+
+
+def _error_text(proc: subprocess.CompletedProcess) -> str:
+    """claude -p --output-format json reports most errors on stdout, in `result`."""
+    try:
+        return str(json.loads(proc.stdout).get("result") or "")
+    except (json.JSONDecodeError, AttributeError):
+        return (proc.stderr or proc.stdout)[-500:]
+
+
 def _claude_exe() -> str:
     exe = shutil.which("claude")
     if not exe:
@@ -70,16 +86,19 @@ def complete(
                 encoding="utf-8",
                 timeout=timeout,
             )
-            if proc.returncode != 0:
-                raise LLMError(f"claude exited {proc.returncode}: {proc.stderr[-500:]}")
-            out = json.loads(proc.stdout)
-            if out.get("is_error"):
-                raise LLMError(f"claude error: {out.get('result')}")
+            out = json.loads(proc.stdout) if proc.returncode == 0 else {}
+            if proc.returncode != 0 or out.get("is_error"):
+                err = _error_text(proc)
+                if any(f in err.lower() for f in FATAL):
+                    raise LLMStop(f"claude: {err}")
+                raise LLMError(f"claude exited {proc.returncode}: {err}")
             if schema is None:
                 return out["result"]
             if out.get("structured_output") is not None:
                 return out["structured_output"]
             return json.loads(out["result"])
+        except LLMStop:
+            raise
         except (LLMError, json.JSONDecodeError, subprocess.TimeoutExpired, KeyError) as e:
             last_err = e
             log.warning("llm call failed (attempt %d/%d): %s", attempt, retries, e)

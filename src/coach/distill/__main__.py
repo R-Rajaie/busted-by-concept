@@ -14,10 +14,11 @@ from pathlib import Path
 
 from pydantic import BaseModel
 
-from coach import llm
+from coach import glossary, llm
 from coach.config import AUDIO_DIR, LESSONS_DIR, SPEAKERS_DIR, TRANSCRIPTS_CLEAN_DIR
 from coach.correct.models import CleanSegment, CleanTranscript
 from coach.distill.models import EpisodeLessons, ExtractedLesson, Lesson
+from coach.glossary import Concept
 from coach.ingest.models import Episode
 from coach.speakers.models import SpeakerMap
 
@@ -35,7 +36,18 @@ points in the same window, and claims the hosts are only describing to disagree 
 Write each claim so it stands alone without the transcript. Keep the hosts' meaning; don't
 add advice they didn't give. Use role "any" and an empty champions list unless the lesson is
 really specific to a role or champions. Use the transcript's [seconds] timestamps for
-start_ts and end_ts. Return an empty list if the window has no lessons."""
+start_ts and end_ts. Return an empty list if the window has no lessons.
+
+The hosts have their own named concepts, listed below. When a lesson is about one, say so in
+the claim using the show's name for it (not a paraphrase), and list it in concepts by its exact
+name from the list. Only list concepts the lesson really applies."""
+
+
+def concept_list(concepts: list[Concept]) -> str:
+    return "\n".join(
+        f"- {c.term}" + (f" (also: {', '.join(c.aliases)})" if c.aliases else "") + f": {c.meaning}"
+        for c in concepts
+    )
 
 
 class _Extracted(BaseModel):
@@ -95,6 +107,9 @@ def attribute(start: float, end: float, segments: list[CleanSegment], hosts: dic
 def distill(clean: CleanTranscript, episode: Episode) -> EpisodeLessons:
     season, flag = season_for(episode.upload_date)
     hosts = load_hosts(clean.episode_id)
+    concepts = glossary.load().concepts
+    names = {n.lower(): c.term for c in concepts for n in [c.term, *c.aliases]}
+    system = SYSTEM + "\n\nThe show's concepts:\n" + (concept_list(concepts) or "(none yet)")
     lessons: list[Lesson] = []
     chunks = windows(clean.segments)
     for w, chunk in enumerate(chunks, start=1):
@@ -103,8 +118,11 @@ def distill(clean: CleanTranscript, episode: Episode) -> EpisodeLessons:
             f"Episode: {episode.title}\nUploaded: {episode.upload_date}\n\n"
             f"Transcript window {w}/{len(chunks)}:\n{lines}"
         )
-        extracted = llm.complete_model(prompt, SYSTEM, _Extracted, model=llm.SMART_MODEL)
+        extracted = llm.complete_model(prompt, system, _Extracted, model=llm.SMART_MODEL)
         for x in extracted.lessons:
+            # keep only names from the list, spelled as the list spells them
+            kept = (names[n.lower()] for n in x.concepts if n.lower() in names)
+            x.concepts = list(dict.fromkeys(kept))
             lessons.append(
                 Lesson(
                     **x.model_dump(),
@@ -185,6 +203,9 @@ def main(argv: list[str] | None = None) -> int:
         log.info("%s distilling %s", tag, episode.title)
         try:
             result = distill(clean, episode)
+        except llm.LLMStop as e:  # every later episode would fail the same way
+            log.error("%s stopping: %s", tag, e)
+            return 1
         except Exception as e:  # keep going; a rerun picks failures back up
             log.error("%s failed: %s", tag, e)
             failed.append(clean.episode_id)

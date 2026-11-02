@@ -22,6 +22,8 @@ class RejectedChunk(BaseModel):
     first_segment: int
     last_segment: int
     change_ratio: float
+    # a single segment the word guard blocked: the text the LLM proposed, to find missing terms
+    proposed: str = ""
 
 
 class CleanTranscript(BaseModel):

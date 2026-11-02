@@ -6,3 +6,9 @@ hosts: [curtis, nathan, charlie]
 # matches no other host is labeled as them. Once enough episodes are labeled this way, their
 # voiceprint is averaged from those speakers and later runs match it like any other.
 by_elimination: charlie
+
+# The first upload date each host could appear on. Episodes before it aren't matched against
+# that host, so a stray voice there can't be labeled as them. Charlie's first labeled episode
+# is "We Spent 4 Months Learning Top Lane" (2024-07-01), a regular from about November 2024.
+joined:
+  charlie: 2024-07-01

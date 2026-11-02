@@ -1,3 +1,5 @@
+from datetime import date
+
 import numpy as np
 
 from coach.correct.models import CleanSegment
@@ -52,6 +54,22 @@ def test_no_elimination_in_guest_episodes_or_with_two_leftovers():
     assert by_label(speakers, title="Ep 35 ft. Zaboutine")["C"] == ("guest_unknown", "no_match")
     two = by_label([speaker("A", 0), speaker("C", 2), speaker("E", 4)])
     assert two["C"] == two["E"] == ("guest_unknown", "no_match")
+
+
+def test_handle_in_title_means_guest():
+    speakers = [speaker("A", 0), speaker("B", 1), speaker("C", 2)]
+    got = by_label(speakers, title="How @ludwig Went from IRON to PLAT")
+    assert got["C"] == ("guest_unknown", "no_match")
+
+
+def test_host_not_matched_before_joining():
+    config = CONFIG.model_copy(update={"joined": {"charlie": date(2024, 7, 1)}})
+    with_charlie = VOICEPRINTS | {"charlie": voiceprint("charlie", 2)}
+    speakers = [speaker("A", 0), speaker("B", 1), speaker("C", 2)]
+    before = identify.identify("ep", "", speakers, with_charlie, config, aired=date(2023, 1, 1))
+    after = identify.identify("ep", "", speakers, with_charlie, config, aired=date(2025, 1, 1))
+    assert [s.host for s in before.speakers] == ["curtis", "nathan", "guest_unknown"]
+    assert [s.host for s in after.speakers] == ["curtis", "nathan", "charlie"]
 
 
 def test_bootstrapped_voiceprint_rejects_a_stranger():

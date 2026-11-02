@@ -1,5 +1,6 @@
 """On-disk records for host voiceprints and per-episode speaker maps."""
 
+from datetime import date
 from typing import Literal
 
 import yaml
@@ -25,6 +26,11 @@ class HostConfig(BaseModel):
 
     hosts: list[str]
     by_elimination: str | None = None
+    joined: dict[str, date] = {}  # host -> first upload date they can appear on
+
+    def active(self, aired: date | None) -> list[str]:
+        """Hosts who could be on an episode uploaded on `aired` (all of them if unknown)."""
+        return [h for h in self.hosts if aired is None or self.joined.get(h, aired) <= aired]
 
 
 Method = Literal["voiceprint", "elimination", "ambiguous", "short", "no_match"]

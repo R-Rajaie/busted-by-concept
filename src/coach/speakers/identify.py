@@ -5,6 +5,7 @@ hand-checked episodes before trusting attribution.
 """
 
 import re
+from datetime import date
 
 import numpy as np
 
@@ -12,11 +13,16 @@ from coach.speakers.models import HostConfig, SpeakerMap, SpeakerMatch, Voicepri
 from coach.transcribe.diarize import EMBEDDING_MODEL
 from coach.transcribe.models import DiarizedSpeaker
 
-THRESHOLD = 0.5  # cosine; a speaker below this for every host matches none of them
+# Cosine; a speaker below this for every host matches none of them. Over the full archive, 95%
+# of host matches scored 0.70 or more (medians 0.80 to 0.97); the tail below 0.65 was mostly
+# short stretches and guest episodes, where a wrong host is likelier than a bad recording.
+THRESHOLD = 0.65
 MARGIN = 0.1  # the best host must beat the runner-up by this much
 MIN_SECONDS = 120  # less talk time than this is too little to identify reliably
+ELIM_MAX = 0.4  # elimination only takes a speaker this unlike every known host
 MIN_BOOTSTRAP = 5  # elimination episodes needed before averaging a voiceprint from them
-GUEST_TITLE = re.compile(r"\b(ft|feat)\b\.?|\bfeaturing\b|\bguest", re.IGNORECASE)
+# "ft. X", "featuring X", "guest", or a YouTube handle ("How @ludwig Went from IRON to PLAT")
+GUEST_TITLE = re.compile(r"\b(ft|feat)\b\.?|\bfeaturing\b|\bguest|@\w", re.IGNORECASE)
 
 
 def unit(v) -> np.ndarray:
@@ -24,9 +30,9 @@ def unit(v) -> np.ndarray:
     return v / np.linalg.norm(v)
 
 
-def is_guest_episode(title: str, speakers: list[DiarizedSpeaker], config: HostConfig) -> bool:
+def is_guest_episode(title: str, speakers: list[DiarizedSpeaker], hosts: list[str]) -> bool:
     main = sum(s.seconds >= MIN_SECONDS for s in speakers)
-    return bool(GUEST_TITLE.search(title)) or main > len(config.hosts)
+    return bool(GUEST_TITLE.search(title)) or main > len(hosts)
 
 
 def match(speaker: DiarizedSpeaker, voiceprints: dict[str, Voiceprint]) -> SpeakerMatch:
@@ -59,17 +65,20 @@ def identify(
     speakers: list[DiarizedSpeaker],
     voiceprints: dict[str, Voiceprint],
     config: HostConfig,
+    aired: date | None = None,
 ) -> SpeakerMap:
-    guest = is_guest_episode(title, speakers, config)
+    hosts = config.active(aired)
+    voiceprints = {h: vp for h, vp in voiceprints.items() if h in hosts}
+    guest = is_guest_episode(title, speakers, hosts)
     matches = [match(s, voiceprints) for s in speakers]
     elim = config.by_elimination
-    if elim and elim not in voiceprints and not guest:
+    if elim and elim in hosts and elim not in voiceprints and not guest:
         # Only a speaker who is clearly none of the known hosts; one who is merely below the
         # threshold may be a known host that diarization split in two.
         leftover = [
             m
             for m in matches
-            if m.method == "no_match" and max(m.similarity.values(), default=0) < THRESHOLD - MARGIN
+            if m.method == "no_match" and max(m.similarity.values(), default=0) < ELIM_MAX
         ]
         if len(leftover) == 1 and len(leftover) == sum(m.method == "no_match" for m in matches):
             leftover[0].host, leftover[0].method = elim, "elimination"

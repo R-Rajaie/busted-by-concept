@@ -36,3 +36,9 @@
 - {term: Elo, misheard: [Ilo, Eelo], meaning: skill rating / rank bracket, core: true}
 - {term: tilt queuing, misheard: [Tilt Qing, tilt cueing], meaning: queueing again while tilted, core: true}
 - {term: op.gg, misheard: [OPG, O.P.G.], meaning: stats website for match history}
+
+# The show's own terms that Whisper mishears. "lull state" is never "LoL state".
+- {term: lull state, misheard: [lol state, lol-state, lolstate, lull-state], meaning: "a quiet window in a game (no fight or objective) to use for setup"}
+- {term: lull states, misheard: [lol states, lol-states, lolstates, lull-states], meaning: "plural of lull state"}
+- {term: mental stack, misheard: [mental sack, mental sac], meaning: "how much a player can hold in mind and track at once"}
+- {term: Broken by Concept, misheard: [broken by comics, brokeback concept], meaning: the podcast's name}

@@ -1,7 +1,8 @@
 """Proper nouns and jargon used for hotwords and transcript correction.
 
 `champions.json` and `items.json` are generated from Data Dragon by `coach.glossary.refresh`.
-`slang.yaml` is hand-curated.
+`slang.yaml` is hand-curated. `concepts.yaml` holds the show's own named ideas, drafted from
+the episodes that define them by `coach.glossary.concepts` and then reviewed by hand.
 """
 
 import json
@@ -36,11 +37,26 @@ class SlangTerm(BaseModel):
     core: bool = False  # always included in the hotword list
 
 
+class Source(BaseModel):
+    episode_id: str
+    t: int  # seconds into the episode
+
+
+class Concept(BaseModel):
+    """One of the show's own named ideas ("mental stack", "3 blocking"), as the hosts define it."""
+
+    term: str
+    aliases: list[str] = []
+    meaning: str
+    sources: list[Source] = []
+
+
 class Glossary(BaseModel):
     patch: str
     champions: list[Champion]
     items: list[Item]
     slang: list[SlangTerm]
+    concepts: list[Concept] = []
 
     def terms(self) -> list[str]:
         """Every canonical spelling: champions, abilities, items, slang."""
@@ -55,11 +71,15 @@ class Glossary(BaseModel):
 def load(glossary_dir: Path = GLOSSARY_DIR) -> Glossary:
     champs = json.loads((glossary_dir / "champions.json").read_text(encoding="utf-8"))
     items = json.loads((glossary_dir / "items.json").read_text(encoding="utf-8"))
-    slang_path = glossary_dir / "slang.yaml"
-    slang = yaml.safe_load(slang_path.read_text(encoding="utf-8")) if slang_path.exists() else []
+
+    def hand_curated(name: str) -> list:
+        path = glossary_dir / name
+        return (yaml.safe_load(path.read_text(encoding="utf-8")) if path.exists() else None) or []
+
     return Glossary(
         patch=champs["patch"],
         champions=champs["champions"],
         items=items["items"],
-        slang=slang or [],
+        slang=hand_curated("slang.yaml"),
+        concepts=hand_curated("concepts.yaml"),
     )

@@ -62,7 +62,8 @@ uv run python -m coach.speakers.enroll --host curtis --url <solo clip>   # needs
 uv run python -m coach.speakers                    # diarized speakers -> hosts
 uv run python -m coach.cloud.kaggle prepare        # then upload, run, status (Kaggle GPU run)
 uv run python -m coach.cloud pack                  # rented-GPU alternative; then unpack results.tar
-uv run python -m coach.correct --all
+uv run python -m coach.correct --all              # --slang-only: reapply slang.yaml, no LLM
+uv run python -m coach.glossary.concepts           # draft glossary/concepts.yaml; --term "x" for one term
 uv run python -m coach.distill --all                # --reattribute: redo speakers only, no LLM
 uv run python -m coach.consolidate --all            # or --episode <id> to update only touched concepts
 uv run python -m coach.index --rebuild
@@ -73,6 +74,8 @@ uv run python -m coach.glossary.refresh            # re-pull Data Dragon
 uv run pytest
 uv run ruff check . && uv run ruff format .
 ```
+
+Long LLM steps run in their own window so closing the app doesn't kill them: `Start-Process powershell -ArgumentList '-NoProfile','-ExecutionPolicy','Bypass','-File','scripts\run.ps1','correct','--all'` (logs to `data\<step>.log`).
 
 ## Conventions
 
@@ -117,6 +120,8 @@ The podcast's views evolve, so newer episodes should outweigh older ones, but on
 - `champions.json` and `items.json` are regenerated from Data Dragon. Never edit them by hand.
 - `slang.yaml` is hand-curated. Add to it when an eval or correction log shows a missed term, but do not bulk-generate entries.
 - The hotword list is built per episode (core slang plus champions named in the title or description) because Whisper's prompt budget is about 224 tokens.
+- `concepts.yaml` is the show's own vocabulary (mental stack, lull state, three block, BBC pyramid, ...), drafted by `coach.glossary.concepts` from the episodes that define terms and reviewed by hand; reruns keep hand edits. Distill tags each lesson with the concepts it applies and writes claims in the show's words. Mishearings of these terms go in `slang.yaml` `misheard`, never in concept `aliases` (aliases count as valid words for the correction guard). It's "lull state", never "LoL state".
+- The LLM correction pass is guarded per segment (`llm_pass.segment_ok`): an edit may replace at most 3 words and bring in only known terms (glossary, concepts, show words, or their word forms like "tanky", "TPed"). Anything else keeps the pre-LLM text and is logged as a rejected chunk with the proposed text; `scripts/blocked_terms.py` ranks what got blocked, to find missing terms.
 
 ## Speaker attribution
 
@@ -124,7 +129,9 @@ The podcast's views evolve, so newer episodes should outweigh older ones, but on
 - Enroll each host from a few minutes of clean solo audio in `hosts/<host_id>/reference/`. Voiceprints use pyannote's `wespeaker-voxceleb-resnet34-LM`, the same model the diarization pipeline clusters with, so a voiceprint is directly comparable to a diarized speaker's embedding. Keep it that way: `coach.speakers` refuses voiceprints from another model.
 - Match each diarized speaker to the nearest host by cosine similarity. Below the threshold, label it `guest_unknown`, never a forced match. If two hosts are too close to call, label it `uncertain`.
 - Curtis and Nathan are enrolled from solo videos. Charlie has no solo clip, so Charlie is identified by elimination: in an episode without a guest (no "ft." in the title, at most three substantial speakers), the one substantial speaker who is clearly neither Curtis nor Nathan is Charlie. `coach.speakers` then averages a Charlie voiceprint from the clearest such episodes (`hosts/charlie/voiceprint.json`, `source: bootstrapped`) and rematches everything with it, so a guest the title didn't mention fails the Charlie match instead of being called Charlie.
-- Guest episodes are out of scope: unmatched speakers there are `guest_unknown`.
+- Guest episodes are out of scope: unmatched speakers there are `guest_unknown`. A title with "ft.", "featuring", "guest", or an "@handle" marks one.
+- Charlie joined on 2024-07-01 (regular from about November 2024). `hosts.yaml` `joined` keeps a host out of matching before that date, so no earlier voice can be labeled Charlie.
+- A host match needs cosine 0.65 (`identify.THRESHOLD`); over the archive, 95% of real matches score 0.70+. Known issue: in some three-host episodes diarization merges Curtis and Charlie into one speaker (about 47 speakers / 36 h resemble two hosts); not fixed yet.
 - Lessons get a host only when that host says at least 70% of the words in the lesson's span (`coach.distill.attribute`); otherwise `uncertain`. Words said during crosstalk (`Word.overlap`, where pyannote heard two speakers at once) don't count: whisper writes down only one voice there, so their speaker is a guess.
 - Low-confidence lines aren't flagged separately: each segment's `avg_logprob` and each word's `prob` are stored, so a downstream stage can use them without rerunning the GPU step.
 - Use self-introductions ("I'm X") as a free check on the mapping (not built yet).

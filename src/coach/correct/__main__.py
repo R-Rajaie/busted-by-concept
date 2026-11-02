@@ -14,6 +14,7 @@ from coach.config import TRANSCRIPTS_CLEAN_DIR, TRANSCRIPTS_RAW_DIR
 from coach.correct import llm_pass
 from coach.correct.matcher import Match, Matcher
 from coach.correct.models import CleanSegment, CleanTranscript, Correction, RejectedChunk
+from coach.llm import LLMStop
 from coach.transcribe.models import RawTranscript
 
 log = logging.getLogger("coach.correct")
@@ -51,6 +52,7 @@ def correct(raw: RawTranscript, matcher: Matcher, use_llm: bool) -> CleanTranscr
     rejected: list[RejectedChunk] = []
     if use_llm:
         context = llm_pass.glossary_context(matcher.glossary, raw.hotwords)
+        vocab = llm_pass.vocabulary(matcher.glossary, raw.hotwords)
         step = llm_pass.CHUNK_SEGMENTS
         for c in range(0, len(segments), step):
             chunk = segments[c : c + step]
@@ -61,6 +63,14 @@ def correct(raw: RawTranscript, matcher: Matcher, use_llm: bool) -> CleanTranscr
             )
             before = [s.text for s in chunk]
             after = [fixes.get(s.id, s.text) for s in chunk]
+            for k, s in enumerate(chunk):
+                if after[k] != s.text and not llm_pass.segment_ok(s.text, after[k], vocab):
+                    rejected.append(
+                        RejectedChunk(
+                            first_segment=s.id, last_segment=s.id, change_ratio=0, proposed=after[k]
+                        )
+                    )
+                    after[k] = s.text  # drop this segment's edit, keep the others
             ratio = llm_pass.change_ratio(before, after)
             if ratio > llm_pass.MAX_CHANGE:
                 log.warning(
@@ -93,6 +103,33 @@ def correct(raw: RawTranscript, matcher: Matcher, use_llm: bool) -> CleanTranscr
     )
 
 
+def reslang(out_dir: Path, episodes: list[str] | None, matcher: Matcher) -> int:
+    """Apply the slang rewrites to clean transcripts already written, after slang.yaml grows."""
+    paths = sorted(out_dir.glob("*.json"))
+    if episodes:
+        paths = [out_dir / f"{e}.json" for e in episodes]
+    changed = 0
+    for path in paths:
+        clean = CleanTranscript.model_validate_json(path.read_text(encoding="utf-8"))
+        n = 0
+        for s in clean.segments:
+            text = matcher.apply_slang(s.text)
+            if text != s.text:
+                clean.corrections.append(
+                    Correction(segment_id=s.id, before=s.text, after=text, source="slang")
+                )
+                s.text = text
+                n += 1
+        if n:
+            tmp = path.with_suffix(".json.tmp")
+            tmp.write_text(clean.model_dump_json(indent=2), encoding="utf-8")
+            tmp.replace(path)
+            changed += 1
+            log.info("%s: %d segments rewritten", path.stem, n)
+    log.info("%d of %d transcripts changed", changed, len(paths))
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="coach.correct", description=__doc__)
     target = parser.add_mutually_exclusive_group(required=True)
@@ -102,11 +139,18 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--out", type=Path, default=TRANSCRIPTS_CLEAN_DIR, help="output directory")
     parser.add_argument("--force", action="store_true", help="redo existing episodes")
     parser.add_argument("--no-llm", action="store_true", help="skip the LLM pass")
+    parser.add_argument(
+        "--slang-only",
+        action="store_true",
+        help="apply new slang.yaml mishearings to existing clean transcripts (no LLM)",
+    )
     args = parser.parse_args(argv)
 
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     args.out.mkdir(parents=True, exist_ok=True)
     matcher = Matcher(glossary.load())
+    if args.slang_only:
+        return reslang(args.out, args.episode, matcher)
 
     paths = sorted(args.raw.glob("*.json"))
     if args.episode:
@@ -126,6 +170,9 @@ def main(argv: list[str] | None = None) -> int:
         log.info("%s correcting %d segments", tag, len(raw.segments))
         try:
             clean = correct(raw, matcher, use_llm=not args.no_llm)
+        except LLMStop as e:  # every later episode would fail the same way
+            log.error("%s stopping: %s", tag, e)
+            return 1
         except Exception as e:  # keep going; a rerun picks failures back up
             log.error("%s failed: %s", tag, e)
             failed.append(raw.episode_id)
