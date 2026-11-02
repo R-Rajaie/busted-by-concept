@@ -23,6 +23,8 @@ SHOW_WORDS = (
     "Broken by Concept BBC League of Legends Riot Curtis Nathan Charlie "
     "EU EUW EUNE NA OCE KR LAN LAS BR TR JP Korea Korean SoloQ "
     "hardstuck fog jungle laning ult ultimate "
+    # the hosts' coaching programs, and names that come up a lot
+    "Academy Botlane Toplane Midlane BLA TLA MLA Saltu NattyNatt "
     "teleport flash smite ignite exhaust heal barrier cleanse ghost "
     # champion classes, which shows say as adjectives too ("tanky", "bruisery")
     "tank bruiser juggernaut diver fighter skirmisher assassin mage battlemage burst artillery "
@@ -40,7 +42,9 @@ SUFFIXES = [
 ]  # fmt: skip
 
 SYSTEM = """You fix transcription errors in a League of Legends coaching podcast transcript.
-The podcast is "Broken by Concept" (BBC), hosted by Curtis, Nathan, and Charlie.
+The podcast is "Broken by Concept" (BBC), hosted by Curtis, Nathan, and Charlie. Their coaching
+programs are Botlane Academy (BLA), Toplane Academy (TLA), Midlane Academy (MLA), and Jungle
+Academy (formerly Saltu, pronounced "saltoo").
 
 Only fix misspelled or misheard proper nouns and game jargon: champion names, ability names,
 item names, objectives, summoner spells, and League slang. Do not fix grammar, filler words,

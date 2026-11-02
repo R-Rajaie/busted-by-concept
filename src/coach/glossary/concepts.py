@@ -3,6 +3,7 @@
 uv run python -m coach.glossary.concepts                 # the episodes that define terms
 uv run python -m coach.glossary.concepts --episode <id>  # others too (repeatable)
 uv run python -m coach.glossary.concepts --term "weak side"  # one term, from the whole archive
+uv run python -m coach.glossary.concepts --verify  # check each entry against its sources
 
 Reads clean transcripts in 10-minute windows and asks the smart model for every concept the
 hosts name and explain, then one more call merges duplicates across windows and episodes into
@@ -16,18 +17,23 @@ import json
 import logging
 import re
 import sys
+from collections import Counter
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
+from typing import Literal
 
 import yaml
 from pydantic import BaseModel, Field
 
 from coach import llm
-from coach.config import GLOSSARY_DIR, TRANSCRIPTS_CLEAN_DIR, TRANSCRIPTS_RAW_DIR
+from coach.config import DATA_DIR, GLOSSARY_DIR, TRANSCRIPTS_CLEAN_DIR, TRANSCRIPTS_RAW_DIR
 from coach.correct.models import CleanTranscript
 from coach.distill.__main__ import windows
 from coach.glossary import Concept, Source
 
 log = logging.getLogger("coach.glossary.concepts")
+
+REVIEW_PATH = DATA_DIR / "concepts-review.json"
 
 # Episodes where the hosts set out to define their vocabulary.
 DEFINING = [
@@ -69,6 +75,24 @@ sentences, standalone, in their terms, with other names they use for it. Set sou
 passages that best explain it (episode id and seconds). If they only say the word in passing,
 or it means nothing beyond its plain sense, set is_concept to false and say why."""
 
+VERIFY = """You check one entry in a glossary of the "Broken by Concept" League of Legends
+podcast (hosts Curtis, Nathan, and Charlie) against the transcript passages it cites, each
+tagged [episode @ seconds]. Be strict: the entry will teach a coaching assistant what the hosts
+mean, so a confident wrong definition is worse than a vague one.
+
+Report:
+- problems: each claim in the meaning that the passages don't support or that contradicts them,
+  and any place it merges this idea with a different one the hosts treat separately.
+- wrong_aliases: listed other names that are really a different idea, or that the hosts never
+  use for this one.
+- verdict: "ok" if the entry is right as written, "fix" if it has problems you can correct from
+  the passages, "unsupported" if the passages don't show what the hosts mean by the term.
+- suggested_meaning: for "fix", a corrected meaning (one to three sentences, standalone, in the
+  hosts' terms, using only what the passages support); otherwise empty."""
+
+VERIFY_BEFORE_S = 60  # passage window around each cited timestamp
+VERIFY_AFTER_S = 150
+VERIFY_WORKERS = 3  # parallel claude calls
 TERM_EPISODES = 6  # episodes that say the term most
 TERM_WINDOWS = 3  # passages per episode
 
@@ -77,6 +101,16 @@ class _Defined(BaseModel):
     is_concept: bool
     why: str = ""
     concept: Concept | None = None
+
+
+class Review(BaseModel):
+    """The model's check of one concept against its sources, for a person to confirm."""
+
+    term: str
+    verdict: Literal["ok", "fix", "unsupported"]
+    problems: list[str] = []
+    wrong_aliases: list[str] = []
+    suggested_meaning: str = ""
 
 
 class _Found(BaseModel):
@@ -163,16 +197,66 @@ def define(term: str, clean_dir: Path) -> Concept | None:
     return got.concept
 
 
+def verify(concept: Concept, clean_dir: Path) -> Review:
+    cited = []
+    for s in concept.sources[:5]:
+        segs = _segments(s.episode_id, clean_dir)
+        body = " ".join(
+            t for start, t in segs if s.t - VERIFY_BEFORE_S <= start <= s.t + VERIFY_AFTER_S
+        )
+        cited.append(f"[{s.episode_id} @ {s.t}s] {body}")
+    entry = yaml.safe_dump(
+        concept.model_dump(exclude={"sources"}), sort_keys=False, allow_unicode=True
+    )
+    prompt = f"Entry:\n{entry}\nCited passages:\n\n" + "\n\n".join(cited)
+    review = llm.complete_model(prompt, VERIFY, Review, model=llm.SMART_MODEL)
+    review.term = concept.term
+    return review
+
+
+def verify_all(concepts: list[Concept], clean_dir: Path, out: Path) -> int:
+    """Check every concept against its sources, in parallel, resuming from `out`."""
+    done: dict[str, dict] = json.loads(out.read_text(encoding="utf-8")) if out.exists() else {}
+    todo = [c for c in concepts if c.term not in done]
+    log.info("verifying %d concepts (%d already done)", len(todo), len(done))
+    with ThreadPoolExecutor(VERIFY_WORKERS) as pool:
+        futures = {pool.submit(verify, c, clean_dir): c for c in todo}
+        for n, f in enumerate(as_completed(futures), start=1):
+            c = futures[f]
+            try:
+                done[c.term] = f.result().model_dump()
+            except llm.LLMStop:
+                pool.shutdown(cancel_futures=True)
+                raise
+            except Exception as e:  # keep going; a rerun picks it up
+                log.error("%s failed: %s", c.term, e)
+                continue
+            out.write_text(json.dumps(done, indent=2, ensure_ascii=False), encoding="utf-8")
+            log.info("[%d/%d] %s: %s", n, len(todo), c.term, done[c.term]["verdict"])
+    verdicts = Counter(r["verdict"] for r in done.values())
+    log.info("%s -> %s", dict(verdicts), out)
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="coach.glossary.concepts", description=__doc__)
     parser.add_argument("--episode", action="append", metavar="ID", help="also read this one")
     parser.add_argument(
         "--term", action="append", help="only define this term, from the whole archive (repeatable)"
     )
+    parser.add_argument(
+        "--verify",
+        action="store_true",
+        help="check every entry against its sources -> data/concepts-review.json",
+    )
     parser.add_argument("--clean", type=Path, default=TRANSCRIPTS_CLEAN_DIR)
     parser.add_argument("--out", type=Path, default=GLOSSARY_DIR / "concepts.yaml")
     args = parser.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+
+    if args.verify:
+        saved = yaml.safe_load(args.out.read_text(encoding="utf-8")) or []
+        return verify_all([Concept(**c) for c in saved], args.clean, REVIEW_PATH)
 
     if args.term:
         merged = [c for c in (define(t, args.clean) for t in args.term) if c is not None]

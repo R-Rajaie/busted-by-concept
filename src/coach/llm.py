@@ -6,9 +6,11 @@ fresh, tool-less session with our own system prompt, which keeps overhead small.
 
 import json
 import logging
+import re
 import shutil
 import subprocess
 import time
+from datetime import datetime, timedelta
 from typing import Any
 
 from pydantic import BaseModel
@@ -29,7 +31,26 @@ class LLMStop(LLMError):
 
 
 # Substrings of claude's error text that no retry or next episode can get past.
-FATAL = ("authenticate", "/login", "usage limit")
+FATAL = ("authenticate", "/login")
+# A plan limit ("You've hit your session limit · resets 1am (America/Los_Angeles)"): wait for
+# the reset and carry on, so an unattended run doesn't fail every episode until morning.
+LIMIT = re.compile(r"(session|usage|weekly|rate) limit|limit reached|hit your", re.IGNORECASE)
+RESET = re.compile(r"resets\s+(\d{1,2})(?::(\d{2}))?\s*(am|pm)", re.IGNORECASE)
+MAX_WAIT_S = 6 * 3600  # longer than this (a weekly limit, say) stops the run instead
+
+
+def _seconds_until_reset(err: str, now: datetime | None = None) -> float | None:
+    """Seconds until the reset time in a limit message, or None if it names none. The time is
+    read as local time; the machine and the plan's time zone are assumed to match."""
+    m = RESET.search(err)
+    if not m:
+        return None
+    hour = int(m.group(1)) % 12 + (12 if m.group(3).lower() == "pm" else 0)
+    now = now or datetime.now()
+    reset = now.replace(hour=hour, minute=int(m.group(2) or 0), second=0, microsecond=0)
+    if reset <= now:
+        reset += timedelta(days=1)
+    return (reset - now).total_seconds() + 120  # a little slack past the reset
 
 
 def _error_text(proc: subprocess.CompletedProcess) -> str:
@@ -75,8 +96,8 @@ def complete(
     if schema is not None:
         cmd += ["--json-schema", json.dumps(schema)]
 
-    last_err: Exception | None = None
-    for attempt in range(1, retries + 1):
+    attempt = 0
+    while True:
         try:
             proc = subprocess.run(
                 cmd,
@@ -91,6 +112,13 @@ def complete(
                 err = _error_text(proc)
                 if any(f in err.lower() for f in FATAL):
                     raise LLMStop(f"claude: {err}")
+                if LIMIT.search(err):
+                    wait = _seconds_until_reset(err)
+                    if wait is None or wait > MAX_WAIT_S:
+                        raise LLMStop(f"claude: {err}")
+                    log.warning("%s; waiting %.0f min for the reset", err, wait / 60)
+                    time.sleep(wait)
+                    continue  # waiting doesn't use up a retry
                 raise LLMError(f"claude exited {proc.returncode}: {err}")
             if schema is None:
                 return out["result"]
@@ -100,10 +128,11 @@ def complete(
         except LLMStop:
             raise
         except (LLMError, json.JSONDecodeError, subprocess.TimeoutExpired, KeyError) as e:
-            last_err = e
+            attempt += 1
             log.warning("llm call failed (attempt %d/%d): %s", attempt, retries, e)
+            if attempt >= retries:
+                raise LLMError(f"llm call failed after {retries} attempts") from e
             time.sleep(5 * attempt)
-    raise LLMError(f"llm call failed after {retries} attempts") from last_err
 
 
 def complete_model[T: BaseModel](
