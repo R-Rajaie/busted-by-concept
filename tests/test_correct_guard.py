@@ -30,3 +30,39 @@ def test_blocks_rewording_and_moved_text():
     moved = "Anything you would add there? I love playing a hard game"
     assert not segment_ok(moved, "I love playing a hard game", VOCAB)  # sentence deleted
     assert not segment_ok("and", "and I love playing a hard game like League", VOCAB)
+
+
+def test_reapply_takes_blocked_edits_that_now_pass(tmp_path):
+    from coach.correct.__main__ import reapply
+    from coach.correct.models import CleanSegment, CleanTranscript, Correction, RejectedChunk
+    from coach.glossary import Glossary
+
+    def seg(i: int, text: str) -> CleanSegment:
+        return CleanSegment(
+            id=i, start=i, end=i + 1, text=text, raw_text=text, avg_logprob=0, no_speech_prob=0
+        )
+
+    clean = CleanTranscript(
+        episode_id="ep",
+        partial=False,
+        segments=[seg(0, "kill the grump"), seg(1, "he was a liar"), seg(2, "grump")],
+        corrections=[Correction(segment_id=2, before="grimp", after="grump", source="slang")],
+        rejected_chunks=[
+            RejectedChunk(
+                first_segment=0, last_segment=0, change_ratio=0, proposed="kill the Gromp"
+            ),
+            RejectedChunk(
+                first_segment=1, last_segment=1, change_ratio=0, proposed="he was a Lion"
+            ),
+            RejectedChunk(first_segment=2, last_segment=2, change_ratio=0, proposed="Gromp"),
+        ],
+    )
+    (tmp_path / "ep.json").write_text(clean.model_dump_json(), encoding="utf-8")
+
+    class M:
+        glossary = Glossary(patch="", champions=[], items=[], slang=[])
+
+    reapply(tmp_path, None, M())
+    got = CleanTranscript.model_validate_json((tmp_path / "ep.json").read_text(encoding="utf-8"))
+    assert [s.text for s in got.segments] == ["kill the Gromp", "he was a liar", "grump"]
+    assert [r.first_segment for r in got.rejected_chunks] == [1, 2]  # unknown word; reslanged

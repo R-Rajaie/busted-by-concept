@@ -28,7 +28,16 @@ SHOW_WORDS = (
     "teleport flash smite ignite exhaust heal barrier cleanse ghost "
     # champion classes, which shows say as adjectives too ("tanky", "bruisery")
     "tank bruiser juggernaut diver fighter skirmisher assassin mage battlemage burst artillery "
-    "marksman enchanter catcher warden vanguard support specialist poke engage disengage peel"
+    "marksman enchanter catcher warden vanguard support specialist poke engage disengage peel "
+    # game words the champion/item data lacks, found by scripts/blocked_terms.py: monsters,
+    # runes, ranks, modes, old items, champion nicknames, pros, and sites. Words that are
+    # also plain English (duo, bot, tower, ban) stay out, since they let mishearings through.
+    "Gromp Krugs Grubs raptors Scuttle Direwolves Feats Conqueror Electrocute Aery Voracious "
+    "Plat Chall Promos autofill onetrick pentakill Summoner's ARAM MOBA Dota HOTS Valorant "
+    "Sunderer Duskblade Everfrost Galeforce Chemtech Chemtank Goredrinker Sightstone Zhonyas "
+    "Prowler's Scryer's Wriggle's Tabi's ASol Cassio Cait crit AoE skillshot unburrow Insec "
+    "WASD Tyler1 Agurin Jiro Perkz Chovy Tendler Alphari Gumayusi Bjergsen Caruana Fantix Zayu "
+    "Dunning Kruger Huberman Goggins OPGG Porofessor Mobalytics Mobafire Feylights LoserQ"
 )
 PREFIXES = {"out", "re", "pre", "non", "anti", "over", "under"}  # "out-jungling"
 # Endings that turn any known word (champion, item, slang, class) into a form of it: "tanky",

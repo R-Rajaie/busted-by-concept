@@ -130,6 +130,46 @@ def reslang(out_dir: Path, episodes: list[str] | None, matcher: Matcher) -> int:
     return 0
 
 
+def reapply(out_dir: Path, episodes: list[str] | None, matcher: Matcher) -> int:
+    """Apply edits the word guard blocked that now pass it, after the vocabulary grows. Uses
+    the text the LLM proposed back then, so it needs no LLM call."""
+    vocab = llm_pass.vocabulary(matcher.glossary, [])
+    paths = sorted(out_dir.glob("*.json"))
+    if episodes:
+        paths = [out_dir / f"{e}.json" for e in episodes]
+    applied = 0
+    for path in paths:
+        clean = CleanTranscript.model_validate_json(path.read_text(encoding="utf-8"))
+        by_id = {s.id: s for s in clean.segments}
+        # a later slang pass may have changed the text the proposal was made against
+        reslanged = {c.segment_id for c in clean.corrections if c.source == "slang"}
+        keep, n = [], 0
+        for r in clean.rejected_chunks:
+            s = by_id.get(r.first_segment)
+            if (
+                r.proposed
+                and s is not None
+                and s.id not in reslanged
+                and llm_pass.segment_ok(s.text, r.proposed, vocab)
+            ):
+                clean.corrections.append(
+                    Correction(segment_id=s.id, before=s.text, after=r.proposed, source="llm")
+                )
+                s.text = r.proposed
+                n += 1
+            else:
+                keep.append(r)
+        if n:
+            clean.rejected_chunks = keep
+            tmp = path.with_suffix(".json.tmp")
+            tmp.write_text(clean.model_dump_json(indent=2), encoding="utf-8")
+            tmp.replace(path)
+            applied += n
+            log.info("%s: %d blocked edits applied", path.stem, n)
+    log.info("%d blocked edits applied across %d transcripts", applied, len(paths))
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="coach.correct", description=__doc__)
     target = parser.add_mutually_exclusive_group(required=True)
@@ -144,6 +184,11 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="apply new slang.yaml mishearings to existing clean transcripts (no LLM)",
     )
+    parser.add_argument(
+        "--reapply",
+        action="store_true",
+        help="apply blocked edits that pass the guard now the vocabulary has grown (no LLM)",
+    )
     args = parser.parse_args(argv)
 
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
@@ -151,6 +196,8 @@ def main(argv: list[str] | None = None) -> int:
     matcher = Matcher(glossary.load())
     if args.slang_only:
         return reslang(args.out, args.episode, matcher)
+    if args.reapply:
+        return reapply(args.out, args.episode, matcher)
 
     paths = sorted(args.raw.glob("*.json"))
     if args.episode:
