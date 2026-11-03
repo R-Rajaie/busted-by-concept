@@ -9,8 +9,10 @@ import logging
 import re
 import shutil
 import subprocess
+import tempfile
 import time
 from datetime import datetime, timedelta
+from pathlib import Path
 from typing import Any
 
 from pydantic import BaseModel
@@ -77,13 +79,29 @@ def complete(
     timeout: float = 600,
 ) -> Any:
     """Run one prompt. Returns the parsed object when `schema` is given, else the text."""
+    # The system prompt goes in a file: with the concept list it outgrows Windows' 32K
+    # command line.
+    with tempfile.TemporaryDirectory() as tmp:
+        path = Path(tmp) / "system.txt"
+        path.write_text(system, encoding="utf-8")
+        return _complete(prompt, path, model, schema, retries, timeout)
+
+
+def _complete(
+    prompt: str,
+    system_file: Path,
+    model: str,
+    schema: dict[str, Any] | None,
+    retries: int,
+    timeout: float,
+) -> Any:
     cmd = [
         _claude_exe(),
         "-p",
         "--model",
         model,
-        "--system-prompt",
-        system,
+        "--system-prompt-file",
+        str(system_file),
         "--tools",
         "",
         "--strict-mcp-config",
