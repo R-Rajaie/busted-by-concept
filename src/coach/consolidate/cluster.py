@@ -44,17 +44,29 @@ def assign(
 ) -> set[str]:
     """Add each lesson to a concept, mutating `concepts`. Returns the touched concept ids."""
     touched: set[str] = set()
+    # Centroids as one matrix, with running sums, so each lesson is one matrix product:
+    # comparing lesson by concept in Python takes hours at 14k lessons.
+    dim = len(next(iter(vecs.values()))) if vecs else 0
+    cap = max(len(concepts) + len(lessons), 1)
+    cents = np.zeros((cap, dim), dtype=np.float32)
+    sums = np.zeros((cap, dim), dtype=np.float32)
+    for k, c in enumerate(concepts):
+        cents[k] = c.centroid
+        sums[k] = np.sum([vecs[i] for i in c.lesson_ids], axis=0)
     for lesson in sorted(lessons, key=lambda x: (x.episode_date or x.id, x.start_ts)):
         vec = vecs[lesson.id]
-        best, best_sim = None, threshold
-        for c in concepts:
-            sim = float(np.dot(vec, c.centroid))
-            if sim >= best_sim:
-                best, best_sim = c, sim
-        if best is None:
-            best = new_concept(concepts, lesson, vec)
+        sims = cents[: len(concepts)] @ vec
+        k = int(np.argmax(sims)) if len(sims) else -1
+        if k < 0 or sims[k] < threshold:
+            k = len(concepts)
+            concept = new_concept(concepts, lesson, vec)
+            sums[k] = vec
         else:
-            best.lesson_ids.append(lesson.id)
-            recompute_centroid(best, vecs)
-        touched.add(best.id)
+            concept = concepts[k]
+            concept.lesson_ids.append(lesson.id)
+            sums[k] += vec
+        cents[k] = sums[k] / np.linalg.norm(sums[k])  # same as recompute_centroid
+        touched.add(concept.id)
+    for k, c in enumerate(concepts):
+        c.centroid = cents[k].tolist()
     return touched

@@ -2,16 +2,19 @@
 
 uv run python -m coach.consolidate --all              # rebuild every concept from scratch
 uv run python -m coach.consolidate --episode <id>     # update only the concepts it touches
+uv run python -m coach.consolidate --resume           # finish a run that stopped part way
 """
 
 import argparse
+import hashlib
+import json
 import logging
 import sys
 from pathlib import Path
 
 import numpy as np
 
-from coach import embed
+from coach import embed, llm
 from coach.config import CONCEPTS_DIR, LESSONS_DIR
 from coach.consolidate import cluster
 from coach.consolidate.models import Concept, Consolidated
@@ -19,6 +22,7 @@ from coach.consolidate.review import review
 from coach.distill.models import EpisodeLessons, Lesson
 
 log = logging.getLogger("coach.consolidate")
+CHECKPOINT_EVERY = 25  # reviews between saves
 
 
 def load_lessons(lessons_dir: Path, episode_ids: list[str] | None = None) -> list[Lesson]:
@@ -35,24 +39,39 @@ def lesson_text(x: Lesson) -> str:
     return f"{x.claim} {x.reasoning}"
 
 
+def _digest(text: str) -> str:
+    return hashlib.sha1(text.encode("utf-8")).hexdigest()[:16]
+
+
 class EmbeddingCache:
-    """Lesson embeddings keyed by lesson id, stored as `embeddings.npz`."""
+    """Lesson embeddings keyed by lesson id, stored as `embeddings.npz`. Each remembers a hash
+    of the text it came from, so a re-distilled lesson that reuses an id is embedded again."""
 
     def __init__(self, path: Path):
         self.path = path
         self.vecs: dict[str, np.ndarray] = {}
+        self.digests: dict[str, str] = {}
         if path.exists():
             data = np.load(path)
-            self.vecs = dict(zip(data["ids"].tolist(), data["vecs"], strict=True))
+            ids = data["ids"].tolist()
+            self.vecs = dict(zip(ids, data["vecs"], strict=True))
+            if "digests" in data:
+                self.digests = dict(zip(ids, data["digests"].tolist(), strict=True))
 
-    def ensure(self, lessons: list[Lesson], force: bool = False) -> None:
-        todo = [x for x in lessons if force or x.id not in self.vecs]
+    def ensure(self, lessons: list[Lesson]) -> None:
+        todo = [x for x in lessons if self.digests.get(x.id) != _digest(lesson_text(x))]
         for x, v in zip(todo, embed.embed([lesson_text(x) for x in todo]), strict=True):
             self.vecs[x.id] = v
+            self.digests[x.id] = _digest(lesson_text(x))
 
     def save(self) -> None:
         ids = list(self.vecs)
-        np.savez(self.path, ids=np.array(ids), vecs=np.array([self.vecs[i] for i in ids]))
+        np.savez(
+            self.path,
+            ids=np.array(ids),
+            vecs=np.array([self.vecs[i] for i in ids]),
+            digests=np.array([self.digests.get(i, "") for i in ids]),
+        )
 
 
 def apply_review(
@@ -121,12 +140,27 @@ def main(argv: list[str] | None = None) -> int:
         default=cluster.DEFAULT_THRESHOLD,
         help="cosine similarity needed to join an existing concept",
     )
+    target.add_argument(
+        "--resume",
+        action="store_true",
+        help="finish the reviews of a run that stopped part way (from its checkpoint)",
+    )
     args = parser.parse_args(argv)
 
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     args.out.mkdir(parents=True, exist_ok=True)
     out_path = args.out / "consolidated.json"
+    progress_path = args.out / "progress.json"
     cache = EmbeddingCache(args.out / "embeddings.npz")
+
+    if args.resume:
+        if not progress_path.exists():
+            log.error("no unfinished run to resume")
+            return 1
+        prev = Consolidated.model_validate_json(out_path.read_text(encoding="utf-8"))
+        pending = json.loads(progress_path.read_text(encoding="utf-8"))["pending"]
+        log.info("resuming: %d concepts left to review", len(pending))
+        return review_all(prev.concepts, prev.lessons, pending, args, cache)
 
     lost: set[str] = set()  # concepts that lost lessons and need a fresh review
     if args.all or not out_path.exists():
@@ -150,25 +184,53 @@ def main(argv: list[str] | None = None) -> int:
         concepts = [c for c in concepts if c.lesson_ids]
 
     log.info("embedding %d lessons", len(new))
-    cache.ensure(new, force=True)
+    cache.ensure(new)
     by_id = {x.id: x for x in lessons}
     vecs = {i: cache.vecs[i] for i in by_id}
 
     touched = cluster.assign(new, vecs, concepts, args.threshold)
     touched |= {c.id for c in concepts if c.id in lost}
     log.info("%d lessons in %d concepts; reviewing %d", len(lessons), len(concepts), len(touched))
-
-    for n, c in enumerate([c for c in concepts if c.id in touched], start=1):
-        apply_review(c, by_id, concepts, vecs)
-        log.info("[%d/%d] %s (%d lessons) %s", n, len(touched), c.id, len(c.lesson_ids), c.label)
-    concepts = [c for c in concepts if c.lesson_ids]
-
-    result = Consolidated(threshold=args.threshold, concepts=concepts, lessons=lessons)
-    tmp = out_path.with_suffix(".json.tmp")
-    tmp.write_text(result.model_dump_json(indent=2), encoding="utf-8")
-    tmp.replace(out_path)
     cache.save()
-    log.info("wrote %d concepts", len(concepts))
+    pending = [c.id for c in concepts if c.id in touched]
+    return review_all(concepts, lessons, pending, args, cache)
+
+
+def review_all(
+    concepts: list[Concept], lessons: list[Lesson], pending: list[str], args, cache
+) -> int:
+    """Review the pending concepts, saving a checkpoint every CHECKPOINT_EVERY reviews so a run
+    that stops (laptop off, a weekly usage limit) can carry on with --resume."""
+    out_path, progress_path = args.out / "consolidated.json", args.out / "progress.json"
+    by_id = {x.id: x for x in lessons}
+    vecs = {i: cache.vecs[i] for i in by_id}
+    by_cid = {c.id: c for c in concepts}
+
+    def save(left: list[str]) -> None:
+        kept = [c for c in concepts if c.lesson_ids]
+        result = Consolidated(threshold=args.threshold, concepts=kept, lessons=lessons)
+        tmp = out_path.with_suffix(".json.tmp")
+        tmp.write_text(result.model_dump_json(indent=2), encoding="utf-8")
+        tmp.replace(out_path)
+        if left:
+            progress_path.write_text(json.dumps({"pending": left}), encoding="utf-8")
+        else:
+            progress_path.unlink(missing_ok=True)
+
+    save(pending)  # so even a run killed before its first checkpoint can resume
+    for n, cid in enumerate(pending, start=1):
+        c = by_cid[cid]
+        try:
+            apply_review(c, by_id, concepts, vecs)
+        except llm.LLMError as e:
+            save(pending[n - 1 :])
+            log.error("stopping at %s: %s; rerun with --resume", cid, e)
+            return 1
+        log.info("[%d/%d] %s (%d lessons) %s", n, len(pending), c.id, len(c.lesson_ids), c.label)
+        if n % CHECKPOINT_EVERY == 0:
+            save(pending[n:])
+    save([])
+    log.info("wrote %d concepts", sum(1 for c in concepts if c.lesson_ids))
     return 0
 
 
