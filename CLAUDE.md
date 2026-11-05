@@ -69,6 +69,7 @@ uv run python -m coach.consolidate --all            # or --episode <id> to updat
 uv run python -m coach.index --rebuild
 uv run python -m coach.index.search "query"        # inspect raw retrieval
 uv run python -m coach.serve "question"            # or no question for interactive; --riot-id Name#TAG --platform na1
+uv run python -m coach.serve.web                    # chat page at http://127.0.0.1:8765 (localhost only)
 uv run python -m coach.eval --label "what changed" # saves data/eval/<time>.json, compares with the last run
 uv run python -m coach.glossary.refresh            # re-pull Data Dragon
 uv run pytest

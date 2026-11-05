@@ -50,7 +50,11 @@ Rules:
 - Never invent host credentials.
 
 Reply with one action per step: a tool call, or "answer" with your final reply to the
-player in markdown."""
+player in markdown. The player sees only the "answer" field, nothing you write outside it,
+so put the whole reply there; never "see above" or a summary of it."""
+
+# An "answer" this short is a stub ("Answered above.") pointing at text the player never sees.
+MIN_ANSWER_CHARS = 80
 
 
 class Step(BaseModel):
@@ -105,6 +109,14 @@ class Coach:
             if n == MAX_TOOL_CALLS:
                 transcript.append("\nTool budget used up. Answer now with what you have.")
             step = llm.complete_model("\n".join(transcript), SYSTEM, Step, model=llm.SMART_MODEL)
+            if step.action == "answer" and len(step.answer or "") < MIN_ANSWER_CHARS:
+                transcript.append(
+                    f'\nYou answered only "{step.answer}". The player sees nothing but the answer '
+                    "field. Write your complete reply in it now."
+                )
+                step = llm.complete_model(
+                    "\n".join(transcript), SYSTEM, Step, model=llm.SMART_MODEL
+                )
             if step.action == "answer" or n == MAX_TOOL_CALLS:
                 answer = step.answer or "I couldn't put an answer together."
                 self.history.append((question, answer))
