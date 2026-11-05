@@ -11,6 +11,8 @@ EMBED_DIM = 384
 RERANK_MODEL = "BAAI/bge-reranker-base"
 # bge models expect this prefix on queries (not on documents) for retrieval.
 QUERY_PREFIX = "Represent this sentence for searching relevant passages: "
+# fastembed's default of 256 texts per batch needs gigabytes on long transcript chunks
+BATCH = 16
 
 
 @cache
@@ -27,7 +29,7 @@ def embed(texts: list[str]) -> np.ndarray:
     """Unit-normalized document embeddings, shape (n, EMBED_DIM)."""
     if not texts:
         return np.zeros((0, EMBED_DIM), dtype=np.float32)
-    vecs = np.array(list(_embedder().embed(texts)), dtype=np.float32)
+    vecs = np.array(list(_embedder().embed(texts, batch_size=BATCH)), dtype=np.float32)
     return vecs / np.linalg.norm(vecs, axis=1, keepdims=True)
 
 
