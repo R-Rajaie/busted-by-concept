@@ -20,6 +20,9 @@ log = logging.getLogger(__name__)
 
 CACHE_DIR = DATA_DIR / "cache" / "riot"
 MIN_INTERVAL_S = 1.25  # 100 requests / 120 s
+# Riot's Cloudflare front rejects urllib's default "Python-urllib" agent (403, "error code:
+# 1010") before the key is even checked, so name the client.
+USER_AGENT = "bbc-coach/0.1"
 EARLY_GAME_MS = 14 * 60 * 1000
 
 # Platform (where the account plays) -> regional routing for account-v1 and match-v5.
@@ -60,7 +63,9 @@ class Riot:
             if wait > 0:
                 time.sleep(wait)
             self._last = time.monotonic()
-            req = urllib.request.Request(url, headers={"X-Riot-Token": self.api_key})
+            req = urllib.request.Request(
+                url, headers={"X-Riot-Token": self.api_key, "User-Agent": USER_AGENT}
+            )
             try:
                 with urllib.request.urlopen(req, timeout=30) as resp:
                     return json.load(resp)
@@ -71,7 +76,11 @@ class Riot:
                     time.sleep(delay)
                     continue
                 if e.code in (401, 403):
-                    raise RiotError("Riot API key rejected (dev keys expire every 24h)") from e
+                    body = e.read()[:200].decode("utf-8", "replace")
+                    raise RiotError(
+                        f"Riot API refused the request ({e.code}: {body.strip()}). A dev key "
+                        "expires every 24h; get a new one at developer.riotgames.com"
+                    ) from e
                 if e.code == 404:
                     raise RiotError(f"not found: {path}") from e
                 raise RiotError(f"Riot API error {e.code} for {path}") from e

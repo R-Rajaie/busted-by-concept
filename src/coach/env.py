@@ -1,13 +1,12 @@
 """Minimal `.env` loader. Secrets live in `.env` at the repo root and are never committed."""
 
 import os
-from functools import cache
-
 from coach.config import ROOT
 
 
-@cache
 def _dotenv() -> dict[str, str]:
+    # read each time, not cached: a Riot dev key changes daily and a running app should
+    # pick up the new one
     path = ROOT / ".env"
     if not path.exists():
         return {}
