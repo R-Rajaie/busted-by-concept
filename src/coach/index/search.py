@@ -91,7 +91,9 @@ def search(
     n_concepts: int = 3,
     n_evidence: int = 3,
     n_chunks: int = 3,
-    include_superseded: bool = False,
+    # Shown by default, marked "superseded": the consolidate review marks some lessons
+    # superseded that are really a different angle, and hiding them loses real advice.
+    include_superseded: bool = True,
 ) -> SearchResult:
     table = _table()
     vec = embed.embed_query(query)
@@ -156,15 +158,17 @@ def format_result(result: SearchResult) -> str:
     out = []
     for c in result.concepts:
         d = c.concept.doc
-        out.append(f"## {d['label']}  [{d['id']}, relevance {c.concept.relevance:.2f}]")
-        out.append(d["text"].split("\n", 1)[1] if "\n" in d["text"] else d["text"])
+        label = d["label"]
+        out.append(f"## {label}  [{d['id']}, relevance {c.concept.relevance:.2f}]")
+        stance = d["text"].split("\n", 1)[1] if "\n" in d["text"] else d["text"]
+        if stance.strip() != label.strip():  # a one-lesson card's label is its stance
+            out.append(stance)
         for e in c.evidence:
             x = e.doc
             status = f", {x['status']}" if x["status"] else ""
-            out.append(
-                f"  - {x['text'].splitlines()[0]}\n    [{cite(x)}, {x['durability']}"
-                f"{status}, speaker {x['speaker']}]"
-            )
+            claim = x["text"].splitlines()[0]
+            claim = "" if claim.strip() == label.strip() else f"{claim}\n    "
+            out.append(f"  - {claim}[{cite(x)}, {x['durability']}{status}, speaker {x['speaker']}]")
         out.append("")
     if result.chunks:
         out.append("## Transcript excerpts")
@@ -176,9 +180,11 @@ def format_result(result: SearchResult) -> str:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="coach.index.search", description=__doc__)
     parser.add_argument("query")
-    parser.add_argument("--superseded", action="store_true", help="include superseded lessons")
+    parser.add_argument(
+        "--hide-superseded", action="store_true", help="leave out superseded lessons"
+    )
     args = parser.parse_args(argv)
-    print(format_result(search(args.query, include_superseded=args.superseded)))
+    print(format_result(search(args.query, include_superseded=not args.hide_superseded)))
     return 0
 
 

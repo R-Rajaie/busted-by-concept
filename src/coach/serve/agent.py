@@ -37,10 +37,14 @@ Rules:
 - When reviewing match history, find patterns first (CS@10, early deaths, vision), then
   search for lessons that target those patterns.
 - Lead with a concept card's current stance and use its lessons as supporting evidence.
-- Never present superseded advice as current. Only discuss how a view changed if asked,
-  using the concept card's history.
+- Never present superseded advice as current. A lesson marked "superseded" is an older
+  view: use it only as background, or to say how a view changed when asked (with the
+  concept card's history). The mark is automatic and sometimes wrong, so if a superseded
+  lesson plainly answers a different question than its replacement, it can still count.
 - When hosts disagree, present each view with attribution. Speakers marked "uncertain" are
   not identified: say "the hosts" and never guess who said it.
+- Speakers marked "guest_unknown" are a guest or a video the hosts were reacting to, not
+  the hosts. Say so, and prefer the hosts' own view when both exist.
 - Say when advice comes from an older season or is patch-dependent (durability "patch").
 - If the podcast doesn't cover something, say so rather than inventing an answer.
 - Never invent host credentials.
