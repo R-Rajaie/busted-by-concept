@@ -46,17 +46,22 @@ class Review(BaseModel):
     host_stances: list[HostStance] = []
 
 
+BIG = 6  # concepts with this many lessons get the smart model; statuses get subtle there
+
+
 def review(lessons: list[Lesson]) -> Review:
+    if len(lessons) == 1:  # nothing to compare: the lesson is the card, no LLM call
+        x = lessons[0]
+        return Review(label=x.claim, misfit_ids=[], statuses=[], stance=x.claim, history="")
     lines = "\n".join(
         f"- id={x.id} date={x.episode_date} season={x.season} speaker={x.speaker} "
         f"durability={x.durability}\n  claim: {x.claim}\n  reasoning: {x.reasoning}"
         for x in lessons
     )
-    model = llm.SMART_MODEL if len(lessons) > 1 else llm.FAST_MODEL
+    model = llm.SMART_MODEL if len(lessons) >= BIG else llm.FAST_MODEL
     result = llm.complete_model(f"Lessons:\n{lines}", SYSTEM, Review, model=model)
     ids = {x.id for x in lessons}
-    # Drop anything the model invented; a single lesson can't be a misfit of itself.
-    result.misfit_ids = [i for i in result.misfit_ids if i in ids] if len(lessons) > 1 else []
+    result.misfit_ids = [i for i in result.misfit_ids if i in ids]  # drop invented ids
     result.statuses = [s for s in result.statuses if s.id in ids]
     for s in result.statuses:
         if s.superseded_by not in ids or s.superseded_by == s.id:

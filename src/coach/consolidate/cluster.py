@@ -3,6 +3,10 @@
 This is incremental leader clustering: each lesson, in date order, joins the concept whose
 centroid is most similar if that clears the threshold, else starts a new concept. It's
 order-dependent and imperfect, which is why the LLM review can split off misfits.
+
+Embeddings are centered first (the mean lesson embedding subtracted). Raw bge vectors rate any
+two League lessons alike (random pairs ~0.70, nearest neighbours ~0.88), so raw centroids
+drift into catch-alls that swallow thousands of lessons. Centered, random pairs are ~0.
 """
 
 import numpy as np
@@ -10,7 +14,17 @@ import numpy as np
 from coach.consolidate.models import Concept
 from coach.distill.models import Lesson
 
-DEFAULT_THRESHOLD = 0.80
+# On centered vectors. At 0.55 the 14k-lesson corpus gives ~8.6k concepts, the largest ~90.
+DEFAULT_THRESHOLD = 0.55
+
+
+def centered(vecs: dict[str, np.ndarray], center: np.ndarray) -> dict[str, np.ndarray]:
+    """Subtract the corpus mean and renormalize."""
+    out = {}
+    for i, v in vecs.items():
+        d = v - center
+        out[i] = d / (np.linalg.norm(d) or 1.0)
+    return out
 
 
 def next_id(concepts: list[Concept]) -> str:

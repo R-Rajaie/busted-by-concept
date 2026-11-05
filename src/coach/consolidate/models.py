@@ -29,5 +29,6 @@ class Consolidated(BaseModel):
     """
 
     threshold: float
+    center: list[float] = []  # mean lesson embedding; centroids are in centered space
     concepts: list[Concept]
     lessons: list[Lesson]

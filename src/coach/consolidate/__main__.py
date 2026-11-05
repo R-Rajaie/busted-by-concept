@@ -160,9 +160,11 @@ def main(argv: list[str] | None = None) -> int:
         prev = Consolidated.model_validate_json(out_path.read_text(encoding="utf-8"))
         pending = json.loads(progress_path.read_text(encoding="utf-8"))["pending"]
         log.info("resuming: %d concepts left to review", len(pending))
-        return review_all(prev.concepts, prev.lessons, pending, args, cache)
+        center = np.array(prev.center, dtype=np.float32)
+        return review_all(prev.concepts, prev.lessons, pending, args, cache, center)
 
     lost: set[str] = set()  # concepts that lost lessons and need a fresh review
+    center = None  # set from every lesson below, on a full rebuild
     if args.all or not out_path.exists():
         lessons = load_lessons(args.lessons)
         concepts: list[Concept] = []
@@ -172,6 +174,7 @@ def main(argv: list[str] | None = None) -> int:
     else:
         prev = Consolidated.model_validate_json(out_path.read_text(encoding="utf-8"))
         concepts = prev.concepts
+        center = np.array(prev.center, dtype=np.float32)  # keep the centroids comparable
         new = load_lessons(args.lessons, args.episode)
         # Replace any earlier version of these episodes' lessons.
         stale = {x.id for x in prev.lessons if x.episode_id in set(args.episode)}
@@ -185,30 +188,39 @@ def main(argv: list[str] | None = None) -> int:
 
     log.info("embedding %d lessons", len(new))
     cache.ensure(new)
+    cache.save()
     by_id = {x.id: x for x in lessons}
-    vecs = {i: cache.vecs[i] for i in by_id}
+    if center is None:
+        center = np.mean([cache.vecs[i] for i in by_id], axis=0)
+    vecs = cluster.centered({i: cache.vecs[i] for i in by_id}, center)
 
     touched = cluster.assign(new, vecs, concepts, args.threshold)
     touched |= {c.id for c in concepts if c.id in lost}
     log.info("%d lessons in %d concepts; reviewing %d", len(lessons), len(concepts), len(touched))
-    cache.save()
     pending = [c.id for c in concepts if c.id in touched]
-    return review_all(concepts, lessons, pending, args, cache)
+    return review_all(concepts, lessons, pending, args, cache, center)
 
 
 def review_all(
-    concepts: list[Concept], lessons: list[Lesson], pending: list[str], args, cache
+    concepts: list[Concept],
+    lessons: list[Lesson],
+    pending: list[str],
+    args,
+    cache: EmbeddingCache,
+    center: np.ndarray,
 ) -> int:
     """Review the pending concepts, saving a checkpoint every CHECKPOINT_EVERY reviews so a run
     that stops (laptop off, a weekly usage limit) can carry on with --resume."""
     out_path, progress_path = args.out / "consolidated.json", args.out / "progress.json"
     by_id = {x.id: x for x in lessons}
-    vecs = {i: cache.vecs[i] for i in by_id}
+    vecs = cluster.centered({i: cache.vecs[i] for i in by_id}, center)
     by_cid = {c.id: c for c in concepts}
 
     def save(left: list[str]) -> None:
         kept = [c for c in concepts if c.lesson_ids]
-        result = Consolidated(threshold=args.threshold, concepts=kept, lessons=lessons)
+        result = Consolidated(
+            threshold=args.threshold, center=center.tolist(), concepts=kept, lessons=lessons
+        )
         tmp = out_path.with_suffix(".json.tmp")
         tmp.write_text(result.model_dump_json(indent=2), encoding="utf-8")
         tmp.replace(out_path)
