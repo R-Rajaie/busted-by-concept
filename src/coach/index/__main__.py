@@ -35,15 +35,16 @@ def main(argv: list[str] | None = None) -> int:
         log.error("%s not found; run coach.consolidate first", path)
         return 1
     consolidated = Consolidated.model_validate_json(path.read_text(encoding="utf-8"))
-    transcripts = [
-        CleanTranscript.model_validate_json(p.read_text(encoding="utf-8"))
-        for p in sorted(args.clean.glob("*.json"))
-    ]
+    paths = sorted(args.clean.glob("*.json"))
+    # a generator: transcripts carry word timings, and all of them at once is over a gigabyte
+    transcripts = (
+        CleanTranscript.model_validate_json(p.read_text(encoding="utf-8")) for p in paths
+    )
     log.info(
         "%d concepts, %d lessons, %d transcripts",
         len(consolidated.concepts),
         len(consolidated.lessons),
-        len(transcripts),
+        len(paths),
     )
     args.out.mkdir(parents=True, exist_ok=True)
     write_table(args.out, build_docs(consolidated, transcripts))

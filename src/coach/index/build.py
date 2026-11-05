@@ -1,6 +1,7 @@
 """Build the LanceDB table that search runs over: concept cards, lessons, and raw chunks."""
 
 import logging
+from collections.abc import Iterable
 from pathlib import Path
 
 import lancedb
@@ -15,6 +16,7 @@ log = logging.getLogger(__name__)
 
 TABLE = "docs"
 CHUNK_S = 75  # raw transcript chunk length
+WRITE_BATCH = 1000  # docs embedded and written at a time
 
 
 class Doc(LanceModel):
@@ -59,7 +61,9 @@ def chunks(transcript: CleanTranscript, size: float = CHUNK_S) -> list[list[Clea
     return out
 
 
-def build_docs(consolidated: Consolidated, transcripts: list[CleanTranscript]) -> list[dict]:
+def build_docs(consolidated: Consolidated, transcripts: Iterable[CleanTranscript]) -> list[dict]:
+    """Docs without vectors; `write_table` embeds them. Pass transcripts as a generator so
+    only one (with its word timings) is in memory at a time."""
     lessons = {x.id: x for x in consolidated.lessons}
     ranks = recency_ranks(consolidated.lessons)
     docs: list[dict] = []
@@ -117,15 +121,19 @@ def build_docs(consolidated: Consolidated, transcripts: list[CleanTranscript]) -
                 )
             )
 
-    vecs = embed.embed([d["text"] for d in docs])
-    for d, v in zip(docs, vecs, strict=True):
-        d["vector"] = v.tolist()
     return docs
 
 
-def write_table(index_dir: Path, docs: list[dict]) -> None:
+def write_table(index_dir: Path, docs: list[dict], batch: int = WRITE_BATCH) -> None:
+    """Embed and add the docs a batch at a time, so memory stays flat however many there are."""
     db = lancedb.connect(index_dir)
     table = db.create_table(TABLE, schema=Doc, mode="overwrite")
-    table.add([Doc(**d).model_dump() for d in docs])
+    for k in range(0, len(docs), batch):
+        part = docs[k : k + batch]
+        vecs = embed.embed([d["text"] for d in part])
+        table.add(
+            [Doc(**d, vector=v.tolist()).model_dump() for d, v in zip(part, vecs, strict=True)]
+        )
+        log.info("  embedded %d/%d", min(k + batch, len(docs)), len(docs))
     table.create_fts_index("text", replace=True)
     log.info("indexed %d docs", len(docs))
